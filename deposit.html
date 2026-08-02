@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The deposits — open data & code | Kronos Live Physics</title>
+<meta name="description" content="The two Kronos Zenodo deposits behind this page: the spherical-tokamak breeder (DOI 10.5281/zenodo.21746157) and the D–³He tandem-mirror generator (DOI 10.5281/zenodo.21746479). Open code, data, and reproduction runbooks under CC BY 4.0.">
+<link rel="stylesheet" href="assets/style.css?v=2">
+</head>
+<body>
+
+<nav class="topnav"><div class="in">
+  <a class="mark" href="index.html" style="color:inherit"><span class="orb"></span><span><b>KRONOS</b>&nbsp;LIVE PHYSICS</span></a>
+  <div class="navlinks">
+    <a href="index.html">Overview</a>
+    <a href="breeder.html">Breeder</a>
+    <a href="burner.html">Burner</a>
+    <a href="reactivity.html">Reactivity</a>
+    <a href="deposit.html">The Deposits</a>
+  </div>
+  <a class="doi-pill" href="https://zenodo.org/communities/kronos_fusion_energy">ZENODO · <b>CC BY 4.0</b></a>
+</div></nav>
+
+<div class="wrap">
+  <div class="eyebrow">The open record</div>
+  <h1>The deposits.</h1>
+
+  <p class="lede">Every number on this page traces to one of two citable archives. This live page runs the exact code
+  they contain — the breeder engine in your browser, and the generator engine precomputed from the same deposited
+  source. Read them, run them, check us.</p>
+
+  <div class="grid">
+    <div class="card glow">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>The Breeder</h3><span class="snum">D–T · spherical tokamak</span></div>
+      <p>The physics, design, and conditional economics of the spherical-tokamak tritium / helium-3 breeder, which Kronos calls HYPERION. Pure-NumPy
+      evaluator; one command reproduces the frozen design point (Q 3.424, 88.7 MW, 9.86 MA, ~4 kg/yr tritium).</p>
+      <p style="margin-top:10px"><b style="color:var(--ink)">DOI 10.5281/zenodo.21746157</b></p>
+      <span class="go"><a href="https://doi.org/10.5281/zenodo.21746157">Open the breeder deposit →</a></span>
+    </div>
+    <div class="card glow">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>The Burner</h3><span class="snum">D–³He · tandem mirror</span></div>
+      <p>The physics of the D–³He tandem-mirror generator with direct energy conversion — the mirror engine, the
+      closure suite, and the frozen fuel-cleanliness trajectory. Physics only; economics are deliberately out of scope. Kronos builds it in two lengths — Aegis (defense / forward installations) and MetroVolt (data centers &amp; cities). Mode M is the reproducible closing point — physics inherited unchanged; it reaches Q_E 1.31 (requirement-class — needs the end-plug density, not yet demonstrated), f_n 5.44%, with net electric that scales with length (+104 / +850 / +2832 MW_e).</p>
+      <p style="margin-top:10px"><b style="color:var(--ink)">DOI 10.5281/zenodo.21746479</b></p>
+      <span class="go"><a href="https://doi.org/10.5281/zenodo.21746479">Open the generator deposit →</a></span>
+    </div>
+  </div>
+
+  <div class="sechead"><h2>What runs on this page</h2></div>
+  <div class="grid3">
+    <div class="card">
+      <h3>Breeder — live</h3>
+      <p>The breeder pages load <code style="font-family:var(--mono);font-size:12px">kronos_clean.py</code> and
+      <code style="font-family:var(--mono);font-size:12px">dt_evaluator.py</code> verbatim into a WebAssembly Python
+      runtime and re-derive the frozen point before unlocking the sliders.</p>
+    </div>
+    <div class="card">
+      <h3>Burner — precomputed</h3>
+      <p>The mirror engine needs SciPy, so its <code style="font-family:var(--mono);font-size:12px">solve_point()</code>
+      output is precomputed across the closure map from the deposited source and read live. The 55 m reference point
+      reproduces Q<sub>E</sub> 0.629.</p>
+    </div>
+    <div class="card">
+      <h3>Honesty rails</h3>
+      <p>Both engines report their gaps: the breeder's damage-life-limited availability and triangularity-sign caveat;
+      the generator's thermal barrier, electron direct conversion, and the corrected-bremsstrahlung deficit. Named,
+      not hidden.</p>
+    </div>
+  </div>
+
+  <div class="gapbox"><b class="t">Provenance</b>
+  Zenodo community: <a href="https://zenodo.org/communities/kronos_fusion_energy">zenodo.org/communities/kronos_fusion_energy</a>.
+  Both papers are submitted to IOP (peer review in progress); arXiv preprints link on posting. Product names
+  (HYPERION, Aegis, MetroVolt) are used here to help readers connect the machines; the public papers carry generic
+  machine descriptions. This page runs entirely in your browser — nothing is sent to any server.</div>
+
+  <div class="pagenav">
+    <a href="reactivity.html"><span class="lab">← Previous</span>Why the fuels differ</a>
+    <a href="index.html" style="text-align:right"><span class="lab">→</span>Back to the overview</a>
+  </div>
+
+  <div class="foot">
+    <span>KRONOS FUSION ENERGY · Live Physics</span>
+    <span>conceptual design and simulation study; no machine has been built</span>
+  </div>
+</div>
+
+<script src="assets/core.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live Physics — Run the Kronos Engines | Kronos Fusion Energy</title>
+<meta name="description" content="Run the actual reduced-order physics behind the Kronos design papers — live in your browser via WebAssembly Python. The breeder engine re-derives HYPERION's frozen numbers before anything unlocks. Equations from Zenodo DOI 10.5281/zenodo.21746157 (breeder) and 10.5281/zenodo.21746479 (generator).">
+<meta property="og:title" content="Kronos Live Physics — run the engines yourself">
+<meta property="og:description" content="The deposited engines, running in your browser: HYPERION the breeder and the D–³He tandem-mirror generator. Re-derives the frozen design points in front of you.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/style.css?v=2">
+</head>
+<body>
+
+<nav class="topnav"><div class="in">
+  <a class="mark" href="index.html" style="color:inherit"><span class="orb"></span><span><b>KRONOS</b>&nbsp;LIVE PHYSICS</span></a>
+  <div class="navlinks">
+    <a href="index.html">Overview</a>
+    <a href="breeder.html">Breeder</a>
+    <a href="burner.html">Burner</a>
+    <a href="reactivity.html">Reactivity</a>
+    <a href="deposit.html">The Deposits</a>
+  </div>
+  <a class="doi-pill" href="deposit.html">TWO DEPOSITS · <b>CC BY 4.0</b></a>
+</div></nav>
+
+<div class="wrap">
+  <div class="eyebrow">The engines, in your hands</div>
+  <h1>Run the Kronos physics yourself.</h1>
+
+  <div class="vtwo">
+    <a class="vlink" href="breeder.html"><div class="vhero">
+      <span class="go-hint">Run it →</span>
+      <video src="assets/video/breeder_hero.mp4" autoplay muted loop playsinline preload="metadata"></video>
+      <div class="cap"><b>Breeder — makes the fuel.</b> Kronos calls it HYPERION — a D–T spherical tokamak · A 2.5 · R₀ 1.2 m · Q 3.424 · 88.7 MW · 9.86 MA · ~4 kg/yr tritium</div>
+    </div></a>
+    <a class="vlink" href="burner.html"><div class="vhero">
+      <span class="go-hint">Run it →</span>
+      <svg class="mirror" viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="D–3He tandem mirror: a long linear central-cell plasma between high-field mirror throats, with open field lines fanning into direct-energy converters at each end.">
+        <rect width="900" height="250" fill="#0a1322"/>
+        <text x="24" y="30" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12" fill="#e8c476" font-weight="700" letter-spacing="1.5">THE BURNER · D–³He TANDEM MIRROR</text>
+        <line x1="70" y1="140" x2="830" y2="140" stroke="#1d3050" stroke-width="1"/>
+        <g stroke="#7fb2e5" stroke-width="1" fill="none" opacity="0.5">
+          <path d="M250 140 C 180 120, 120 90, 78 70"/><path d="M250 140 C 180 130, 120 110, 78 105"/>
+          <path d="M250 140 L 78 140"/><path d="M250 140 C 180 150, 120 170, 78 175"/><path d="M250 140 C 180 160, 120 190, 78 210"/>
+          <path d="M650 140 C 720 120, 780 90, 822 70"/><path d="M650 140 C 720 130, 780 110, 822 105"/>
+          <path d="M650 140 L 822 140"/><path d="M650 140 C 720 150, 780 170, 822 175"/><path d="M650 140 C 720 160, 780 190, 822 210"/>
+        </g>
+        <path d="M274 124 L626 124 A16 16 0 0 1 626 156 L274 156 A16 16 0 0 1 274 124 Z" fill="#e94f9c" fill-opacity="0.55" stroke="#ff9ecb" stroke-width="1.2">
+          <animate attributeName="fill-opacity" values="0.42;0.78;0.42" dur="3s" repeatCount="indefinite"/></path>
+        <g fill="#6ec9b2" fill-opacity="0.7">
+          <rect x="320" y="108" width="5" height="64"/><rect x="370" y="108" width="5" height="64"/><rect x="420" y="108" width="5" height="64"/>
+          <rect x="470" y="108" width="5" height="64"/><rect x="520" y="108" width="5" height="64"/><rect x="570" y="108" width="5" height="64"/></g>
+        <g fill="#8a93a8">
+          <rect x="243" y="100" width="5" height="80"/><rect x="250" y="100" width="5" height="80"/>
+          <rect x="645" y="100" width="5" height="80"/><rect x="652" y="100" width="5" height="80"/></g>
+        <g stroke="#6ec9b2" stroke-width="2">
+          <line x1="72" y1="60" x2="72" y2="220"/><line x1="80" y1="72" x2="80" y2="208"/>
+          <line x1="828" y1="60" x2="828" y2="220"/><line x1="820" y1="72" x2="820" y2="208"/></g>
+        <g fill="#e8c476">
+          <circle r="2.6"><animateMotion dur="1.8s" repeatCount="indefinite" path="M250 140 L 78 140"/></circle>
+          <circle r="2.6"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.4s" path="M250 140 C 180 120, 120 90, 78 70"/></circle>
+          <circle r="2.6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.9s" path="M250 140 C 180 160, 120 190, 78 210"/></circle>
+          <circle r="2.6"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.2s" path="M650 140 L 822 140"/></circle>
+          <circle r="2.6"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.6s" path="M650 140 C 720 120, 780 90, 822 70"/></circle>
+          <circle r="2.6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.1s" path="M650 140 C 720 160, 780 190, 822 210"/></circle></g>
+        <text x="450" y="98" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#93a4bd">D–³He central cell</text>
+        <text x="450" y="188" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="#5e7292">open field lines · direct collection at both ends</text>
+        <text x="250" y="196" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#e8c476">high-field plug · 26.5–39.7 T</text>
+        <text x="650" y="196" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#e8c476">high-field plug · 26.5–39.7 T</text>
+        <text x="74" y="238" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="9" fill="#6ec9b2">direct conversion</text>
+        <text x="826" y="238" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="9" fill="#6ec9b2">direct conversion</text>
+      </svg>
+      <div class="cap"><b>Burner — burns the fuel.</b> A D–³He tandem mirror, built in two lengths — Aegis (defense / forward installations) and MetroVolt (data centers &amp; cities) · Q_E 1.31 (requirement-class) · f_n 5.44% · net +104 / +850 / +2832 MW_e by length</div>
+    </div></a>
+  </div>
+
+  <p class="lede">Most fusion companies publish claims. We published the <b>engines that generate them</b> — and this page
+  runs them, live, in your browser. A WebAssembly Python runtime loads the same reduced-order code deposited on Zenodo:
+  the breeder's D–T power balance (pure NumPy) recomputes HYPERION's numbers in front of you, and the generator's
+  tandem-mirror engine is exercised across its closure map. Nothing is mocked and nothing leaves your tab —
+  before any control unlocks, <b>the engine re-derives the frozen design point</b>.</p>
+
+  <noscript>This page needs JavaScript + WebAssembly. The equations are deposited at DOI 10.5281/zenodo.21746157 (breeder) and 10.5281/zenodo.21746479 (generator).</noscript>
+
+  <div class="boot" id="boot"><div class="bar"><i></i><i></i><i></i></div><span class="cursor"></span></div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">2</div><div class="l">machines · breeder + burner</div></div>
+    <div class="stat"><div class="n">Q 3.424</div><div class="l">HYPERION gain, re-derived on load</div></div>
+    <div class="stat"><div class="n">f_n 5.44%</div><div class="l">generator — low-neutron, never aneutronic</div></div>
+    <div class="stat"><div class="n">CC BY 4.0</div><div class="l">open data + code, two deposits</div></div>
+  </div>
+
+  <div class="sechead"><h2>Three instruments</h2></div>
+  <div class="grid">
+    <a class="cardlink" href="breeder.html"><div class="card glow">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>The Breeder</h3><span class="snum">D–T · live</span></div>
+      <p>Move ion temperature, density, field, aspect ratio, and the tritium-breeding lever on the deposited D–T
+      engine. Fusion power, gain Q, plasma current, neutron fraction and net tritium recompute live — with
+      badges that trip the moment you leave the duty band or the β<sub>N</sub> / coil envelope.</p>
+      <span class="go">Open the breeder →</span>
+    </div></a>
+    <a class="cardlink" href="burner.html"><div class="card glow">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>The Burner</h3><span class="snum">D–³He mirror</span></div>
+      <p>The tandem-mirror engineering gain Q<sub>E</sub> across the helium-3 fraction and ion temperature, from the
+      deposited mirror engine. Watch the closure boundary at x<sub>He3</sub> ≈ 0.15 and the low neutron fraction —
+      and read the reproducible closing point (Q_E 1.31, requirement-class) beside it.</p>
+      <span class="go">Open the generator →</span>
+    </div></a>
+    <a class="cardlink" href="reactivity.html"><div class="card glow">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>Why the fuels differ</h3><span class="snum">Bosch–Hale</span></div>
+      <p>The fusion reactivity curves, from the verbatim Bosch–Hale coefficients. See why D–T lights first, and why
+      D–³He turns on an order of magnitude hotter — paying back in charged products instead of neutrons.</p>
+      <span class="go">Open the reactivity curves →</span>
+    </div></a>
+  </div>
+
+  <div class="sechead"><h2>Environment &amp; safety</h2></div>
+  <div class="card">
+    <p>The physics was the hard part — and it's closed. The rest is engineering with known solutions: <b>public dose closes</b> at a required detritiation factor of <b>1–34</b> (vs ITER-class <b>1,000–10,000</b> demonstrated); <b>waste ≤ Class C</b> at a certified low-activation steel heat (Nb &lt; 10 ppm); and the low-neutron burner's scheduled-replacement waste is <b>≈ zero</b> (0.035–0.144 first-wall changes in 30 years), with wall-loading 41× (Aegis) / 168× (MetroVolt) below the breeder. Design requirements shown with their conditions — achievable, not yet demonstrated hardware; the Ag-108m residual stays open. No cost figures.</p>
+    <span class="go"><a href="breeder.html">See the breeder's environment &amp; safety panel →</a></span>
+  </div>
+
+  <div class="sechead"><h2>Built on the open record</h2></div>
+  <div class="grid3">
+    <div class="card">
+      <h3>The Breeder deposit</h3>
+      <p>HYPERION's D–T engine, data, and validation — pure NumPy, one command reproduces the design point:
+      <b style="color:var(--ink)">DOI 10.5281/zenodo.21746157</b>. CC BY 4.0.</p>
+      <span class="go"><a href="https://doi.org/10.5281/zenodo.21746157">Open the breeder deposit →</a></span>
+    </div>
+    <div class="card">
+      <h3>The Burner deposit</h3>
+      <p>The D–³He tandem-mirror engine and its closure suite (physics only, no economics):
+      <b style="color:var(--ink)">DOI 10.5281/zenodo.21746479</b>. CC BY 4.0.</p>
+      <span class="go"><a href="https://doi.org/10.5281/zenodo.21746479">Open the generator deposit →</a></span>
+    </div>
+    <div class="card">
+      <h3>What's in them</h3>
+      <p>Both deposits ship the exact code this page runs, the design-point cards, and a reproduction runbook.
+      The burner paper is physics only; its economics are deliberately out of scope.</p>
+      <span class="go"><a href="deposit.html">About the deposits →</a></span>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>KRONOS FUSION ENERGY · Live Physics</span>
+    <span>Conceptual design and simulation study; no machine has been built · nothing is sent to any server</span>
+  </div>
+</div>
+
+<script src="assets/core.js?v=2"></script>
+<script>
+KL.help({eyebrow:'START HERE',title:'What this page is — and how to use it',btnLabel:'How this works',
+autoOpenOnce:'kl_help_index',
+html:`
+<p>This is not a marketing animation. It runs the <b>actual reduced-order physics engines</b> deposited with the
+Kronos papers, live in your browser via WebAssembly Python. Before any control unlocks, the breeder engine
+<b>re-derives the frozen design point</b> (Q 3.424, 88.7 MW, 9.86 MA) in front of you — if it did not reproduce, the
+sliders would stay locked.</p>
+<h4>The three instruments</h4>
+<ul>
+<li><b>Breeder (HYPERION)</b> — the D–T spherical-tokamak isotope foundry. Runs <code>dt_evaluator</code> live; drive temperature, density, field, aspect ratio, and the tritium-breeding lever.</li>
+<li><b>Burner</b> — the D–³He tandem-mirror generator. Explore engineering-gain closure across helium-3 fraction and ion temperature, from the deposited mirror engine.</li>
+<li><b>Reactivity</b> — the Bosch–Hale curves that explain why each machine burns the fuel it does.</li>
+</ul>
+<h4>How to read it</h4>
+<ul>
+<li>Each instrument has its own <b>"?" button</b> (bottom-right) with the equations and knob-by-knob guide.</li>
+<li><b>Badges</b> trip when you leave a stated envelope (duty band, β limit, coil field, closure boundary) — the design's honesty rails, live.</li>
+<li>Everything runs in your tab; <b>nothing is sent to any server</b>. Every number traces to the two open deposits (CC BY 4.0).</li>
+</ul>
+<p style="color:#93a4bd;font-size:12.5px">Conceptual design and simulation study; no machine has been built.</p>
+`});
+(async()=>{ try{ await KL.bootFull('boot'); }catch(e){ /* banner shown by bootFull */ } })();
+</script>
+</body>
+</html>
