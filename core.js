@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded',()=>{
           '<a href="https://www.kronosfusionenergy.com/">Main site</a>'+
           '<a href="https://www.kronosfusionenergy.com/publications">Publications</a>'+
           '<a href="https://www.kronosfusionenergy.com/whitepapers">Whitepapers</a>'+
-          '<a href="deposit.html">The deposits</a>'+
+          '<a href="https://www.kronosfusionenergy.com/publications/de-risking-register.html">De-Risking Register</a><a href="deposit.html">The deposits</a>'+
         '</div>'+
-        '<div class="fcite">Cite — breeder <b>10.5281/zenodo.21746157</b> · burner <b>10.5281/zenodo.21746479</b> · CC BY 4.0</div>'+
+        '<div class="fcite">Cite &amp; reproduce — Physics De-Risking Register (R0) <a href="https://doi.org/10.5281/zenodo.22133057">zenodo.22133057</a> <i>(reserved draft, resolves on publish)</i> · breeder <a href="https://doi.org/10.5281/zenodo.21746157">21746157</a> · burner <a href="https://doi.org/10.5281/zenodo.21746479">21746479</a> · <a href="https://github.com/KronosFE/kronos-toolkit">toolkit</a> · <a href="https://zenodo.org/communities/kronos_fusion_energy">Zenodo community</a> · CC BY 4.0</div>'+
         '<div class="fdis">Conceptual design and simulation study; no machine has been built. Every number re-derives from the open deposits; this page runs entirely in your browser and nothing is sent to any server.</div>'+
       '</div>';
   }
