@@ -71,7 +71,7 @@ async function bootCompact(barId){
     if(allok){
       bar.classList.add('ok');
       msg.innerHTML='<span class="ok-t">engine verified against the deposits</span> — '+
-        'HYPERION <span class="v">Q 3.424</span> · <span class="v">88.7 MW</span> · <span class="v">9.86 MA</span> '+
+        'HYPERION <span class="v">Q 3.076</span> · <span class="v">85.0 MW</span> · <span class="v">9.66 MA</span> '+
         're-derived · generator <span class="v">Q_E 1.31</span> · <span class="v">f_n 5.44%</span> · '+
         '<a href="deposit.html">about the deposits →</a>';
     }else{
