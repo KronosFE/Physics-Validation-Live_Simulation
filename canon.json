@@ -43,7 +43,7 @@
   "No economics in public outputs. The breeder makes no net-electricity claim."
  ],
  "register_doi": "10.5281/zenodo.22133057",
- "gate_count": 139,
+ "gate_count": 141,
  "constants": {
   "breeder.Q": {
    "value": 3.0763,
