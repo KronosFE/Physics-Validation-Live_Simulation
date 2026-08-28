@@ -62,7 +62,25 @@ pre.recipe{background:#0f141c;border:1px solid var(--line);border-radius:6px;pad
 .links a{display:inline-flex;margin:0 10px 8px 0;padding:8px 13px;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-size:13px}
 .links a:hover{border-color:var(--gold);color:var(--gold);text-decoration:none}
 .foot{margin-top:8px}
-@media(max-width:640px){h1{font-size:25px}.topnav .doi-pill{display:none}}
+/* live recompute widget */
+.live-recompute .lr-status{font-family:var(--mono);font-size:12px;color:var(--faint);margin:0 0 14px}
+.live-recompute .lr-status.ok{color:#6BBD8A}.live-recompute .lr-status.warn{color:#E8875C}
+.lr-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.lr-controls{display:flex;flex-direction:column;gap:12px}
+.lr-lab{font-size:12px;color:var(--dim);display:flex;flex-direction:column;gap:5px}
+.lr-lab output{font-family:var(--mono);color:var(--gold);font-size:13px}
+.lr-lab input[type=range]{width:100%;accent-color:var(--gold)}
+.lr-lab select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 8px;font:13px var(--sans)}
+.lr-reset{margin-top:6px;align-self:flex-start;background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:4px;padding:8px 13px;font:12px var(--sans);cursor:pointer}
+.lr-reset:hover{border-color:var(--gold);color:var(--gold)}
+.lr-out{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lr-tile{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:6px;padding:11px 13px}
+.lr-tile .k{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.lr-tile .v{font-family:var(--mono);font-size:19px;color:var(--ink);margin-top:3px}
+.lr-anchor{margin-top:16px;font-family:var(--mono);font-size:12.5px}
+.lr-anchor .ok{color:#6BBD8A}.lr-anchor .warn{color:#E8875C}.lr-anchor .dim{color:var(--faint)}
+.lr-err{color:#E8875C;font-family:var(--mono);font-size:12px}
+@media(max-width:640px){h1{font-size:25px}.topnav .doi-pill{display:none}.lr-grid{grid-template-columns:1fr}}
 </style></head><body>
 <nav class="topnav"><div class="in">
   <a class="mark" href="../index.html" style="color:inherit"><span class="orb"></span><span><b>KRONOS</b>&nbsp;VALIDATORS</span></a>
@@ -86,6 +104,7 @@ pre.recipe{background:#0f141c;border:1px solid var(--line);border-radius:6px;pad
 <main class="wrap">
 
 <div class="sec"><h2>What was computed</h2><p class="prose">4q H2-like VQE −2.0550466 vs exact −2.0550505 Ha, err 3.9e-6 Ha [T]; abs chemistry uncalibrated (fla | COVERAGE: breeder+burner</p></div>
+
 
 <div class="sec"><h2>Reproduce this</h2><pre class="recipe"># Reproduce KX-L1-A17 against the frozen record
 pip install kronos-toolkit   # github.com/KronosFE/kronos-toolkit
