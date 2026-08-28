@@ -53,6 +53,10 @@ table.gt tr:hover td{background:rgba(212,173,92,.04)}
 .metric{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:6px;padding:12px 14px}
 .metric .k{font-family:var(--mono);font-size:11px;color:var(--faint)}
 .metric .v{font-family:var(--mono);font-size:18px;color:var(--ink);margin-top:3px;word-break:break-all}
+table.kf{width:100%;max-width:640px;border-collapse:collapse;font-size:13px;font-family:var(--mono)}
+table.kf th,table.kf td{text-align:left;padding:7px 12px;border-bottom:1px solid var(--line)}
+table.kf th{color:var(--faint);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+table.kf td{color:var(--ink)}
 .prose{color:var(--dim);max-width:80ch}
 pre.recipe{background:#0f141c;border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;color:#cdd6e4}
 .links a{display:inline-flex;margin:0 10px 8px 0;padding:8px 13px;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-size:13px}
@@ -82,6 +86,7 @@ pre.recipe{background:#0f141c;border:1px solid var(--line);border-radius:6px;pad
 <main class="wrap">
 <div class="sec"><h2>Frozen result</h2><div class="metrics"><div class="metric"><div class="k">nspin</div><div class="v">2</div></div></div></div>
 <div class="sec"><h2>What was computed</h2><p class="prose">GPU fleet: Blanket quinary Cr3Ta3Ti3V3W4, formation +0.021 eV/atom NEAR-NEUTRAL; nspin=2 Cr-polarized (el_Cr -248.219 match); 8x8x8 dense refinement in progress</p></div>
+
 <div class="sec"><h2>Reproduce this</h2><pre class="recipe"># Reproduce BR-L2-A34 against the frozen record
 pip install kronos-toolkit   # github.com/KronosFE/kronos-toolkit
 python -c &quot;from kronos_toolkit.verify import run_regression; run_regression()&quot;

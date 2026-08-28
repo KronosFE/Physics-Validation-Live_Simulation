@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark">
+<title>BR-L2-A18c — Cross-scale linear γ(kᵧ) spectrum, NT vs PT · Kronos Validators</title><meta name="description" content="Validator for BR-L2-A18c: Cross-scale linear γ(kᵧ) spectrum, NT vs PT (breeder · turbulence). Frozen result and reproduction recipe, 2026-08-27 freeze.">
+<meta name="robots" content="index,follow,max-snippet:-1"><link rel="canonical" href="https://www.kronosfusionenergy.com/Physics_Validation_Simulation/gate/BR-L2-A18c.html">
+<meta property="og:title" content="BR-L2-A18c — Cross-scale linear γ(kᵧ) spectrum, NT vs PT · Kronos Validators"><meta property="og:description" content="Validator for BR-L2-A18c: Cross-scale linear γ(kᵧ) spectrum, NT vs PT (breeder · turbulence). Frozen result and reproduction recipe, 2026-08-27 freeze.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Kronos Fusion Energy">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#141a22;--bg2:#1b2531;--panel:#202a38;--ink:#e6ebf2;--dim:#aeb9c9;--faint:#8fa0b8;
+ --gold:#D4AD5C;--line:rgba(150,165,190,.20);--mono:'Space Mono',ui-monospace,Menlo,monospace;
+ --sans:'Space Grotesk',system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}
+.topnav{position:sticky;top:0;z-index:50;background:rgba(15,20,28,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav .in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:11px 20px}
+.topnav .mark{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;letter-spacing:.12em}
+.topnav .orb{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f0d38a,#b8882e)}
+.topnav .navlinks{display:flex;gap:16px;flex-wrap:wrap;font-size:13px}
+.topnav .navlinks a{color:var(--dim)}.topnav .navlinks a:hover{color:var(--gold)}
+.topnav .doi-pill{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint);border:1px solid var(--line);padding:6px 10px;border-radius:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.hero{padding:44px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+h1{font-size:32px;line-height:1.1;margin:0 0 12px}
+.lede{color:var(--dim);max-width:70ch;margin:0 0 8px}
+.canonbar{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.canonbar span{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:5px 10px}
+.canonbar b{color:var(--gold);font-weight:400}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 14px}
+.controls input,.controls select{font:13px var(--sans);background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px 10px}
+.controls input{flex:1;min-width:200px}
+.count{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.grp{margin:26px 0 6px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:6px}
+table.gt{width:100%;border-collapse:collapse;font-size:13.5px}
+table.gt th,table.gt td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.gt th{color:var(--faint);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+table.gt td.sn{font-family:var(--mono);color:var(--gold);white-space:nowrap}
+table.gt tr:hover td{background:rgba(212,173,92,.04)}
+.vb{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;padding:1px 6px;border-radius:3px;border:1px solid;vertical-align:middle}
+.dom{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.livedot{color:#6BBD8A;font-size:11px}
+/* card */
+.card-hero{padding:34px 0 22px;border-bottom:1px solid var(--line)}
+.crumbs{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin:0 0 14px}
+.crumbs a{color:var(--dim)}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.chip{font-family:var(--mono);font-size:11px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:4px 9px}
+.sec{padding:26px 0;border-bottom:1px solid var(--line)}
+.sec h2{font-size:16px;margin:0 0 12px;color:var(--gold);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.metric{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:6px;padding:12px 14px}
+.metric .k{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.metric .v{font-family:var(--mono);font-size:18px;color:var(--ink);margin-top:3px;word-break:break-all}
+table.kf{width:100%;max-width:640px;border-collapse:collapse;font-size:13px;font-family:var(--mono)}
+table.kf th,table.kf td{text-align:left;padding:7px 12px;border-bottom:1px solid var(--line)}
+table.kf th{color:var(--faint);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+table.kf td{color:var(--ink)}
+.prose{color:var(--dim);max-width:80ch}
+pre.recipe{background:#0f141c;border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;color:#cdd6e4}
+.links a{display:inline-flex;margin:0 10px 8px 0;padding:8px 13px;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-size:13px}
+.links a:hover{border-color:var(--gold);color:var(--gold);text-decoration:none}
+.foot{margin-top:8px}
+@media(max-width:640px){h1{font-size:25px}.topnav .doi-pill{display:none}}
+</style></head><body>
+<nav class="topnav"><div class="in">
+  <a class="mark" href="../index.html" style="color:inherit"><span class="orb"></span><span><b>KRONOS</b>&nbsp;VALIDATORS</span></a>
+  <div class="navlinks">
+    <a href="../index.html">All gates</a>
+    <a href="../index.html#breeder">Breeder</a>
+    <a href="../index.html#burner">Burner</a>
+    <a href="../index.html#shared">Shared</a>
+    <a href="../validators-registry.html">Deck links</a>
+  </div>
+  <a class="doi-pill" href="https://www.kronosfusionenergy.com/publications/de-risking-register.html">REGISTER R0 · <b>CC BY 4.0</b></a>
+</div></nav>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "BR-L2-A18c — Cross-scale linear γ(kᵧ) spectrum, NT vs PT", "description": "Validator for BR-L2-A18c: Cross-scale linear γ(kᵧ) spectrum, NT vs PT (breeder · turbulence). Frozen result and reproduction recipe, 2026-08-27 freeze.", "creator": {"@type": "Organization", "name": "Kronos Fusion Energy"}, "isAccessibleForFree": true, "license": "https://creativecommons.org/licenses/by/4.0/", "isPartOf": {"@type": "CreativeWork", "name": "Kronos Physics De-Risking Register", "url": "https://www.kronosfusionenergy.com/publications/de-risking-register.html"}, "url": "https://www.kronosfusionenergy.com/Physics_Validation_Simulation/gate/BR-L2-A18c.html"}</script>
+<header class="card-hero"><div class="wrap">
+  <div class="crumbs"><a href="../index.html">All gates</a> · breeder · L2 · turbulence</div>
+  <div class="eyebrow">Validator · Gate BR-L2-A18c</div>
+  <h1>Cross-scale linear γ(kᵧ) spectrum, NT vs PT</h1>
+  <div class="meta-row"><span class="chip">BR-L2-A18c</span><span class="vb" style="color:#6BBD8A;border-color:#6BBD8A">reproduced</span><span class="chip">verification card</span>
+    <span class="chip">freeze 2026-08-27</span></div>
+</div></header>
+<main class="wrap">
+<div class="sec"><h2>Frozen result</h2><div class="metrics"><div class="metric"><div class="k">suppression_min</div><div class="v">31%</div></div><div class="metric"><div class="k">suppression_max</div><div class="v">60%</div></div><div class="metric"><div class="k">ky_min</div><div class="v">0.1</div></div><div class="metric"><div class="k">ky_max</div><div class="v">6.0</div></div><div class="metric"><div class="k">mu</div><div class="v">400</div></div></div></div>
+<div class="sec"><h2>What was computed</h2><p class="prose">Linear CGYRO growth-rate spectrum sweeping kᵧ from the ion scale into the electron band for NT vs PT. NT γ is 31–60% below PT at every resolved kᵧ (0.1–6.0), so the quiet-basin advantage holds across the whole linear spectrum (kᵧ ≥ 10 excluded as unconverged).</p></div>
+<div class="sec"><h2>Linear γ(kᵧ) spectrum — NT vs PT</h2><figure style="margin:0"><svg viewBox="0 0 640 300" width="100%" role="img" aria-label="Cross-scale linear γ(kᵧ) — NT vs PT" style="max-width:640px;background:#141a22;border:1px solid var(--line);border-radius:8px">
+    <line x1="52" y1="256.0" x2="624" y2="256.0" stroke="rgba(150,165,190,.12)"/><line x1="52" y1="199.5" x2="624" y2="199.5" stroke="rgba(150,165,190,.12)"/><line x1="52" y1="143.0" x2="624" y2="143.0" stroke="rgba(150,165,190,.12)"/><line x1="52" y1="86.5" x2="624" y2="86.5" stroke="rgba(150,165,190,.12)"/><line x1="52" y1="30.0" x2="624" y2="30.0" stroke="rgba(150,165,190,.12)"/>
+    <text x="52" y="18" font-size="11" fill="#D4AD5C" font-family="monospace" letter-spacing="1">Cross-scale linear γ(kᵧ) — NT vs PT</text>
+    <text transform="translate(15,150.0) rotate(-90)" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">γ  (cs/a)</text>
+    <text x="338.0" y="294" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">kᵧ  (ρ_s units, log)</text>
+    <polyline points="52.0,247.0 148.8,239.6 205.5,241.1 276.8,242.3 323.9,225.5 373.7,198.9 470.5,125.2 567.4,46.7 624.0,67.3" fill="none" stroke="#8FB4D9" stroke-width="2"/><circle cx="52.0" cy="247.0" r="3" fill="#8FB4D9"/><circle cx="148.8" cy="239.6" r="3" fill="#8FB4D9"/><circle cx="205.5" cy="241.1" r="3" fill="#8FB4D9"/><circle cx="276.8" cy="242.3" r="3" fill="#8FB4D9"/><circle cx="323.9" cy="225.5" r="3" fill="#8FB4D9"/><circle cx="373.7" cy="198.9" r="3" fill="#8FB4D9"/><circle cx="470.5" cy="125.2" r="3" fill="#8FB4D9"/><circle cx="567.4" cy="46.7" r="3" fill="#8FB4D9"/><circle cx="624.0" cy="67.3" r="3" fill="#8FB4D9"/><polyline points="52.0,251.0 148.8,246.6 205.5,250.0 276.8,246.5 323.9,236.5 373.7,227.4 470.5,180.7 567.4,119.7 624.0,175.7" fill="none" stroke="#D4AD5C" stroke-width="2"/><circle cx="52.0" cy="251.0" r="3" fill="#D4AD5C"/><circle cx="148.8" cy="246.6" r="3" fill="#D4AD5C"/><circle cx="205.5" cy="250.0" r="3" fill="#D4AD5C"/><circle cx="276.8" cy="246.5" r="3" fill="#D4AD5C"/><circle cx="323.9" cy="236.5" r="3" fill="#D4AD5C"/><circle cx="373.7" cy="227.4" r="3" fill="#D4AD5C"/><circle cx="470.5" cy="180.7" r="3" fill="#D4AD5C"/><circle cx="567.4" cy="119.7" r="3" fill="#D4AD5C"/><circle cx="624.0" cy="175.7" r="3" fill="#D4AD5C"/>
+    <text x="44" y="259.0" text-anchor="end" font-size="10" fill="#8fa0b8" font-family="monospace">0.00</text><text x="44" y="202.5" text-anchor="end" font-size="10" fill="#8fa0b8" font-family="monospace">0.42</text><text x="44" y="146.0" text-anchor="end" font-size="10" fill="#8fa0b8" font-family="monospace">0.83</text><text x="44" y="89.5" text-anchor="end" font-size="10" fill="#8fa0b8" font-family="monospace">1.25</text><text x="44" y="33.0" text-anchor="end" font-size="10" fill="#8fa0b8" font-family="monospace">1.67</text><text x="52.0" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">0.1</text><text x="148.8" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">0.2</text><text x="205.5" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">0.3</text><text x="276.8" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">0.5</text><text x="323.9" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">0.7</text><text x="373.7" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">1</text><text x="470.5" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">2</text><text x="567.4" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">4</text><text x="624.0" y="272" text-anchor="middle" font-size="10" fill="#8fa0b8" font-family="monospace">6</text>
+    <g font-family="monospace" font-size="10">
+      <rect x="474" y="30" width="10" height="10" fill="#D4AD5C"/><text x="489" y="39" fill="#e6ebf2">NT (δ=−0.30)</text>
+      <rect x="474" y="46" width="10" height="10" fill="#8FB4D9"/><text x="489" y="55" fill="#e6ebf2">PT (δ=+0.30)</text>
+    </g></svg></figure><table class="kf" style="margin-top:16px"><thead><tr><th>kᵧ</th><th>NT γ</th><th>PT γ</th><th>NT below PT</th></tr></thead><tbody><tr><td>0.1</td><td>0.0369</td><td>0.0660</td><td>44%</td></tr><tr><td>0.2</td><td>0.0690</td><td>0.1210</td><td>43%</td></tr><tr><td>0.3</td><td>0.0439</td><td>0.1099</td><td>60%</td></tr><tr><td>0.5</td><td>0.0702</td><td>0.1012</td><td>31%</td></tr><tr><td>0.7</td><td>0.1439</td><td>0.2250</td><td>36%</td></tr><tr><td>1</td><td>0.2105</td><td>0.4209</td><td>50%</td></tr><tr><td>2</td><td>0.5550</td><td>0.9642</td><td>42%</td></tr><tr><td>4</td><td>1.0046</td><td>1.5423</td><td>35%</td></tr><tr><td>6</td><td>0.5921</td><td>1.3909</td><td>57%</td></tr></tbody></table><p class="prose" style="margin-top:12px">NT γ is <strong>31–60% below PT at every resolved kᵧ</strong> from the ion scale into the low-electron band — the quiet-basin advantage holds across the whole linear spectrum. <strong>Honest exclusion:</strong> kᵧ ≥ 10 is flagged UNCONVERGED (short integration time t_final, non-physical γ) and is left out of the plot and the claim; only the converged kᵧ = 0.1–6.0 band is used.</p></div>
+<div class="sec"><h2>Reproduce this</h2><pre class="recipe"># Reproduce BR-L2-A18c against the frozen record
+pip install kronos-toolkit   # github.com/KronosFE/kronos-toolkit
+python -c &quot;from kronos_toolkit.verify import run_regression; run_regression()&quot;
+# BR-L2-A18c is anchored in the 2026-08-27 freeze spine (verdict: reproduced).</pre></div>
+<div class="sec links"><h2>Sources</h2>
+  <a href="https://www.kronosfusionenergy.com/publications/negative-triangularity-confinement.html">Read the paper (Paper 2.11) →</a>
+  <a href="https://doi.org/10.5281/zenodo.22132098">Deposit — doi:22132098</a>
+  <a href="https://www.kronosfusionenergy.com/publications/de-risking-register.html">Physics De-Risking Register (R0)</a>
+  <a href="../index.html">All gates →</a>
+</div>
+</main>
+<footer class="foot"><div class="wrap" style="padding:26px 0 40px;border-top:1px solid var(--line);color:var(--faint);font-size:12.5px">
+Kronos Fusion Energy · Validators regenerated from the 2026-08-27 freeze · Cite &amp; reproduce — Physics De-Risking Register (R0) <a href="https://doi.org/10.5281/zenodo.22133057">zenodo.22133057</a> · <a href="https://github.com/KronosFE/kronos-toolkit">toolkit</a> · <a href="https://zenodo.org/communities/kronos_fusion_energy">Zenodo</a> · CC BY 4.0.
+Conceptual design and simulation study; no machine has been built; no economics. Every number re-derives from the open deposits.
+</div></footer></body></html>
