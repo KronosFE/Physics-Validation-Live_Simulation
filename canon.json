@@ -1,0 +1,469 @@
+{
+ "freeze": "2026-08-27",
+ "ratified": true,
+ "supersedes": "2026-08-26",
+ "headline": "Nonlinear CGYRO confirms negative-triangularity turbulence suppression across ion (~40%, real-mass converged) and electron (~80%) scales.",
+ "breeder": {
+  "Q": 3.076,
+  "P_fus_MW": 85.04,
+  "Ip_MA": 9.66,
+  "triangularity": -0.3,
+  "alpha_confinement_pct": 99.98,
+  "TBR_ladder_kg_T_yr": [
+   0.29,
+   0.9,
+   2.0
+  ],
+  "adv_blanket_TBR": 1.42,
+  "fleet_He3_kg_yr": [
+   3.6,
+   4.5
+  ]
+ },
+ "burner": {
+  "Q_E": 1.318,
+  "P_MW": 4298.5,
+  "f_n_pct": 5.44,
+  "net_MWe": {
+   "55m": 104,
+   "440m": 850,
+   "1400m": 2832
+  },
+  "plug_np_nc": 16,
+  "P_QE_gt1": 1.0
+ },
+ "timeline": {
+  "build": "Q2 2027",
+  "first_tritium": "2030-31",
+  "test_burner": "2032",
+  "fleet": "~2036"
+ },
+ "notes": [
+  "Electron-scale runs use mu=400 (standard published ETG practice).",
+  "No economics in public outputs. The breeder makes no net-electricity claim."
+ ],
+ "register_doi": "10.5281/zenodo.22133057",
+ "gate_count": 139,
+ "constants": {
+  "breeder.Q": {
+   "value": 3.0763,
+   "units": "-",
+   "gate": "BR-L1-A1",
+   "basis": "campaign re-run, toolkit-anchored",
+   "require": [
+    "3.076"
+   ],
+   "forbid": []
+  },
+  "breeder.P_fus": {
+   "value": 85.04,
+   "units": "MW",
+   "gate": "BR-L1-A1",
+   "basis": "config-22021 design point",
+   "require": [
+    "85.04"
+   ],
+   "forbid": []
+  },
+  "breeder.Ip": {
+   "value": 9.66,
+   "units": "MA",
+   "gate": "BR-L1-A12",
+   "basis": "FreeGS free-boundary",
+   "require": [
+    "9.66"
+   ],
+   "forbid": []
+  },
+  "breeder.delta": {
+   "value": -0.3,
+   "units": "-",
+   "gate": "BR-L1-A7",
+   "basis": "NT canonical",
+   "require": [
+    "−0.30"
+   ],
+   "forbid": []
+  },
+  "breeder.B0": {
+   "value": 8.0,
+   "units": "T",
+   "gate": "BR-L1-A12",
+   "basis": "design point",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.alpha_confinement": {
+   "value": 99.98,
+   "units": "%",
+   "gate": "BR-L2-A20",
+   "basis": "ASCOT5 1e5 markers; prompt loss 0.023%, wall 0.083 kW/m2; agrees w/ fleet BR-L1-A14",
+   "require": [
+    "99.98"
+   ],
+   "forbid": [
+    "4.5% loss confirmed"
+   ]
+  },
+  "breeder.tbr_lever_low": {
+   "value": "1.03–1.06",
+   "units": "-",
+   "gate": "BR-L2-A7",
+   "basis": "literal frozen recipe (Be packing 9.6–11.8 vol%), OpenMC ENDF/B-VIII.0",
+   "require": [
+    "1.03–1.06"
+   ],
+   "forbid": []
+  },
+  "breeder.tbr_lever_high": {
+   "value": "1.18–1.20",
+   "units": "-",
+   "gate": "BR-L2-A7",
+   "basis": "same lever w/ dedicated 5 cm solid-Be layer",
+   "require": [
+    "1.18–1.20"
+   ],
+   "forbid": [
+    "Tritium self-sufficiency — net TBR 1.186"
+   ]
+  },
+  "breeder.divertor_alloy_Ef": {
+   "value": 0.015,
+   "units": "eV/atom",
+   "gate": "BR-L2-A9",
+   "basis": "NEAR-NEUTRAL; local QE +0.0147 + fleet +0.016 agree; patent = method-based",
+   "require": [
+    "+0.015"
+   ],
+   "forbid": [
+    "−0.172",
+    "-0.172",
+    "divertor alloy stable"
+   ]
+  },
+  "breeder.tafree_div_Ef": {
+   "value": -0.002,
+   "units": "eV/atom",
+   "gate": "BR-L2-A37a",
+   "basis": "Cr2Ti4V4W6 near-neutral (4x4x4; dense pending)",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.tafree_fw_Ef": {
+   "value": -0.002,
+   "units": "eV/atom",
+   "gate": "BR-L2-A37b",
+   "basis": "Cr1Ti7V4W4 near-neutral",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.tafree_dec_Ef": {
+   "value": -0.015,
+   "units": "eV/atom",
+   "gate": "BR-L2-A37c",
+   "basis": "Cr2Ti5V1W8 near-neutral",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.fw_alloy_Ef": {
+   "value": 0.007,
+   "units": "eV/atom",
+   "gate": "BR-L2-A31",
+   "basis": "Cr1Ta4Ti5V3W3 near-neutral (4x4x4; dense pending)",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.hea_Ef": {
+   "value": 0.003,
+   "units": "eV/atom",
+   "gate": "BR-L2-A35",
+   "basis": "WTaVTi equiatomic near-neutral",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.blanket_Ef": {
+   "value": 0.021,
+   "units": "eV/atom",
+   "gate": "BR-L2-A34",
+   "basis": "Cr3Ta3Ti3V3W4 near-neutral",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.centrepost_life": {
+   "value": 0.58,
+   "units": "fpy",
+   "gate": "BR-L1-A13b",
+   "basis": "45 cm WC shield best case; scheduled-replacement cartridge",
+   "require": [
+    "0.58"
+   ],
+   "forbid": []
+  },
+  "breeder.dpa_per_fpy": {
+   "value": 18.85,
+   "units": "dpa/fpy",
+   "gate": "BR-L1-A13",
+   "basis": "neutron damage",
+   "require": [
+    "18.85"
+   ],
+   "forbid": []
+  },
+  "breeder.kink_margin": {
+   "value": "1.15–1.31x",
+   "units": "-",
+   "gate": "BR-L2-A19",
+   "basis": "betaN 2.13–2.44 vs no-wall Troyon 2.8; reduced-metric, n=1 dW code owed",
+   "require": [
+    "2.13"
+   ],
+   "forbid": []
+  },
+  "breeder.nt_ion_suppression": {
+   "value": "40–45",
+   "units": "%",
+   "gate": "BR-L2-A1c",
+   "basis": "nonlinear CGYRO NT vs PT (ITG+TEM); CONVERGED at real electron mass mu=3672 (~38-42%), reduced-mass estimate ~40-45% consistent; TCV+DIII-D corroborated",
+   "require": [
+    "40–45"
+   ],
+   "forbid": []
+  },
+  "breeder.nt_electron_suppression": {
+   "value": "79–80",
+   "units": "%",
+   "gate": "REG-P13",
+   "basis": "nonlinear ETG NT vs PT at reduced ion-electron mass ratio mu=400 — standard, published ETG practice; ion scale independently real-mass confirmed (A1c mu=3672). Result stands and is publishable",
+   "require": [],
+   "forbid": []
+  },
+  "burner.Q_E": {
+   "value": 1.318,
+   "units": "-",
+   "gate": "BU-L1-A1",
+   "basis": "M-45 design point (440 m)",
+   "require": [
+    "1.318"
+   ],
+   "forbid": []
+  },
+  "burner.P_fus": {
+   "value": 4298.5,
+   "units": "MW",
+   "gate": "BU-L1-A1",
+   "basis": "design point",
+   "require": [
+    "4298.5"
+   ],
+   "forbid": []
+  },
+  "burner.f_n": {
+   "value": 5.44,
+   "units": "%",
+   "gate": "BU-L1-A1",
+   "basis": "neutron fraction",
+   "require": [
+    "5.44"
+   ],
+   "forbid": []
+  },
+  "burner.net_MWe": {
+   "value": "+104/+850/+2832",
+   "units": "MWe @ 55/440/1400 m",
+   "gate": "KX-L1-A9",
+   "basis": "length ladder",
+   "require": [
+    "850"
+   ],
+   "forbid": []
+  },
+  "burner.uq_pqe": {
+   "value": 1.0,
+   "units": "P(Q_E>1)",
+   "gate": "KX-L1-A5-BU",
+   "basis": "40k MC over design ranges; Q_E 1.317+/-0.14; driver beta_c",
+   "require": [],
+   "forbid": []
+  },
+  "burner.plug_ratio": {
+   "value": 16,
+   "units": "n_plug/n_c",
+   "gate": "BU-L2-A5",
+   "basis": "REQUIREMENT-class (347x GDT); retired only by WHAM-scale potential experiment (G1)",
+   "require": [],
+   "forbid": []
+  },
+  "burner.warm_fill_threshold": {
+   "value": 6.25,
+   "units": "%",
+   "gate": "BU-L2-A5",
+   "basis": "DCLC gamma=0 THRESHOLD, not a margin (fleet dispersion: 5.9%~1/16)",
+   "require": [
+    "6.25"
+   ],
+   "forbid": [
+    "warm-fill margin"
+   ]
+  },
+  "burner.dec_eta": {
+   "value": 0.7,
+   "units": "-",
+   "gate": "BU-L1-A10",
+   "basis": "ASSUMED module constant, not computed — load-bearing input",
+   "require": [],
+   "forbid": []
+  },
+  "he3.breeder_supply": {
+   "value": 0.9,
+   "units": "kg/yr/unit",
+   "gate": "BR-OUT-2",
+   "basis": "surplus-T decay at equilibrium",
+   "require": [
+    "0.9 kg/yr"
+   ],
+   "forbid": []
+  },
+  "he3.burner_demand": {
+   "value": 170.2,
+   "units": "kg/fpy net",
+   "gate": "BR-OUT-4",
+   "basis": "gross 207.9 − 18.1% D-D recycle",
+   "require": [],
+   "forbid": []
+  },
+  "he3.closure_ratio": {
+   "value": "~192/105/45",
+   "units": "breeders per burner @ TBR 1.186/1.34/1.80",
+   "gate": "BR-OUT-4",
+   "basis": "loop does NOT close indigenously; lunar-gated ~2038–40",
+   "require": [],
+   "forbid": [
+    "loop closes indigenously"
+   ]
+  },
+  "timeline.construction": {
+   "value": "Q2 2027",
+   "units": "-",
+   "gate": "canon",
+   "basis": "founder-locked build canon",
+   "require": [
+    "Q2 2027"
+   ],
+   "forbid": [
+    "net gain 2027"
+   ]
+  },
+  "timeline.foak_first_t": {
+   "value": "2030–31",
+   "units": "-",
+   "gate": "canon",
+   "basis": "FOAK first tritium",
+   "require": [],
+   "forbid": []
+  },
+  "timeline.test_burner": {
+   "value": 2032,
+   "units": "-",
+   "gate": "canon",
+   "basis": "~100 MW test unit",
+   "require": [
+    "2032"
+   ],
+   "forbid": []
+  },
+  "timeline.lunar_he3": {
+   "value": "2038–40",
+   "units": "-",
+   "gate": "canon",
+   "basis": "fleet gate",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.tau_cq": {
+   "value": "7-19",
+   "units": "ms",
+   "gate": "BR-L2-A10",
+   "basis": "reduced-order L/R on NIMROD-verified equilibrium; sets SPI trigger speed",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.re_avalanche": {
+   "value": "SEVERE",
+   "units": "-",
+   "gate": "BR-L2-A10",
+   "basis": "E/E_c~1128; multi-MA beam ~70% Ip from mA seed; SPI mitigation = hard design requirement",
+   "require": [],
+   "forbid": [
+    "disruption risk negligible"
+   ]
+  },
+  "breeder.halo_current": {
+   "value": 35,
+   "units": "% of Ip",
+   "gate": "BR-L2-A10",
+   "basis": "VV/first-wall mechanical load basis",
+   "require": [],
+   "forbid": []
+  },
+  "he3.fleet_supply": {
+   "value": "3.6-4.5",
+   "units": "kg/yr (fleet, 4-5 units x 0.9)",
+   "gate": "BR-OUT-2",
+   "basis": "FLEET AGGREGATE at solid-Be TBR 1.19 (~0.9 kg/yr/unit); matches foundry canon ~5-6 units. Per-unit advanced-blanket uplift = BR-L2-A7u (running)",
+   "require": [],
+   "forbid": []
+  },
+  "tritium.burn_rate": {
+   "value": 4.76,
+   "units": "kg-T/fpy/unit",
+   "gate": "BR-OUT-2",
+   "basis": "P_fus 85 MW / 17.6 MeV; surplus = (TBR-1)*4.76",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.tbr_advanced": {
+   "value": "1.42",
+   "units": "(→1.99 kg-T/yr/unit)",
+   "gate": "BR-L2-A7u",
+   "basis": "ADVANCED blanket ceiling: A best solid-Be (ref) (OpenMC ENDF/B-VIII.0). ST centrepost caps inboard coverage; PbLi+solid-Be pushed as far as honest. Fleet/2-units -> 4 kg/yr",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.tritium_per_unit": {
+   "value": "~2.0",
+   "units": "kg-T/yr/unit (advanced blanket)",
+   "gate": "BR-L2-A7u",
+   "basis": "7x the literal-recipe 0.29; the per-unit headline. Literal 0.29 -> solid-Be 0.9 -> advanced ~2.0",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.nt_gamma_suppression": {
+   "value": "31–60",
+   "units": "%",
+   "gate": "BR-L2-A18c",
+   "basis": "cross-scale linear gamma(ky) NT vs PT across ky 0.1–6.0 (ion→low-electron scale); corroborates the quiet-basin advantage. ky=10 unconverged (artifact); linear gamma is a spectrum indicator, not a flux (REG-P13 ETG authoritative)",
+   "require": [],
+   "forbid": []
+  },
+  "breeder.nt_collisionality_robust": {
+   "value": "56–66",
+   "units": "%",
+   "gate": "BR-L2-A13",
+   "basis": "NT transport advantage holds across nu* ×0.25–4 (reproduced) — the NT benefit is not a collisionality artifact",
+   "require": [],
+   "forbid": []
+  },
+  "burner.aic_branch": {
+   "value": "not quenched by warm-fill",
+   "units": "-",
+   "gate": "BU-L2-A7",
+   "basis": "WarpX AIC PIC: warm-fill stabilizes the DCLC loss-cone mode (BU-L2-A5 6.25% knee) but does NOT quench the anisotropy-driven AIC branch — gamma/omega_ci~0.037 FLAT across f=0–10%; a distinct plug-gate caveat (not a showstopper)",
+   "require": [],
+   "forbid": [
+    "warm-fill stabilizes the AIC",
+    "6.25% stabilizes the AIC",
+    "AIC quenched by warm-fill"
+   ]
+  }
+ }
+}

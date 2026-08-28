@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark">
+<title>BR-L2-A22 — CAD-faithful neutronics (STEP-&gt;DAGMC) (local) · Kronos Validators</title><meta name="description" content="Validator for BR-L2-A22: CAD-faithful neutronics (STEP-&gt;DAGMC) (local) (breeder · neutronics). Frozen result and reproduction recipe, 2026-08-27 freeze.">
+<meta name="robots" content="index,follow,max-snippet:-1"><link rel="canonical" href="https://www.kronosfusionenergy.com/Physics_Validation_Simulation/gate/BR-L2-A22.html">
+<meta property="og:title" content="BR-L2-A22 — CAD-faithful neutronics (STEP-&gt;DAGMC) (local) · Kronos Validators"><meta property="og:description" content="Validator for BR-L2-A22: CAD-faithful neutronics (STEP-&gt;DAGMC) (local) (breeder · neutronics). Frozen result and reproduction recipe, 2026-08-27 freeze.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Kronos Fusion Energy">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#141a22;--bg2:#1b2531;--panel:#202a38;--ink:#e6ebf2;--dim:#aeb9c9;--faint:#8fa0b8;
+ --gold:#D4AD5C;--line:rgba(150,165,190,.20);--mono:'Space Mono',ui-monospace,Menlo,monospace;
+ --sans:'Space Grotesk',system-ui,-apple-system,Segoe UI,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}
+.topnav{position:sticky;top:0;z-index:50;background:rgba(15,20,28,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav .in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:11px 20px}
+.topnav .mark{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;letter-spacing:.12em}
+.topnav .orb{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f0d38a,#b8882e)}
+.topnav .navlinks{display:flex;gap:16px;flex-wrap:wrap;font-size:13px}
+.topnav .navlinks a{color:var(--dim)}.topnav .navlinks a:hover{color:var(--gold)}
+.topnav .doi-pill{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint);border:1px solid var(--line);padding:6px 10px;border-radius:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.hero{padding:44px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+h1{font-size:32px;line-height:1.1;margin:0 0 12px}
+.lede{color:var(--dim);max-width:70ch;margin:0 0 8px}
+.canonbar{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.canonbar span{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:5px 10px}
+.canonbar b{color:var(--gold);font-weight:400}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 14px}
+.controls input,.controls select{font:13px var(--sans);background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px 10px}
+.controls input{flex:1;min-width:200px}
+.count{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.grp{margin:26px 0 6px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:6px}
+table.gt{width:100%;border-collapse:collapse;font-size:13.5px}
+table.gt th,table.gt td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.gt th{color:var(--faint);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+table.gt td.sn{font-family:var(--mono);color:var(--gold);white-space:nowrap}
+table.gt tr:hover td{background:rgba(212,173,92,.04)}
+.vb{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;padding:1px 6px;border-radius:3px;border:1px solid;vertical-align:middle}
+.dom{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.livedot{color:#6BBD8A;font-size:11px}
+/* card */
+.card-hero{padding:34px 0 22px;border-bottom:1px solid var(--line)}
+.crumbs{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin:0 0 14px}
+.crumbs a{color:var(--dim)}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.chip{font-family:var(--mono);font-size:11px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:4px 9px}
+.sec{padding:26px 0;border-bottom:1px solid var(--line)}
+.sec h2{font-size:16px;margin:0 0 12px;color:var(--gold);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.metric{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:6px;padding:12px 14px}
+.metric .k{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.metric .v{font-family:var(--mono);font-size:18px;color:var(--ink);margin-top:3px;word-break:break-all}
+.prose{color:var(--dim);max-width:80ch}
+pre.recipe{background:#0f141c;border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;color:#cdd6e4}
+.links a{display:inline-flex;margin:0 10px 8px 0;padding:8px 13px;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-size:13px}
+.links a:hover{border-color:var(--gold);color:var(--gold);text-decoration:none}
+.foot{margin-top:8px}
+@media(max-width:640px){h1{font-size:25px}.topnav .doi-pill{display:none}}
+</style></head><body>
+<nav class="topnav"><div class="in">
+  <a class="mark" href="../index.html" style="color:inherit"><span class="orb"></span><span><b>KRONOS</b>&nbsp;VALIDATORS</span></a>
+  <div class="navlinks">
+    <a href="../index.html">All gates</a>
+    <a href="../index.html#breeder">Breeder</a>
+    <a href="../index.html#burner">Burner</a>
+    <a href="../index.html#shared">Shared</a>
+    <a href="../validators-registry.html">Deck links</a>
+  </div>
+  <a class="doi-pill" href="https://www.kronosfusionenergy.com/publications/de-risking-register.html">REGISTER R0 · <b>CC BY 4.0</b></a>
+</div></nav>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "BR-L2-A22 — CAD-faithful neutronics (STEP->DAGMC) (local)", "description": "Validator for BR-L2-A22: CAD-faithful neutronics (STEP->DAGMC) (local) (breeder · neutronics). Frozen result and reproduction recipe, 2026-08-27 freeze.", "creator": {"@type": "Organization", "name": "Kronos Fusion Energy"}, "isAccessibleForFree": true, "license": "https://creativecommons.org/licenses/by/4.0/", "isPartOf": {"@type": "CreativeWork", "name": "Kronos Physics De-Risking Register", "url": "https://www.kronosfusionenergy.com/publications/de-risking-register.html"}, "url": "https://www.kronosfusionenergy.com/Physics_Validation_Simulation/gate/BR-L2-A22.html"}</script>
+<header class="card-hero"><div class="wrap">
+  <div class="crumbs"><a href="../index.html">All gates</a> · breeder · L2 · neutronics</div>
+  <div class="eyebrow">Validator · Gate BR-L2-A22</div>
+  <h1>CAD-faithful neutronics (STEP-&gt;DAGMC) (local)</h1>
+  <div class="meta-row"><span class="chip">BR-L2-A22</span><span class="vb" style="color:#6BBD8A;border-color:#6BBD8A">reproduced</span><span class="chip">verification card</span>
+    <span class="chip">freeze 2026-08-27</span></div>
+</div></header>
+<main class="wrap">
+
+<div class="sec"><h2>What was computed</h2><p class="prose">CAD-&gt;h5m-&gt;DAGMC-&gt;OpenMC chain PROVEN (openmc rebuilt w/ DAGMC): torus shell exact volume, (n,Xt) 1.014+/-0.004</p></div>
+<div class="sec"><h2>Reproduce this</h2><pre class="recipe"># Reproduce BR-L2-A22 against the frozen record
+pip install kronos-toolkit   # github.com/KronosFE/kronos-toolkit
+python -c &quot;from kronos_toolkit.verify import run_regression; run_regression()&quot;
+# BR-L2-A22 is anchored in the 2026-08-27 freeze spine (verdict: reproduced).</pre></div>
+<div class="sec links"><h2>Sources</h2>
+  <a href="https://www.kronosfusionenergy.com/publications/nuclear-data-uq-for-the-tbr.html">Read the paper (Paper 2.31) →</a>
+  <a href="https://doi.org/10.5281/zenodo.22132200">Deposit — doi:22132200</a>
+  <a href="https://www.kronosfusionenergy.com/publications/de-risking-register.html">Physics De-Risking Register (R0)</a>
+  <a href="../index.html">All gates →</a>
+</div>
+</main>
+<footer class="foot"><div class="wrap" style="padding:26px 0 40px;border-top:1px solid var(--line);color:var(--faint);font-size:12.5px">
+Kronos Fusion Energy · Validators regenerated from the 2026-08-27 freeze · Cite &amp; reproduce — Physics De-Risking Register (R0) <a href="https://doi.org/10.5281/zenodo.22133057">zenodo.22133057</a> · <a href="https://github.com/KronosFE/kronos-toolkit">toolkit</a> · <a href="https://zenodo.org/communities/kronos_fusion_energy">Zenodo</a> · CC BY 4.0.
+Conceptual design and simulation study; no machine has been built; no economics. Every number re-derives from the open deposits.
+</div></footer></body></html>
