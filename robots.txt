@@ -1,0 +1,4 @@
+# kfe-safe-pass
+User-agent: *
+Allow: /
+Sitemap: https://kronosfe.github.io/Physics-Validation-Live_Simulation/sitemap.xml
