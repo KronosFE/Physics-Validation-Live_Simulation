@@ -1,0 +1,82 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_tbrtune.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-tb">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · BREEDING</span>
+    <h3>Tuning the breeding ratio</h3>
+    <p class="kmx-sub">Tritium breeding is a design knob. Enriching the lithium-6 in the blanket raises the breeding ratio — the advanced blanket is set for <em>TBR&nbsp;1.42</em>, comfortably self-sufficient.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="720" height="380" aria-label="TBR vs Li-6 enrichment"></canvas>
+    <div class="kmx-panel">
+      <label>Li-6 enrichment <output class="kmx-e">60%</output></label>
+      <input type="range" class="kmx-se" min="7" max="90" step="1" value="60">
+      <div class="kmx-read">breeding ratio: <b class="kmx-t">—</b></div>
+      <div class="kmx-verdict">—</div>
+      <div class="kmx-facts">self-sufficiency needs TBR &gt; 1</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative breeding model · design point TBR 1.42 · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-tb{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-tb .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-tb h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-tb .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:66ch}
+.kmx-tb .kmx-sub em{color:var(--gold);font-style:normal}
+.kmx-tb .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.kmx-tb .kmx-canvas{flex:1 1 360px;max-width:520px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-tb .kmx-panel{flex:1 1 200px;min-width:190px;padding-top:8px}
+.kmx-tb .kmx-panel label{font-size:12.5px;display:flex;justify-content:space-between}
+.kmx-tb .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-tb input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-tb .kmx-read{margin-top:14px;font-size:13px}.kmx-tb .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-tb .kmx-verdict{margin-top:6px;font-family:'Space Mono',monospace;font-size:12px}
+.kmx-tb .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.kmx-tb .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-tb');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var se=root.querySelector('.kmx-se'),oe=root.querySelector('.kmx-e'),ot=root.querySelector('.kmx-t'),ov=root.querySelector('.kmx-verdict');
+  var W=cv.width,H=cv.height,PADL=52,PADB=44,PADT=20,PADR=16;
+  // TBR(enrich): saturating curve calibrated so 60% -> ~1.42
+  function TBR(e){var x=e/100; return 0.85+0.86*(1-Math.exp(-3.1*x));}
+  function draw(){
+    var e=parseFloat(se.value); oe.value=e+'%'; var tbr=TBR(e);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    var ymin=0.8,ymax=1.8;
+    function X(en){return PADL+(en-7)/(90-7)*(W-PADL-PADR);}
+    function Y(t){return H-PADB-(t-ymin)/(ymax-ymin)*(H-PADT-PADB);}
+    ctx.strokeStyle='#2a333d';ctx.beginPath();ctx.moveTo(PADL,PADT);ctx.lineTo(PADL,H-PADB);ctx.lineTo(W-PADR,H-PADB);ctx.stroke();
+    ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';
+    ctx.fillText('Li-6 enrichment (%)',W/2,H-12);
+    ctx.save();ctx.translate(16,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('breeding ratio  TBR',0,0);ctx.restore();
+    // TBR=1 line
+    ctx.strokeStyle='rgba(233,79,156,0.55)';ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(PADL,Y(1));ctx.lineTo(W-PADR,Y(1));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#e94f9c';ctx.textAlign='left';ctx.fillText('TBR = 1 (self-sufficiency)',PADL+6,Y(1)+14);
+    // curve
+    var grd=ctx.createLinearGradient(PADL,0,W-PADR,0);grd.addColorStop(0,'#5ea0c0');grd.addColorStop(1,'#D4AD5C');
+    ctx.strokeStyle=grd;ctx.lineWidth=2.6;ctx.beginPath();
+    for(var en=7;en<=90;en+=1){var xx=X(en),yy=Y(TBR(en));(en===7)?ctx.moveTo(xx,yy):ctx.lineTo(xx,yy);}ctx.stroke();
+    // design point marker at 60%
+    ctx.strokeStyle='rgba(212,173,92,0.5)';ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(X(60),PADT);ctx.lineTo(X(60),H-PADB);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#D4AD5C';ctx.font="10px 'Space Mono',monospace";ctx.fillText('design 1.42',X(60)+4,PADT+12);
+    // current point
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(X(e),Y(tbr),5,0,6.28);ctx.fill();
+    ot.textContent=tbr.toFixed(2);
+    if(tbr>=1.2){ov.textContent='✓ self-sufficient + surplus';ov.style.color='#7bc47f';}
+    else if(tbr>=1){ov.textContent='△ marginal';ov.style.color='#D4AD5C';}
+    else{ov.textContent='✗ below self-sufficiency';ov.style.color='#e94f9c';}
+  }
+  se.addEventListener('input',draw); draw();
+})();
+</script>

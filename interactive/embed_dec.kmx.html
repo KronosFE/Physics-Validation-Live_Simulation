@@ -1,0 +1,89 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_dec.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — animated direct energy conversion (self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-dec">
+  <div class="kmx-head">
+    <span class="kmx-kicker">AEGIS / METROVOLT · DIRECT CONVERSION</span>
+    <h3>Ions to electricity — no steam</h3>
+    <p class="kmx-sub">Charged fusion products leave the mirror and fan into the expander. Instead of boiling water, they <em>decelerate against biased grids</em> and give their energy straight up as electricity.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="420" aria-label="animated direct energy converter"></canvas>
+  <div class="kmx-legend">
+    <span><i style="background:#5ea0c0"></i>fast ion (high energy)</span>
+    <span><i style="background:#D4AD5C"></i>decelerating</span>
+    <span><i style="background:#7bc47f"></i>collected → current</span>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative direct-energy-conversion model · Q_E 1.318 · +850 MWe @ 440 m · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-dec{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-dec .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:var(--gold)}
+.kmx-dec h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-dec .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:72ch}
+.kmx-dec .kmx-sub em{color:var(--gold);font-style:normal}
+.kmx-dec .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-dec .kmx-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-family:'Space Mono',monospace;font-size:11.5px;color:var(--mut)}
+.kmx-dec .kmx-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.kmx-dec .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-dec');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, cy=H*0.52;
+  var sx=70, x0=130, x1=W-210;                 // source, expander start/end
+  function halfH(x){var f=(x-x0)/(x1-x0); f=Math.max(0,Math.min(1,f)); return 24+f*150;}
+  var grids=[x0+ (x1-x0)*0.42, x0+(x1-x0)*0.64, x0+(x1-x0)*0.84]; // collector grids
+  var volts=['+','++','+++'];
+  var ions=[], collected=0;
+  function spawn(){ions.push({x:sx,y:cy+ (Math.random()-0.5)*20, vx:2.4+Math.random()*0.8, vy:(Math.random()-0.5)*0.9, e:1.0, g:0});}
+  function draw(now){
+    var dt=Math.min(40,now-(draw._l||now)); draw._l=now;
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0c1016'; ctx.fillRect(0,0,W,H);
+    // expander cone outline
+    ctx.strokeStyle='rgba(94,160,192,0.35)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(x0,cy-24);ctx.lineTo(x1,cy-halfH(x1));ctx.moveTo(x0,cy+24);ctx.lineTo(x1,cy+halfH(x1));ctx.stroke();
+    // source / mirror throat
+    var g=ctx.createRadialGradient(sx,cy,2,sx,cy,34);g.addColorStop(0,'rgba(255,200,225,0.95)');g.addColorStop(1,'rgba(124,47,126,0.1)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(sx,cy,30,0,6.2832);ctx.fill();
+    ctx.fillStyle='#ffd0e2';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';ctx.fillText('mirror',sx,cy-38);ctx.fillText('throat',sx,cy+46);
+    // grids
+    ctx.textAlign='center';
+    grids.forEach(function(gx,i){var hh=halfH(gx);ctx.strokeStyle='rgba(212,173,92,0.7)';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(gx,cy-hh);ctx.lineTo(gx,cy+hh);ctx.stroke();
+      ctx.fillStyle='#D4AD5C';ctx.font="12px 'Space Mono',monospace";ctx.fillText(volts[i],gx,cy-hh-6);});
+    // collector plate
+    ctx.fillStyle='rgba(123,196,127,0.14)';ctx.fillRect(x1,cy-halfH(x1),16,2*halfH(x1));
+    ctx.strokeStyle='#7bc47f';ctx.lineWidth=2;ctx.strokeRect(x1,cy-halfH(x1),16,2*halfH(x1));
+    ctx.fillStyle='#7bc47f';ctx.font="12px 'Space Grotesk',sans-serif";ctx.textAlign='left';
+    ctx.fillText('collector',x1-4,cy-halfH(x1)-10);
+    // spawn
+    draw._a=(draw._a||0)+dt; while(draw._a>55){draw._a-=55;spawn();}
+    // ions
+    ions.forEach(function(p){
+      // decelerate when crossing a grid
+      for(var i=p.g;i<grids.length;i++){ if(p.x>=grids[i]){p.vx*=0.62;p.e*=0.62;p.g=i+1;} }
+      p.x+=p.vx; p.y+=p.vy;
+      var col = p.e>0.6?'#5ea0c0':(p.e>0.28?'#D4AD5C':'#7bc47f');
+      ctx.strokeStyle=col;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*3,p.y-p.vy*3);ctx.stroke();
+      if(p.x>=x1){p.done=true;collected++;}
+    });
+    ions=ions.filter(function(p){return !p.done && p.vx>0.15 && p.x<W;});
+    // electricity out panel
+    ctx.fillStyle='#0e141b';ctx.strokeStyle='#2a333d';ctx.lineWidth=1;ctx.fillRect(W-180,cy-40,164,80);ctx.strokeRect(W-180,cy-40,164,80);
+    ctx.fillStyle='#7bc47f';ctx.font="13px 'Space Grotesk',sans-serif";ctx.textAlign='left';ctx.fillText('⚡ electricity',W-166,cy-16);
+    ctx.fillStyle='#D4AD5C';ctx.font="12px 'Space Mono',monospace";ctx.fillText('Q_E = 1.318',W-166,cy+6);
+    ctx.fillStyle='#e2e8ef';ctx.fillText('+850 MWe',W-166,cy+26);
+    ctx.textAlign='left';
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

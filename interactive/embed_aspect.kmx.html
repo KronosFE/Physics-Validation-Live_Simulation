@@ -1,0 +1,74 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_aspect.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-as">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · THE SHAPE</span>
+    <h3>Why a spherical tokamak</h3>
+    <p class="kmx-sub">Squeeze the aspect ratio and the plasma hugs the center column — a <em>compact</em>, high-pressure shape that does more with less field. Hyperion sits at A ≈ 1.8.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="520" height="340" aria-label="aspect ratio morph"></canvas>
+    <div class="kmx-panel">
+      <label>aspect ratio A = R/a <output class="kmx-a">1.8</output></label>
+      <input type="range" class="kmx-sa" min="1.3" max="3.5" step="0.05" value="1.8">
+      <div class="kmx-read">shape: <b class="kmx-cls">—</b></div>
+      <div class="kmx-facts">low A → compact, high β, efficient field use</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative geometry · Hyperion A ≈ 1.8 · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-as{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-as .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-as h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-as .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:66ch}
+.kmx-as .kmx-sub em{color:var(--pink);font-style:normal}
+.kmx-as .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.kmx-as .kmx-canvas{flex:1 1 320px;max-width:520px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-as .kmx-panel{flex:1 1 220px;min-width:200px;padding-top:8px}
+.kmx-as .kmx-panel label{font-size:12.5px;display:flex;justify-content:space-between}
+.kmx-as .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-as input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-as .kmx-read{margin-top:14px;font-size:13px}.kmx-as .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-as .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.kmx-as .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-as');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var sa=root.querySelector('.kmx-sa'),oa=root.querySelector('.kmx-a'),ocl=root.querySelector('.kmx-cls');
+  var W=cv.width,H=cv.height,cy=H/2,t0=performance.now();
+  function draw(now){
+    var A=parseFloat(sa.value);oa.value=A.toFixed(1);
+    var pulse=0.05*Math.sin((now-t0)/700);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    // geometry: center column at fixed x; plasma minor radius a, major radius R=A*a
+    var aMinor=64, R=A*aMinor, kap=2.6-0.5*(A-1.3), delta=-0.30;
+    var postX=90, cxp=postX+ (R- (A>1?0:0)) ; // plasma center at postX + (R - Rcolumn) approx
+    // place plasma so inboard edge ~ near post: center = postX + (R - inner)/... simpler: center = postX + a*(A-1)+a = postX + a*A? keep inboard fixed near post
+    var inboard=postX+14; var cx=inboard+aMinor; // inboard edge fixed near post; center = inboard + a
+    // center column
+    ctx.strokeStyle='rgba(94,160,192,0.6)';ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(postX,cy-kap*aMinor-14);ctx.lineTo(postX,cy+kap*aMinor+14);ctx.stroke();
+    ctx.fillStyle='#5ea0c0';ctx.font="10px 'Space Mono',monospace";ctx.textAlign='center';ctx.fillText('center',postX,cy-kap*aMinor-20);ctx.fillText('column',postX,cy+kap*aMinor+30);
+    // plasma D-shape
+    var pts=[];for(var i=0;i<=140;i++){var th=i/140*2*Math.PI;pts.push([cx+aMinor*Math.cos(th+Math.asin(delta)*Math.sin(th)), cy+kap*aMinor*Math.sin(th)]);}
+    var g=ctx.createRadialGradient(cx,cy,4,cx,cy,aMinor*1.2);g.addColorStop(0,'rgba(255,200,225,'+(0.9+pulse)+')');g.addColorStop(.55,'rgba(233,79,156,0.5)');g.addColorStop(1,'rgba(124,47,126,0.08)');
+    ctx.beginPath();for(var j=0;j<pts.length;j++){j?ctx.lineTo(pts[j][0],pts[j][1]):ctx.moveTo(pts[j][0],pts[j][1]);}ctx.closePath();ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='#D4AD5C';ctx.lineWidth=2;ctx.stroke();
+    // R indicator
+    ctx.strokeStyle='rgba(212,173,92,0.4)';ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(postX,cy);ctx.lineTo(cx,cy);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#D4AD5C';ctx.textAlign='center';ctx.fillText('R',(postX+cx)/2,cy-6);
+    var cls=A<=1.6?'spherical torus (compact)':A<=2.2?'low aspect':A<=2.8?'conventional':'high aspect (thin)';
+    ocl.textContent=cls;
+  }
+  sa.addEventListener('input',function(){}); // redraw loop handles it
+  requestAnimationFrame(function loop(n){draw(n);requestAnimationFrame(loop);});
+})();
+</script>

@@ -1,0 +1,82 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_negd.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — negative-triangularity benefit comparison (self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-nd">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · DESIGN CHOICE</span>
+    <h3>Why negative triangularity</h3>
+    <p class="kmx-sub">Most tokamaks point the plasma's D inward (δ&nbsp;&gt;&nbsp;0). Hyperion flips it — the D points <em>outward</em> (δ&nbsp;=&nbsp;−0.30). It trades a familiar shape for a calmer, reactor-friendlier edge.</p>
+  </div>
+  <div class="kmx-cols">
+    <canvas class="kmx-canvas" width="520" height="300" aria-label="conventional vs negative triangularity plasma shapes"></canvas>
+    <table class="kmx-score">
+      <thead><tr><th></th><th>Conventional +δ</th><th>Hyperion −δ</th></tr></thead>
+      <tbody>
+        <tr><td>Edge instabilities (ELMs)</td><td><span class="p amber">ELMy</span></td><td><span class="p green">suppressed</span></td></tr>
+        <tr><td>Divertor heat pulses</td><td><span class="p amber">transient</span></td><td><span class="p green">steadier</span></td></tr>
+        <tr><td>Core confinement</td><td><span class="p green">good</span></td><td><span class="p green">comparable</span></td></tr>
+        <tr><td>Reactor robustness</td><td><span class="p grey">baseline</span></td><td><span class="p green">edge</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative comparison · negative-triangularity edge behaviour is an active research result · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-nd{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--amber:#d9a441;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-nd .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-nd h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-nd .kmx-sub{margin:0 0 14px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:68ch}
+.kmx-nd .kmx-sub em{color:var(--pink);font-style:normal}
+.kmx-nd .kmx-cols{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.kmx-nd .kmx-canvas{flex:1 1 320px;max-width:520px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-nd .kmx-score{flex:1 1 300px;border-collapse:collapse;font-size:13px;min-width:290px}
+.kmx-nd .kmx-score th{color:var(--mut);font-weight:500;text-align:left;padding:6px 8px;font-size:11.5px;border-bottom:1px solid #1c2530}
+.kmx-nd .kmx-score td{padding:8px;border-bottom:1px solid #12181f;color:var(--txt)}
+.kmx-nd .kmx-score tr:nth-child(even) td{background:#0e141b}
+.kmx-nd .kmx-score td:first-child{color:var(--mut);font-size:12px}
+.kmx-nd .p{display:inline-block;padding:2px 9px;border-radius:20px;font-family:'Space Mono',monospace;font-size:11px}
+.kmx-nd .p.green{background:rgba(123,196,127,.16);color:#7bc47f}
+.kmx-nd .p.amber{background:rgba(217,164,65,.16);color:#d9a441}
+.kmx-nd .p.grey{background:rgba(135,146,160,.14);color:#8792a0}
+.kmx-nd .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-nd');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, t0=performance.now();
+  function shape(cx,cy,a,kap,delta,glow){
+    var pts=[];for(var i=0;i<=120;i++){var th=i/120*2*Math.PI;
+      pts.push([cx+a*Math.cos(th+Math.asin(delta)*Math.sin(th)), cy+kap*a*Math.sin(th)]);}
+    var g=ctx.createRadialGradient(cx,cy,3,cx,cy,a*1.1);
+    g.addColorStop(0,'rgba(255,200,225,'+(0.85+glow)+')');g.addColorStop(.55,'rgba(233,79,156,0.5)');g.addColorStop(1,'rgba(124,47,126,0.08)');
+    ctx.beginPath();for(var j=0;j<pts.length;j++){j?ctx.lineTo(pts[j][0],pts[j][1]):ctx.moveTo(pts[j][0],pts[j][1]);}ctx.closePath();
+    ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='#D4AD5C';ctx.lineWidth=2;ctx.stroke();
+  }
+  function centerpost(cx,cyt,cyb){ctx.strokeStyle='rgba(94,160,192,0.5)';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(cx,cyt);ctx.lineTo(cx,cyb);ctx.stroke();}
+  function draw(now){
+    var pulse=0.06*Math.sin((now-t0)/700);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    var cyT=H/2+8, a=58, kap=1.7;
+    // conventional +delta (left), center post to its LEFT
+    centerpost(W*0.06,cyT-a*kap-6,cyT+a*kap+6);
+    shape(W*0.30,cyT,a,kap,0.5,pulse);
+    // Hyperion -delta (right), center post to its LEFT
+    centerpost(W*0.56,cyT-a*kap-6,cyT+a*kap+6);
+    shape(W*0.80,cyT,a,kap,-0.30,pulse);
+    ctx.fillStyle='#8792a0';ctx.font="12px 'Space Grotesk',sans-serif";ctx.textAlign='center';
+    ctx.fillText('Conventional',W*0.30,32);ctx.fillText('δ = +0.5  (points in)',W*0.30,H-14);
+    ctx.fillStyle='#D4AD5C';ctx.fillText('Hyperion',W*0.80,32);
+    ctx.fillStyle='#8792a0';ctx.fillText('δ = −0.30  (points out)',W*0.80,H-14);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

@@ -1,0 +1,59 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_sloshing.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-sl">
+  <div class="kmx-head">
+    <span class="kmx-kicker">AEGIS / METROVOLT · CONFINEMENT</span>
+    <h3>Sloshing ions in the mirror well</h3>
+    <p class="kmx-sub">Fast ions injected at an angle bounce between the high-field plugs, lingering at their <em>turning points</em> — building pressure where it holds best.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="300" aria-label="sloshing ion orbit in a magnetic mirror"></canvas>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative guiding-centre motion · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-sl{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-sl .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:var(--gold)}
+.kmx-sl h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-sl .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:70ch}
+.kmx-sl .kmx-sub em{color:var(--pink);font-style:normal}
+.kmx-sl .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-sl .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-sl');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height,t0=performance.now(),cy=H*0.55,amp=W*0.34,cx=W/2;
+  function B(z){return 1+15*(Math.exp(-Math.pow((z+0.85)/0.10,2))+Math.exp(-Math.pow((z-0.85)/0.10,2)));}
+  var trail=[];
+  function draw(now){
+    var ph=(now-t0)/1000;
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    // field profile (top, faint)
+    ctx.strokeStyle='rgba(94,160,192,0.4)';ctx.lineWidth=1.5;ctx.beginPath();
+    for(var i=0;i<=200;i++){var z=-1+2*i/200;var x=cx+z*amp;var y=cy-70-B(z)/16*40;i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();
+    ctx.fillStyle='#5ea0c0';ctx.font="10px 'Space Mono',monospace";ctx.textAlign='left';ctx.fillText('B(z)',cx-amp,cy-118);
+    // plug markers
+    [-0.85,0.85].forEach(function(zp){var x=cx+zp*amp;ctx.strokeStyle='rgba(212,173,92,0.5)';ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(x,cy-95);ctx.lineTo(x,cy+70);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='#D4AD5C';ctx.textAlign='center';ctx.fillText('plug',x,cy+86);});
+    ctx.fillStyle='#e94f9c';ctx.fillText('central cell',cx,cy+86);
+    // sloshing motion: turning points near plugs, slow there
+    var z=0.80*Math.sin(ph*1.6); // bounded within |z|<0.85, lingers at extremes (sinusoid slows at turns)
+    var ix=cx+z*amp, iy=cy+18*Math.sin(ph*20); // gyration wiggle
+    trail.push([ix,iy]); if(trail.length>60)trail.shift();
+    ctx.lineWidth=2;
+    for(var k=1;k<trail.length;k++){ctx.strokeStyle='rgba(233,79,156,'+(k/trail.length*0.7)+')';ctx.beginPath();ctx.moveTo(trail[k-1][0],trail[k-1][1]);ctx.lineTo(trail[k][0],trail[k][1]);ctx.stroke();}
+    var g=ctx.createRadialGradient(ix,iy,1,ix,iy,9);g.addColorStop(0,'#ffd0e2');g.addColorStop(1,'rgba(233,79,156,0.2)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(ix,iy,8,0,6.28);ctx.fill();
+    ctx.fillStyle='#8792a0';ctx.font="10px 'Space Mono',monospace";ctx.textAlign='center';ctx.fillText('fast ion',ix,iy-14);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

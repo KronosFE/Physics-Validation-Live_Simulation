@@ -1,0 +1,73 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_bootstrap.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-bs">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · CURRENT DRIVE</span>
+    <h3>The plasma drives its own current</h3>
+    <p class="kmx-sub">At high pressure the plasma generates a <em>bootstrap</em> current for free — the more it self-drives, the less external power the machine spends holding it up.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="420" height="330" aria-label="bootstrap current fraction donut"></canvas>
+    <div class="kmx-panel">
+      <label>poloidal beta β<sub>p</sub> <output class="kmx-bp">2.6</output></label>
+      <input type="range" class="kmx-sp" min="0.5" max="3.2" step="0.05" value="2.6">
+      <div class="kmx-read">bootstrap fraction: <b class="kmx-fb">—</b></div>
+      <div class="kmx-verdict">—</div>
+      <div class="kmx-facts">less external drive = higher net gain</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative current-drive model · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-bs{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-bs .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-bs h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-bs .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:66ch}
+.kmx-bs .kmx-sub em{color:var(--gold);font-style:normal}
+.kmx-bs .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.kmx-bs .kmx-canvas{flex:1 1 300px;max-width:420px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-bs .kmx-panel{flex:1 1 220px;min-width:200px;padding-top:8px}
+.kmx-bs .kmx-panel label{font-size:12.5px;display:flex;justify-content:space-between}
+.kmx-bs .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-bs input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-bs .kmx-read{margin-top:14px;font-size:13px}.kmx-bs .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-bs .kmx-verdict{margin-top:6px;font-family:'Space Mono',monospace;font-size:12px}
+.kmx-bs .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.kmx-bs .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-bs');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var sp=root.querySelector('.kmx-sp'),obp=root.querySelector('.kmx-bp'),ofb=root.querySelector('.kmx-fb'),ov=root.querySelector('.kmx-verdict');
+  var W=cv.width,H=cv.height,cx=W/2,cy=H/2,R=95,r=58;
+  function fbs(bp){return Math.max(0.05,Math.min(0.92,0.12+0.24*bp));}
+  function draw(){
+    var bp=parseFloat(sp.value);obp.value=bp.toFixed(1);var f=fbs(bp);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    var a0=-Math.PI/2, a1=a0+f*2*Math.PI;
+    // bootstrap (gold)
+    ctx.beginPath();ctx.arc(cx,cy,R,a0,a1);ctx.arc(cx,cy,r,a1,a0,true);ctx.closePath();ctx.fillStyle='#D4AD5C';ctx.fill();
+    // external drive (blue)
+    ctx.beginPath();ctx.arc(cx,cy,R,a1,a0+2*Math.PI);ctx.arc(cx,cy,r,a0+2*Math.PI,a1,true);ctx.closePath();ctx.fillStyle='#5ea0c0';ctx.fill();
+    // center label
+    ctx.fillStyle='#e2e8ef';ctx.font="26px 'Space Grotesk',sans-serif";ctx.textAlign='center';ctx.fillText((f*100).toFixed(0)+'%',cx,cy+4);
+    ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";ctx.fillText('bootstrap',cx,cy+22);
+    // legend
+    ctx.textAlign='left';ctx.fillStyle='#D4AD5C';ctx.fillRect(cx-70,H-26,10,10);ctx.fillStyle='#8792a0';ctx.fillText('self-driven',cx-54,H-17);
+    ctx.fillStyle='#5ea0c0';ctx.fillRect(cx+30,H-26,10,10);ctx.fillStyle='#8792a0';ctx.fillText('external',cx+46,H-17);
+    ofb.textContent=(f*100).toFixed(0)+'%';
+    if(f>=0.6){ov.textContent='✓ mostly self-driven';ov.style.color='#7bc47f';}
+    else if(f>=0.4){ov.textContent='△ moderate';ov.style.color='#D4AD5C';}
+    else{ov.textContent='needs more external drive';ov.style.color='#5ea0c0';}
+  }
+  sp.addEventListener('input',draw);draw();
+})();
+</script>

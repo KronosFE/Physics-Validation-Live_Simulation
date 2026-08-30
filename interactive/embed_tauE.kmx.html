@@ -1,0 +1,76 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_tauE.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-te">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · CONFINEMENT</span>
+    <h3>Holding the heat longer</h3>
+    <p class="kmx-sub">Energy confinement improves with plasma current. Hyperion runs at <em>9.66&nbsp;MA</em> with an H-mode confinement boost — the CGYRO result pushes it further still.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="720" height="360" aria-label="confinement time vs current"></canvas>
+    <div class="kmx-panel">
+      <label>H-factor (confinement) <output class="kmx-h">1.4</output></label>
+      <input type="range" class="kmx-sh" min="0.8" max="2.0" step="0.05" value="1.4">
+      <div class="kmx-read">τ_E at 9.66 MA: <b class="kmx-tt">—</b></div>
+      <div class="kmx-facts">CGYRO: −40% ion / −80% e transport</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative H-mode scaling · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-te{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-te .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-te h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-te .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:66ch}
+.kmx-te .kmx-sub em{color:var(--gold);font-style:normal}
+.kmx-te .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.kmx-te .kmx-canvas{flex:1 1 360px;max-width:520px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-te .kmx-panel{flex:1 1 200px;min-width:190px;padding-top:8px}
+.kmx-te .kmx-panel label{font-size:12.5px;display:flex;justify-content:space-between}
+.kmx-te .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-te input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-te .kmx-read{margin-top:14px;font-size:13px}.kmx-te .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-te .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.kmx-te .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-te');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var sh=root.querySelector('.kmx-sh'),oh=root.querySelector('.kmx-h'),ott=root.querySelector('.kmx-tt');
+  var W=cv.width,H=cv.height,PADL=54,PADB=44,PADT=20,PADR=16,Imax=12;
+  function tau(I,Hf){return Hf*0.11*Math.pow(I,0.9);}  // arbitrary-unit H-mode-like scaling
+  function draw(){
+    var Hf=parseFloat(sh.value);oh.value=Hf.toFixed(2);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    var tmax=tau(Imax,2.0);
+    function X(I){return PADL+I/Imax*(W-PADL-PADR);}
+    function Y(t){return H-PADB-t/tmax*(H-PADT-PADB);}
+    ctx.strokeStyle='#2a333d';ctx.beginPath();ctx.moveTo(PADL,PADT);ctx.lineTo(PADL,H-PADB);ctx.lineTo(W-PADR,H-PADB);ctx.stroke();
+    ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';
+    ctx.fillText('plasma current  Iₚ (MA)',W/2,H-12);
+    ctx.save();ctx.translate(16,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('confinement time  τ_E (a.u.)',0,0);ctx.restore();
+    // reference H=1 curve faint
+    ctx.strokeStyle='rgba(120,130,145,0.3)';ctx.lineWidth=1;ctx.beginPath();
+    for(var I=0.2;I<=Imax;I+=0.2){var xx=X(I),yy=Y(tau(I,1.0));(I<=0.2)?ctx.moveTo(xx,yy):ctx.lineTo(xx,yy);}ctx.stroke();
+    ctx.fillStyle='rgba(120,130,145,0.6)';ctx.textAlign='left';ctx.fillText('H = 1',X(Imax)-40,Y(tau(Imax,1.0))-4);
+    // active curve
+    var grd=ctx.createLinearGradient(PADL,0,W-PADR,0);grd.addColorStop(0,'#5ea0c0');grd.addColorStop(1,'#e94f9c');
+    ctx.strokeStyle=grd;ctx.lineWidth=2.6;ctx.beginPath();
+    for(var I2=0.2;I2<=Imax;I2+=0.2){var x2=X(I2),y2=Y(tau(I2,Hf));(I2<=0.2)?ctx.moveTo(x2,y2):ctx.lineTo(x2,y2);}ctx.stroke();
+    // design current 9.66
+    ctx.strokeStyle='rgba(212,173,92,0.5)';ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(X(9.66),PADT);ctx.lineTo(X(9.66),H-PADB);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#D4AD5C';ctx.textAlign='center';ctx.fillText('9.66 MA',X(9.66),PADT+12);
+    var td=tau(9.66,Hf);ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(X(9.66),Y(td),5,0,6.28);ctx.fill();
+    ott.textContent=td.toFixed(2)+' (a.u.)';
+  }
+  sh.addEventListener('input',draw);draw();
+})();
+</script>

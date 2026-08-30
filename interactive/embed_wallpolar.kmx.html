@@ -1,0 +1,65 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_wallpolar.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-wp">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · FIRST WALL</span>
+    <h3>Where the neutrons land</h3>
+    <p class="kmx-sub">Neutron loading isn't uniform — it peaks on the <em>outboard</em> midplane facing the plasma. Mapping it sets the first-wall and blanket design.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="360" aria-label="poloidal neutron wall loading polar plot"></canvas>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative poloidal distribution (relative) · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-wp{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-wp .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-wp h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-wp .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:70ch}
+.kmx-wp .kmx-sub em{color:var(--pink);font-style:normal}
+.kmx-wp .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-wp .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-wp');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height,cx=W*0.36,cy=H/2,t0=performance.now(),R=120;
+  function load(th){return 0.45+0.55*Math.max(0,Math.cos(th));} // peaks outboard (th=0)
+  function draw(now){
+    var sweep=((now-t0)/1400)%(2*Math.PI);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    // grid rings
+    ctx.strokeStyle='#1c2530';ctx.lineWidth=1;[0.5,0.75,1].forEach(function(f){ctx.beginPath();ctx.arc(cx,cy,R*f,0,6.28);ctx.stroke();});
+    // filled polar load
+    ctx.beginPath();
+    for(var i=0;i<=180;i++){var th=i/180*2*Math.PI;var r=R*load(th);var x=cx+r*Math.cos(th),y=cy-r*Math.sin(th);i?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+    ctx.closePath();
+    var g=ctx.createRadialGradient(cx,cy,10,cx,cy,R);g.addColorStop(0,'rgba(94,160,192,0.25)');g.addColorStop(1,'rgba(233,79,156,0.4)');
+    ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='#e94f9c';ctx.lineWidth=2;ctx.stroke();
+    // center post (inboard, left)
+    ctx.strokeStyle='rgba(94,160,192,0.6)';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(cx-R-14,cy-R*0.7);ctx.lineTo(cx-R-14,cy+R*0.7);ctx.stroke();
+    // sweep line
+    var sx=cx+R*1.05*Math.cos(sweep),sy=cy-R*1.05*Math.sin(sweep);
+    ctx.strokeStyle='rgba(212,173,92,0.7)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(sx,sy);ctx.stroke();
+    var lr=R*load(sweep);ctx.fillStyle='#D4AD5C';ctx.beginPath();ctx.arc(cx+lr*Math.cos(sweep),cy-lr*Math.sin(sweep),4,0,6.28);ctx.fill();
+    // labels
+    ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';
+    ctx.fillText('outboard (peak)',cx+R+42,cy+4);ctx.fillText('inboard',cx-R-30,cy-R-6);
+    ctx.fillText('top',cx,cy-R-10);ctx.fillText('bottom',cx,cy+R+16);
+    // readout
+    ctx.textAlign='left';ctx.fillStyle='#e2e8ef';ctx.font="13px 'Space Grotesk',sans-serif";
+    ctx.fillText('poloidal neutron loading',W*0.68,cy-40);
+    ctx.fillStyle='#e94f9c';ctx.font="12px 'Space Mono',monospace";ctx.fillText('peak / avg  ≈ 1.9×',W*0.68,cy-16);
+    ctx.fillStyle='#5ea0c0';ctx.fillText('outboard peak at θ = 0',W*0.68,cy+6);
+    ctx.fillStyle='#8792a0';ctx.fillText('θ sweep = '+(sweep*180/Math.PI).toFixed(0)+'°',W*0.68,cy+28);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

@@ -1,0 +1,77 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_beta.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-bt">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · STABILITY</span>
+    <h3>Living inside the stability limit</h3>
+    <p class="kmx-sub">Spherical tokamaks carry high plasma pressure (β) efficiently. The operating point sits safely below the <em>Troyon</em> stability limit — margin, not the edge.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="720" height="330" aria-label="normalized beta vs Troyon limit"></canvas>
+    <div class="kmx-panel">
+      <label>normalized beta β<sub>N</sub> <output class="kmx-bn">3.2</output></label>
+      <input type="range" class="kmx-sb" min="1" max="6" step="0.1" value="3.2">
+      <div class="kmx-read">margin to limit: <b class="kmx-mg">—</b></div>
+      <div class="kmx-verdict">—</div>
+      <div class="kmx-facts">ST Troyon limit β<sub>N</sub> ≈ 5.0</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative stability model · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-bt{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-bt .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-bt h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-bt .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:66ch}
+.kmx-bt .kmx-sub em{color:var(--pink);font-style:normal}
+.kmx-bt .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.kmx-bt .kmx-canvas{flex:1 1 340px;max-width:520px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-bt .kmx-panel{flex:1 1 200px;min-width:190px;padding-top:8px}
+.kmx-bt .kmx-panel label{font-size:12.5px;display:flex;justify-content:space-between}
+.kmx-bt .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-bt input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-bt .kmx-read{margin-top:14px;font-size:13px}.kmx-bt .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-bt .kmx-verdict{margin-top:6px;font-family:'Space Mono',monospace;font-size:12px}
+.kmx-bt .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.kmx-bt .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-bt');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var sb=root.querySelector('.kmx-sb'),obn=root.querySelector('.kmx-bn'),omg=root.querySelector('.kmx-mg'),ov=root.querySelector('.kmx-verdict');
+  var W=cv.width,H=cv.height,LIMIT=5.0,BMAX=6;
+  function draw(){
+    var bn=parseFloat(sb.value);obn.value=bn.toFixed(1);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    var gx=50,gw=W-100,gy=H*0.44,gh=48;
+    // stable (green) then unstable (pink) zones
+    var lx=gx+gw*LIMIT/BMAX;
+    ctx.fillStyle='rgba(123,196,127,0.12)';ctx.fillRect(gx,gy,lx-gx,gh);
+    ctx.fillStyle='rgba(233,79,156,0.12)';ctx.fillRect(lx,gy,gx+gw-lx,gh);
+    ctx.strokeStyle='#e94f9c';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(lx,gy-14);ctx.lineTo(lx,gy+gh+14);ctx.stroke();
+    ctx.fillStyle='#e94f9c';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';ctx.fillText('Troyon limit '+LIMIT.toFixed(1),lx,gy-20);
+    ctx.fillStyle='#7bc47f';ctx.textAlign='left';ctx.fillText('stable',gx+6,gy+gh+26);
+    ctx.fillStyle='#e94f9c';ctx.textAlign='right';ctx.fillText('unstable',gx+gw-6,gy+gh+26);
+    // operating fill
+    var ox=gx+gw*bn/BMAX;
+    var grd=ctx.createLinearGradient(gx,0,ox,0);grd.addColorStop(0,'#5ea0c0');grd.addColorStop(1, bn<LIMIT?'#7bc47f':'#e94f9c');
+    ctx.fillStyle=grd;ctx.fillRect(gx,gy,ox-gx,gh);
+    ctx.fillStyle='#fff';ctx.fillRect(ox-2,gy-6,4,gh+12);
+    ctx.fillStyle='#e2e8ef';ctx.font="16px 'Space Grotesk',sans-serif";ctx.textAlign='center';ctx.fillText('β_N = '+bn.toFixed(1),ox,gy-24);
+    var mg=(LIMIT-bn)/LIMIT*100;
+    omg.textContent=(mg>=0? mg.toFixed(0)+'% below':'over by '+(-mg).toFixed(0)+'%');
+    if(bn<=LIMIT*0.8){ov.textContent='✓ comfortable margin';ov.style.color='#7bc47f';}
+    else if(bn<=LIMIT){ov.textContent='△ approaching limit';ov.style.color='#D4AD5C';}
+    else{ov.textContent='✗ beyond Troyon limit';ov.style.color='#e94f9c';}
+  }
+  sb.addEventListener('input',draw);draw();
+})();
+</script>

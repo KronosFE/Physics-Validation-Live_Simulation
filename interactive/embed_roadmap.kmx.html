@@ -1,0 +1,67 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_roadmap.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · Canonical strategy & timeline (locked)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-rm">
+  <div class="kmx-head">
+    <span class="kmx-kicker">KRONOS · ROADMAP</span>
+    <h3>From design to a fleet</h3>
+    <p class="kmx-sub">A staged path: de-risk now, break ground in 2027, first tritium at the start of the next decade, then repeatable burner units toward a fleet.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="250" aria-label="program roadmap timeline"></canvas>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · target schedule, subject to funding & licensing · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-rm{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-rm .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-rm h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-rm .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:72ch}
+.kmx-rm .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-rm .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-rm');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, t0=performance.now();
+  var ms=[
+    {y:2026,t:0.02,l:'Now',s:'design · de-risking'},
+    {y:2027,t:0.18,l:'Q2 2027',s:'construction start'},
+    {y:2031,t:0.44,l:'2030–31',s:'first tritium (breeder)'},
+    {y:2032,t:0.60,l:'2032',s:'burner test (WHAM-class)'},
+    {y:2036,t:0.78,l:'2036',s:'first fleet units'},
+    {y:2050,t:0.98,l:'2050',s:'~5–6 breeders · ~90 burners'}
+  ];
+  var LX=50,RX=W-40,ay=110;
+  function draw(now){
+    var sweep=((now-t0)%9000)/9000;
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    // baseline
+    ctx.strokeStyle='#2a333d';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(LX,ay);ctx.lineTo(RX,ay);ctx.stroke();
+    // progress sweep
+    var sx=LX+(RX-LX)*sweep;
+    var grd=ctx.createLinearGradient(LX,0,sx,0);grd.addColorStop(0,'#5ea0c0');grd.addColorStop(1,'#e94f9c');
+    ctx.strokeStyle=grd;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(LX,ay);ctx.lineTo(sx,ay);ctx.stroke();
+    ctx.fillStyle='#e94f9c';ctx.beginPath();ctx.arc(sx,ay,4,0,6.28);ctx.fill();
+    ms.forEach(function(m,i){
+      var x=LX+(RX-LX)*m.t, reached=sweep>=m.t;
+      ctx.strokeStyle=reached?'#D4AD5C':'#39424d';ctx.lineWidth=2;
+      var up=(i%2===0); var ny=up?ay-16:ay+16;
+      ctx.beginPath();ctx.moveTo(x,ay);ctx.lineTo(x,ny);ctx.stroke();
+      ctx.fillStyle=reached?'#D4AD5C':'#4a5560';ctx.beginPath();ctx.arc(x,ay,reached?5:3.5,0,6.28);ctx.fill();
+      ctx.textAlign='center';
+      ctx.fillStyle=reached?'#e2e8ef':'#6b7683';ctx.font="bold 12px 'Space Grotesk',sans-serif";
+      ctx.fillText(m.l,x,up?ny-22:ny+16);
+      ctx.fillStyle=reached?'#8792a0':'#5a636e';ctx.font="10px 'Space Mono',monospace";
+      ctx.fillText(m.s,x,up?ny-8:ny+30);
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

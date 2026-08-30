@@ -1,0 +1,84 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_products.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — neutron-to-products (materials wedge, self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-pr">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · THE PRODUCT</span>
+    <h3>Sell the materials, not the electricity</h3>
+    <p class="kmx-sub">Every fusion neutron is a manufacturing tool. In the blanket it makes things the world is short of — starting with <em>tritium</em>, the only bankable base, plus a platform for helium-3 and medical isotopes.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="360" aria-label="neutron to materials products flow"></canvas>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative product flow · outputs only, no economics · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-pr{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-pr .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-pr h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-pr .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:72ch}
+.kmx-pr .kmx-sub em{color:var(--gold);font-style:normal}
+.kmx-pr .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-pr .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-pr');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, t0=performance.now();
+  var src={x:70,y:H/2}, blk={x:W*0.34,y:H/2};
+  var bins=[
+    {y:H*0.24,col:'#D4AD5C',name:'Tritium',tag:'fuel · bankable base',sub:'~2.0 kg-T/yr per unit'},
+    {y:H*0.52,col:'#5ea0c0',name:'Helium-3',tag:'platform output',sub:'quantum / medical / defense'},
+    {y:H*0.80,col:'#e94f9c',name:'Medical isotopes',tag:'flagship',sub:'high-value, short supply'}
+  ];
+  var binx=W*0.72, particles=[];
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function draw(now){
+    var dt=Math.min(40,now-(draw._l||now)); draw._l=now;
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    // source
+    var g=ctx.createRadialGradient(src.x,src.y,3,src.x,src.y,26);g.addColorStop(0,'rgba(255,200,225,.95)');g.addColorStop(1,'rgba(124,47,126,.1)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(src.x,src.y,24,0,6.28);ctx.fill();
+    ctx.fillStyle='#ffd0e2';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';ctx.fillText('plasma',src.x,src.y-30);ctx.fillText('neutrons',src.x,src.y+38);
+    // blanket
+    ctx.fillStyle='rgba(212,173,92,0.14)';ctx.strokeStyle='rgba(212,173,92,0.6)';ctx.lineWidth=1.5;
+    ctx.fillRect(blk.x-34,src.y-70,68,140);ctx.strokeRect(blk.x-34,src.y-70,68,140);
+    ctx.fillStyle='#D4AD5C';ctx.font="12px 'Space Grotesk',sans-serif";ctx.fillText('blanket',blk.x,src.y-78);
+    // bins + labels
+    ctx.textAlign='left';
+    bins.forEach(function(b){
+      ctx.fillStyle='#0e141b';ctx.strokeStyle=b.col;ctx.lineWidth=1.5;
+      ctx.fillRect(binx,b.y-22,150,44);ctx.strokeRect(binx,b.y-22,150,44);
+      // fill meter
+      b.fill=(b.fill||0); ctx.fillStyle=b.col;ctx.globalAlpha=.28;ctx.fillRect(binx,b.y-22,150*Math.min(1,b.fill),44);ctx.globalAlpha=1;
+      ctx.fillStyle=b.col;ctx.font="13px 'Space Grotesk',sans-serif";ctx.fillText(b.name,binx+8,b.y-4);
+      ctx.fillStyle='#8792a0';ctx.font="10px 'Space Mono',monospace";ctx.fillText(b.tag,binx+8,b.y+10);
+      ctx.fillStyle='#6b7683';ctx.fillText(b.sub,binx+8,b.y+34);
+      b.fill+=dt*0.00004; if(b.fill>1)b.fill=0.15;
+    });
+    // spawn neutrons src->blanket
+    draw._a=(draw._a||0)+dt;while(draw._a>70){draw._a-=70;particles.push({stage:0,x:src.x,y:src.y+rnd(-8,8),tx:blk.x,ty:src.y+rnd(-50,50),sp:rnd(2,3),bin:null});}
+    particles.forEach(function(p){
+      if(p.stage===0){var dx=p.tx-p.x,dy=p.ty-p.y,d=Math.hypot(dx,dy);
+        if(d<4){p.stage=1;p.bin=bins[Math.floor(Math.random()*bins.length)];p.x=blk.x;p.y=p.ty;}
+        else{p.x+=dx/d*p.sp;p.y+=dy/d*p.sp;}
+        ctx.strokeStyle='rgba(94,160,192,0.9)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-6,p.y);ctx.stroke();
+      } else {
+        var tx=binx,ty=p.bin.y,dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy);
+        if(d<6){p.done=true;p.bin.fill=Math.min(1,(p.bin.fill||0)+0.02);}
+        else{p.x+=dx/d*3.2;p.y+=dy/d*3.2;}
+        ctx.fillStyle=p.bin.col;ctx.beginPath();ctx.arc(p.x,p.y,3,0,6.28);ctx.fill();
+      }
+    });
+    particles=particles.filter(function(p){return !p.done && p.x<W+10;});
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
