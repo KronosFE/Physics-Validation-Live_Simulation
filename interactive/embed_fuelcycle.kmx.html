@@ -1,0 +1,101 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_fuelcycle.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — animated tritium fuel cycle (self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-fc">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · BREED-AND-RETURN</span>
+    <h3>The tritium fuel cycle</h3>
+    <p class="kmx-sub">Every D–T fusion fires a 14.1&nbsp;MeV neutron into the blanket, where lithium breeds fresh tritium. Bred&nbsp;&gt;&nbsp;burned (<em>TBR&nbsp;1.42</em>) — the plant makes its own fuel, with a surplus.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="520" aria-label="animated tritium fuel cycle"></canvas>
+  <div class="kmx-legend">
+    <span><i style="background:#5ea0c0"></i>14.1 MeV neutron</span>
+    <span><i style="background:#D4AD5C"></i>bred tritium → fuel</span>
+    <span><i style="background:#e94f9c"></i>α (stays, heats plasma)</span>
+    <span><i style="background:#7bc47f"></i>surplus T</span>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative fuel cycle · 80% of 85.04 MW in neutrons · advanced-blanket TBR 1.42 · ~2.0 kg-T/yr per unit · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-fc{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-fc .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-fc h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-fc .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:70ch}
+.kmx-fc .kmx-sub em{color:var(--green);font-style:normal}
+.kmx-fc .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-fc .kmx-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-family:'Space Mono',monospace;font-size:11.5px;color:var(--mut)}
+.kmx-fc .kmx-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.kmx-fc .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-fc');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, cx=W*0.42, cy=H*0.52, Rc=64, Rb=150, t0=performance.now();
+  var inj={x:cx,y:cy}, port={x:W*0.09,y:cy};            // injection port (left)
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  var neutrons=[],tritium=[],alphas=[],ash=[];
+  for(var i=0;i<9;i++)alphas.push({a:rnd(0,6.28),r:rnd(18,Rc-10),s:rnd(0.01,0.03)});
+  function spawnN(){var a=rnd(0,6.28);neutrons.push({x:cx+Math.cos(a)*Rc*0.4,y:cy+Math.sin(a)*Rc*0.4,a:a,sp:rnd(2.2,3.4),life:0});}
+  function spawnT(){var a=rnd(-0.8,0.8)+Math.PI;tritium.push({px:cx+Math.cos(a)*Rb,py:cy+Math.sin(a)*Rb,t:0,sp:rnd(0.006,0.011),sur:Math.random()<0.30});}
+  var acc=0;
+  function draw(now){
+    var dt=Math.min(40,now-(draw._l||now)); draw._l=now;
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0c1016'; ctx.fillRect(0,0,W,H);
+    // blanket ring
+    ctx.lineWidth=Rb-Rc-14; ctx.strokeStyle='rgba(212,173,92,0.16)';
+    ctx.beginPath();ctx.arc(cx,cy,(Rc+Rb)/2+2,0,6.2832);ctx.stroke();
+    ctx.lineWidth=1.5;ctx.strokeStyle='rgba(212,173,92,0.5)';ctx.beginPath();ctx.arc(cx,cy,Rb,0,6.2832);ctx.stroke();
+    // plasma core glow
+    var g=ctx.createRadialGradient(cx,cy,4,cx,cy,Rc);
+    g.addColorStop(0,'rgba(255,200,225,0.95)');g.addColorStop(0.5,'rgba(233,79,156,0.7)');g.addColorStop(1,'rgba(124,47,126,0.15)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,Rc,0,6.2832);ctx.fill();
+    // labels
+    ctx.fillStyle='#e2e8ef';ctx.font="13px 'Space Grotesk',sans-serif";ctx.textAlign='center';
+    ctx.fillText('D–T plasma',cx,cy-2);ctx.font="11px 'Space Mono',monospace";ctx.fillStyle='#ffd0e2';ctx.fillText('85.04 MW',cx,cy+14);
+    ctx.fillStyle='#D4AD5C';ctx.font="12px 'Space Grotesk',sans-serif";ctx.fillText('breeding blanket · Li / FLiBe',cx,cy-Rb-10);
+    ctx.fillStyle='#5ea0c0';ctx.font="11px 'Space Mono',monospace";ctx.fillText('neutrons 80% ≈ 68 MW',cx+Rb+2,cy-Rb*0.5);
+    ctx.textAlign='left';
+    // injection port
+    ctx.fillStyle='#0e141b';ctx.strokeStyle='#2a333d';ctx.lineWidth=1;
+    ctx.fillRect(port.x-30,port.y-16,54,32);ctx.strokeRect(port.x-30,port.y-16,54,32);
+    ctx.fillStyle='#8792a0';ctx.font="10px 'Space Mono',monospace";ctx.fillText('fuel',port.x-24,port.y-2);ctx.fillText('inject',port.x-24,port.y+11);
+    // spawn
+    acc+=dt; while(acc>90){acc-=90;spawnN();if(Math.random()<0.8)spawnT();}
+    // alphas (confined, orbit)
+    alphas.forEach(function(p){p.a+=p.s;var x=cx+Math.cos(p.a)*p.r,y=cy+Math.sin(p.a)*p.r*0.7;
+      ctx.fillStyle='#e94f9c';ctx.beginPath();ctx.arc(x,y,2.4,0,6.2832);ctx.fill();});
+    // neutrons: radial core->blanket
+    ctx.lineWidth=2;
+    neutrons.forEach(function(p){p.x+=Math.cos(p.a)*p.sp;p.y+=Math.sin(p.a)*p.sp;p.life+=dt;
+      var d=Math.hypot(p.x-cx,p.y-cy);
+      ctx.strokeStyle='rgba(94,160,192,0.9)';ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-Math.cos(p.a)*8,p.y-Math.sin(p.a)*8);ctx.stroke();
+      if(d>=Rb-8){p.dead=true; // flash at blanket
+        ctx.fillStyle='rgba(212,173,92,0.8)';ctx.beginPath();ctx.arc(p.x,p.y,3.5,0,6.2832);ctx.fill();}});
+    neutrons=neutrons.filter(function(p){return !p.dead && p.life<4000;});
+    // tritium: blanket -> injection port along a curve, then into core
+    tritium.forEach(function(p){p.t+=p.sp;
+      var t=p.t; if(t>1){p.done=true;return;}
+      // quadratic path blanket->port
+      var mx=(p.px+port.x)/2, my=cy-90;
+      var x=(1-t)*(1-t)*p.px+2*(1-t)*t*mx+t*t*port.x;
+      var y=(1-t)*(1-t)*p.py+2*(1-t)*t*my+t*t*port.y;
+      ctx.fillStyle=p.sur?'#7bc47f':'#D4AD5C';ctx.beginPath();ctx.arc(x,y,3,0,6.2832);ctx.fill();});
+    tritium=tritium.filter(function(p){return !p.done;});
+    // TBR badge
+    ctx.fillStyle='#0e141b';ctx.strokeStyle='#2a333d';ctx.fillRect(W-186,H-92,168,72);ctx.strokeRect(W-186,H-92,168,72);
+    ctx.fillStyle='#D4AD5C';ctx.font="12px 'Space Mono',monospace";ctx.fillText('TBR = 1.42',W-172,H-68);
+    ctx.fillStyle='#7bc47f';ctx.fillText('+0.42 surplus',W-172,H-50);
+    ctx.fillStyle='#8792a0';ctx.font="10px 'Space Mono',monospace";ctx.fillText('~2.0 kg-T / yr / unit',W-172,H-32);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

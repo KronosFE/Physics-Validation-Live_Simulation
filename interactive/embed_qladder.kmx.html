@@ -1,0 +1,61 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_qladder.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-ql">
+  <div class="kmx-head">
+    <span class="kmx-kicker">KRONOS · PERFORMANCE</span>
+    <h3>Above breakeven — two different jobs</h3>
+    <p class="kmx-sub">The breeder is measured on <em>scientific</em> gain (fusion vs heating); the burner on <em>engineering</em> gain (electricity vs recirculating power). Different yardsticks — both clear the Q&nbsp;=&nbsp;1 bar.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="330" aria-label="Q performance ladder"></canvas>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · scientific Q and engineering Q_E are distinct metrics · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-ql{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-ql .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-ql h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-ql .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:72ch}
+.kmx-ql .kmx-sub em{color:var(--gold);font-style:normal}
+.kmx-ql .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-ql .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-ql');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, t0=performance.now();
+  var bars=[
+    {x:0.20,val:3.076,max:3.6,col:'#e94f9c',name:'Hyperion breeder',metric:'scientific Q',v:'Q = 3.076'},
+    {x:0.62,val:1.318,max:3.6,col:'#5ea0c0',name:'Aegis / MetroVolt burner',metric:'engineering Q_E',v:'Q_E = 1.318'}
+  ];
+  function draw(now){
+    var p=Math.min(1,(now-t0)/1200), e=p*p*(3-2*p);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    var base=H-64, top=40, bw=150;
+    // breakeven line Q=1
+    function Y(v,max){return base-(v/max)*(base-top);}
+    var yb=Y(1,3.6);
+    ctx.strokeStyle='rgba(212,173,92,0.6)';ctx.setLineDash([6,4]);ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(50,yb);ctx.lineTo(W-30,yb);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#D4AD5C';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='left';ctx.fillText('breakeven  Q = 1',W-160,yb-6);
+    bars.forEach(function(b){
+      var x=b.x*W, h=(Y(b.val*e,b.max));
+      var grd=ctx.createLinearGradient(0,base,0,top);grd.addColorStop(0,b.col);grd.addColorStop(1,'rgba(255,255,255,0.25)');
+      ctx.fillStyle=b.col;ctx.globalAlpha=.85;ctx.fillRect(x,Y(b.val*e,b.max),bw,base-Y(b.val*e,b.max));ctx.globalAlpha=1;
+      ctx.fillStyle='#e2e8ef';ctx.font="20px 'Space Grotesk',sans-serif";ctx.textAlign='center';
+      ctx.fillText((b.val*e).toFixed(3),x+bw/2,Y(b.val*e,b.max)-10);
+      ctx.fillStyle=b.col;ctx.font="13px 'Space Grotesk',sans-serif";ctx.fillText(b.metric,x+bw/2,base+22);
+      ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";ctx.fillText(b.name,x+bw/2,base+40);
+    });
+    if(p<1) requestAnimationFrame(draw); else {t0=now-1200; requestAnimationFrame(function(n){t0=n-100000;draw(n);});}
+  }
+  // loop occasionally
+  requestAnimationFrame(draw);
+  setInterval(function(){t0=performance.now();requestAnimationFrame(draw);},6000);
+})();
+</script>

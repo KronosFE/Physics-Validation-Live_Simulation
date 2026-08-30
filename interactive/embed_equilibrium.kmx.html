@@ -1,0 +1,110 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_equilibrium.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — interactive breeder equilibrium (self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-eq">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · INTERACTIVE</span>
+    <h3>Plasma equilibrium — negative triangularity</h3>
+    <p class="kmx-sub">Nested flux surfaces with Shafranov shift. Drag the sliders — the plasma keeps its <em>outward-pointing</em> D-shape (δ&nbsp;&lt;&nbsp;0), the Hyperion design choice.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="720" height="760" aria-label="plasma equilibrium cross-section"></canvas>
+    <div class="kmx-panel">
+      <label>triangularity δ <output class="kmx-d">-0.30</output></label>
+      <input type="range" class="kmx-sd" min="-0.50" max="0.50" step="0.01" value="-0.30">
+      <label>elongation κ <output class="kmx-k">2.20</output></label>
+      <input type="range" class="kmx-sk" min="1.60" max="2.60" step="0.02" value="2.20">
+      <div class="kmx-read"><span class="kmx-hover">hover the plasma →</span></div>
+      <div class="kmx-facts">B₀ 8.0 T · Iₚ 9.66 MA · A 1.8</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative equilibrium model · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-eq{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:960px;margin:24px auto}
+.kmx-eq .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.18em;color:var(--gold)}
+.kmx-eq h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-eq .kmx-sub{margin:0 0 14px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:62ch}
+.kmx-eq .kmx-sub em{color:var(--pink);font-style:normal}
+.kmx-eq .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.kmx-eq .kmx-canvas{flex:1 1 360px;max-width:520px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-eq .kmx-panel{flex:1 1 220px;min-width:200px;display:flex;flex-direction:column;gap:6px;padding-top:6px}
+.kmx-eq .kmx-panel label{font-size:12.5px;color:var(--txt);display:flex;justify-content:space-between;margin-top:8px}
+.kmx-eq .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-eq input[type=range]{width:100%;accent-color:var(--pink);background:transparent}
+.kmx-eq .kmx-read{margin-top:14px;min-height:44px;font-family:'Space Mono',monospace;font-size:12.5px;color:var(--blue)}
+.kmx-eq .kmx-facts{margin-top:10px;font-family:'Space Mono',monospace;font-size:11.5px;color:var(--mut)}
+.kmx-eq .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.previousElementSibling; // style; go up
+  root=document.querySelector('.kmx-eq');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var sd=root.querySelector('.kmx-sd'), sk=root.querySelector('.kmx-sk');
+  var od=root.querySelector('.kmx-d'), ok=root.querySelector('.kmx-k'), hv=root.querySelector('.kmx-hover');
+  var W=cv.width, H=cv.height, R0=1.0, a=0.55, t0=performance.now();
+  var mouse=null;
+  function surf(rho,delta,kappa){ // one flux surface as array of [R,Z]
+    var shift=0.12*a*(1-rho*rho);                 // Shafranov shift (outward, core)
+    var de=delta*rho, ke=1+(kappa-1)*Math.pow(rho,0.9), am=rho*a, Rc=R0+shift, pts=[];
+    for(var i=0;i<=120;i++){var th=i/120*2*Math.PI;
+      pts.push([Rc+am*Math.cos(th+Math.asin(Math.max(-1,Math.min(1,de)))*Math.sin(th)), ke*am*Math.sin(th)]);}
+    return pts;
+  }
+  function map(R,Z){ // physical -> canvas
+    var Rmin=R0-a-0.28, Rmax=R0+a+0.28, Zext=2.7*a+0.25;
+    var x=(R-Rmin)/(Rmax-Rmin)*W, y=H/2 - Z/Zext*(H/2*0.94);
+    return [x,y];
+  }
+  function lerpc(c1,c2,f){return c1.map(function(v,i){return Math.round(v+(c2[i]-v)*f);});}
+  var CA=[26,21,51], CB=[124,47,126], CC=[233,79,156], CD=[255,158,199]; // dark->pink pressure ramp
+  function pcol(rho){ // rho: 1 axis .. 0 edge
+    var f=1-rho; var c; if(f<.5){c=lerpc(CA,CC,f/.5);}else{c=lerpc(CC,CD,(f-.5)/.5);} return c;
+  }
+  function draw(now){
+    var delta=parseFloat(sd.value), kappa=parseFloat(sk.value);
+    od.value=delta.toFixed(2); ok.value=kappa.toFixed(2);
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0c1016'; ctx.fillRect(0,0,W,H);
+    var pulse=0.06*Math.sin((now-t0)/900);        // subtle plasma shimmer (movement)
+    // filled nested surfaces from edge inward
+    for(var rho=1.0;rho>=0.06;rho-=0.055){
+      var pts=surf(rho,delta,kappa), c=pcol(rho);
+      ctx.beginPath();
+      for(var i=0;i<pts.length;i++){var m=map(pts[i][0],pts[i][1]); i?ctx.lineTo(m[0],m[1]):ctx.moveTo(m[0],m[1]);}
+      ctx.closePath();
+      var alpha=0.16+0.10*(1-rho)+ (rho<0.2?pulse:0);
+      ctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+Math.max(0.05,alpha)+')'; ctx.fill();
+    }
+    // a few flux-surface lines
+    ctx.lineWidth=1; ctx.strokeStyle='rgba(188,211,230,0.28)';
+    [0.28,0.5,0.72,0.9].forEach(function(rho){var pts=surf(rho,delta,kappa);ctx.beginPath();
+      for(var i=0;i<pts.length;i++){var m=map(pts[i][0],pts[i][1]);i?ctx.lineTo(m[0],m[1]):ctx.moveTo(m[0],m[1]);}ctx.closePath();ctx.stroke();});
+    // separatrix gold
+    var sep=surf(1.0,delta,kappa); ctx.lineWidth=2.6; ctx.strokeStyle='#D4AD5C'; ctx.beginPath();
+    for(var i=0;i<sep.length;i++){var m=map(sep[i][0],sep[i][1]);i?ctx.lineTo(m[0],m[1]):ctx.moveTo(m[0],m[1]);}ctx.closePath();ctx.stroke();
+    // magnetic axis
+    var axR=R0+0.12*a, am=map(axR,0); ctx.strokeStyle='#fff';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(am[0]-6,am[1]);ctx.lineTo(am[0]+6,am[1]);ctx.moveTo(am[0],am[1]-6);ctx.lineTo(am[0],am[1]+6);ctx.stroke();
+    // measured delta readout on hover
+    if(mouse){
+      // approx rho at cursor by scanning
+      var best=2,bp=null; for(var rr=0.06;rr<=1.0;rr+=0.02){var pts=surf(rr,delta,kappa);
+        for(var i=0;i<pts.length;i+=6){var m=map(pts[i][0],pts[i][1]);var d2=(m[0]-mouse[0])*(m[0]-mouse[0])+(m[1]-mouse[1])*(m[1]-mouse[1]); if(d2<best*best){best=Math.sqrt(d2);bp=rr;}}}
+      if(bp!==null&&best<26){hv.textContent='ρ ≈ '+bp.toFixed(2)+'   ·   p/p₀ ≈ '+(1-bp*bp).toFixed(2);}
+      else hv.textContent='hover the plasma →';
+    }
+    requestAnimationFrame(draw);
+  }
+  cv.addEventListener('mousemove',function(e){var r=cv.getBoundingClientRect();mouse=[(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height];});
+  cv.addEventListener('mouseleave',function(){mouse=null;hv.textContent='hover the plasma →';});
+  requestAnimationFrame(draw);
+})();
+</script>

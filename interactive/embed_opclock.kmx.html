@@ -1,0 +1,72 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_opclock.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — animated start-to-burn operation clock (self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-op">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · OPERATION SEQUENCE</span>
+    <h3>Cold start to steady burn</h3>
+    <p class="kmx-sub">A full shot, start to finish: energize the HTS magnets, break down the plasma, ramp the current, ignite, and hold. Watch the machine come up to power.</p>
+  </div>
+  <canvas class="kmx-canvas" width="920" height="330" aria-label="animated startup-to-burn sequence"></canvas>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative operation sequence · representative timescales · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-op{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-op .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-op h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-op .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:70ch}
+.kmx-op .kmx-canvas{width:100%;height:auto;background:var(--panel);border-radius:10px;display:block}
+.kmx-op .kmx-foot{margin-top:10px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-op');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, t0=performance.now(), LOOP=15000;
+  var states=[['Standby',0,.07],['Magnets energize',.07,.24],['Breakdown',.24,.38],['Current ramp',.38,.58],['Burn',.58,.82],['Steady-state',.82,1]];
+  function ramp(p,a,b){return Math.max(0,Math.min(1,(p-a)/(b-a)));}
+  function ease(x){return x*x*(3-2*x);}
+  function draw(now){
+    var p=((now-t0)%LOOP)/LOOP;
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0c1016'; ctx.fillRect(0,0,W,H);
+    // gauges
+    var B=8.0*ease(ramp(p,.07,.24));
+    var Ip=9.66*ease(ramp(p,.38,.58));
+    var Pf=85.04*ease(ramp(p,.58,.82));
+    var Te=(p<.24?0: p<.58? 40*ease(ramp(p,.24,.58)) : 40+ (p<.82? 0:0));
+    var gx=40, gw=W-300, gy=54, gh=20, gap=42;
+    function gauge(i,label,val,max,unit,col){
+      var y=gy+i*gap;
+      ctx.fillStyle='#8792a0';ctx.font="12px 'Space Grotesk',sans-serif";ctx.textAlign='left';ctx.fillText(label,gx,y-6);
+      ctx.fillStyle='#141a22';ctx.fillRect(gx,y,gw,gh);
+      ctx.fillStyle=col;ctx.fillRect(gx,y,gw*Math.min(1,val/max),gh);
+      ctx.fillStyle='#e2e8ef';ctx.font="12px 'Space Mono',monospace";ctx.textAlign='right';
+      ctx.fillText(val.toFixed(val<10?2:1)+' '+unit,gx+gw+92,y+15);ctx.textAlign='left';
+    }
+    gauge(0,'magnetic field  B₀',B,8.0,'T','#5ea0c0');
+    gauge(1,'plasma current  Iₚ',Ip,9.66,'MA','#D4AD5C');
+    gauge(2,'fusion power  P_fus',Pf,85.04,'MW','#e94f9c');
+    // timeline bar
+    var tx=40, tw=W-80, ty=H-70, th=26;
+    states.forEach(function(s){var x0=tx+s[1]*tw, x1=tx+s[2]*tw, active=(p>=s[1]&&p<s[2]);
+      ctx.fillStyle=active?'rgba(212,173,92,0.32)':'#141a22';ctx.fillRect(x0,ty,x1-x0-2,th);
+      ctx.fillStyle=active?'#D4AD5C':'#6b7683';ctx.font=(active?"bold ":"")+"11px 'Space Grotesk',sans-serif";ctx.textAlign='center';
+      ctx.fillText(s[0],(x0+x1)/2,ty+th+16);});
+    // playhead
+    var px=tx+p*tw; ctx.strokeStyle='#e94f9c';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px,ty-8);ctx.lineTo(px,ty+th+2);ctx.stroke();
+    ctx.fillStyle='#e94f9c';ctx.beginPath();ctx.moveTo(px-5,ty-8);ctx.lineTo(px+5,ty-8);ctx.lineTo(px,ty-2);ctx.closePath();ctx.fill();
+    // current state label
+    var cur=states.find(function(s){return p>=s[1]&&p<s[2];})||states[0];
+    ctx.fillStyle='#e2e8ef';ctx.font="16px 'Space Grotesk',sans-serif";ctx.textAlign='left';ctx.fillText('▸ '+cur[0],40,28);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

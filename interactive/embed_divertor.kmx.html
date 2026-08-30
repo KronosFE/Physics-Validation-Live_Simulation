@@ -1,0 +1,78 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_divertor.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-dv">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · HEAT EXHAUST</span>
+    <h3>Spreading the divertor heat load</h3>
+    <p class="kmx-sub">All the exhaust power lands on a narrow strip. Flux expansion and detachment spread and <em>cool</em> it — drag the control to bring the peak under the material limit.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="720" height="380" aria-label="divertor heat flux profile"></canvas>
+    <div class="kmx-panel">
+      <label>flux expansion / detachment <output class="kmx-fx">1.0×</output></label>
+      <input type="range" class="kmx-sfx" min="1" max="6" step="0.1" value="1">
+      <div class="kmx-read">peak heat flux: <b class="kmx-q">—</b></div>
+      <div class="kmx-verdict">—</div>
+      <div class="kmx-facts">material limit ≈ 10 MW/m²</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative heat-flux model · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-dv{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-dv .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-dv h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-dv .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:66ch}
+.kmx-dv .kmx-sub em{color:var(--blue);font-style:normal}
+.kmx-dv .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.kmx-dv .kmx-canvas{flex:1 1 360px;max-width:520px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-dv .kmx-panel{flex:1 1 200px;min-width:190px;padding-top:8px}
+.kmx-dv .kmx-panel label{font-size:12.5px;display:flex;justify-content:space-between}
+.kmx-dv .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-dv input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-dv .kmx-read{margin-top:14px;font-size:13px}.kmx-dv .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-dv .kmx-verdict{margin-top:6px;font-family:'Space Mono',monospace;font-size:12px}
+.kmx-dv .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.kmx-dv .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-dv');
+  var cv=root.querySelector('.kmx-canvas'),ctx=cv.getContext('2d');
+  var sfx=root.querySelector('.kmx-sfx'),ofx=root.querySelector('.kmx-fx'),oq=root.querySelector('.kmx-q'),ov=root.querySelector('.kmx-verdict');
+  var W=cv.width,H=cv.height,PADL=52,PADB=44,PADT=20,PADR=16,Q0=34,LIMIT=10;
+  function draw(){
+    var fx=parseFloat(sfx.value); ofx.value=fx.toFixed(1)+'×';
+    var peak=Q0/fx, width=0.06*fx;
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#0c1016';ctx.fillRect(0,0,W,H);
+    var qmax=Q0*1.05;
+    function X(s){return PADL+(s+0.5)*(W-PADL-PADR);}
+    function Y(q){return H-PADB-q/qmax*(H-PADT-PADB);}
+    ctx.strokeStyle='#2a333d';ctx.beginPath();ctx.moveTo(PADL,PADT);ctx.lineTo(PADL,H-PADB);ctx.lineTo(W-PADR,H-PADB);ctx.stroke();
+    ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';
+    ctx.fillText('distance along target  (m)',W/2,H-12);
+    ctx.save();ctx.translate(16,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('heat flux q (MW/m²)',0,0);ctx.restore();
+    // limit line
+    ctx.strokeStyle='rgba(233,79,156,0.6)';ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(PADL,Y(LIMIT));ctx.lineTo(W-PADR,Y(LIMIT));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#e94f9c';ctx.textAlign='left';ctx.fillText('material limit 10 MW/m²',PADL+6,Y(LIMIT)-6);
+    // profile (gaussian at strike point s=0)
+    var grd=ctx.createLinearGradient(0,H-PADB,0,PADT);grd.addColorStop(0,'#5ea0c0');grd.addColorStop(1,'#e94f9c');
+    ctx.strokeStyle=grd;ctx.lineWidth=2.6;ctx.beginPath();
+    for(var s=-0.5;s<=0.5;s+=0.005){var q=peak*Math.exp(-Math.pow(s/width,2));var xx=X(s),yy=Y(q);(s<=-0.5)?ctx.moveTo(xx,yy):ctx.lineTo(xx,yy);}
+    ctx.stroke();
+    ctx.strokeStyle=grd;ctx.globalAlpha=.12;ctx.lineTo(X(0.5),H-PADB);ctx.lineTo(X(-0.5),H-PADB);ctx.closePath();ctx.fillStyle='#5ea0c0';ctx.fill();ctx.globalAlpha=1;
+    oq.textContent=peak.toFixed(1)+' MW/m²';
+    if(peak<=LIMIT){ov.textContent='✓ under limit';ov.style.color='#7bc47f';}
+    else if(peak<=LIMIT*1.4){ov.textContent='△ near limit';ov.style.color='#D4AD5C';}
+    else{ov.textContent='✗ over limit — spread more';ov.style.color='#e94f9c';}
+  }
+  sfx.addEventListener('input',draw); draw();
+})();
+</script>

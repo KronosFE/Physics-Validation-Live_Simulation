@@ -1,0 +1,97 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_rebco.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — interactive REBCO magnet operating margin (self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-rb">
+  <div class="kmx-head">
+    <span class="kmx-kicker">HYPERION · HTS MAGNETS</span>
+    <h3>Why REBCO — field with margin to spare</h3>
+    <p class="kmx-sub">High-temperature superconductor keeps a huge critical current even at very high field. Drag the temperature — colder means more margin. The conductor peak sits at <em>26.49&nbsp;T</em> and still lands well under the critical line.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="760" height="520" aria-label="REBCO critical current vs field"></canvas>
+    <div class="kmx-panel">
+      <label>operating temperature <output class="kmx-t">20 K</output></label>
+      <input type="range" class="kmx-st" min="10" max="77" step="1" value="20">
+      <div class="kmx-read">
+        <div>margin at 26.49 T: <b class="kmx-m">—</b></div>
+        <div class="kmx-verdict">—</div>
+      </div>
+      <div class="kmx-facts">B₀ 8.0 T on-axis · 16.84 T coil peak · 26.49 T conductor peak</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative REBCO Jc(B,T) model · normalized · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-rb{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--green:#7bc47f;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:980px;margin:24px auto}
+.kmx-rb .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-rb h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-rb .kmx-sub{margin:0 0 12px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:66ch}
+.kmx-rb .kmx-sub em{color:var(--pink);font-style:normal}
+.kmx-rb .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.kmx-rb .kmx-canvas{flex:1 1 380px;max-width:560px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-rb .kmx-panel{flex:1 1 200px;min-width:190px;display:flex;flex-direction:column;gap:6px;padding-top:8px}
+.kmx-rb .kmx-panel label{font-size:12.5px;color:var(--txt);display:flex;justify-content:space-between}
+.kmx-rb .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-rb input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-rb .kmx-read{margin-top:14px;font-size:13px;line-height:1.8}
+.kmx-rb .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-rb .kmx-verdict{margin-top:6px;font-family:'Space Mono',monospace;font-size:12px}
+.kmx-rb .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut);line-height:1.6}
+.kmx-rb .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-rb');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var st=root.querySelector('.kmx-st'), ot=root.querySelector('.kmx-t'), om=root.querySelector('.kmx-m'), ov=root.querySelector('.kmx-verdict');
+  var W=cv.width,H=cv.height, Tc=90, Birr0=132, Jop=0.05, t0=performance.now();
+  var PADL=64,PADB=52,PADT=24,PADR=20, Bmax=30, Jmax=0.72;
+  function Birr(T){return Birr0*Math.pow(Math.max(0,1-T/Tc),1.4);}
+  function Jc(B,T){var bi=Birr(T); if(B>=bi)return 0;
+    return Math.pow(Math.max(0,1-T/Tc),1.6)*Math.pow(1/(B+1),0.5)*Math.pow(1-B/bi,1.0);}
+  function X(B){return PADL+B/Bmax*(W-PADL-PADR);}
+  function Y(J){return H-PADB-J/Jmax*(H-PADT-PADB);}
+  function draw(now){
+    var T=parseFloat(st.value); ot.value=T+' K';
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0c1016'; ctx.fillRect(0,0,W,H);
+    // axes
+    ctx.strokeStyle='#2a333d';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(PADL,PADT);ctx.lineTo(PADL,H-PADB);ctx.lineTo(W-PADR,H-PADB);ctx.stroke();
+    ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";ctx.textAlign='center';
+    for(var b=0;b<=30;b+=5){ctx.fillText(b,X(b),H-PADB+16);}
+    ctx.fillText('magnetic field  B (T)',W/2,H-14);
+    ctx.save();ctx.translate(18,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('critical current density  Jc (a.u.)',0,0);ctx.restore();
+    // faint reference curves (fixed T for context)
+    [40,60].forEach(function(Tr){ctx.strokeStyle='rgba(120,130,145,0.25)';ctx.lineWidth=1;ctx.beginPath();
+      for(var b=0;b<=Bmax;b+=0.3){var j=Jc(b,Tr);b?ctx.lineTo(X(b),Y(j)):ctx.moveTo(X(b),Y(j));}ctx.stroke();
+      ctx.fillStyle='rgba(120,130,145,0.5)';ctx.textAlign='left';ctx.fillText(Tr+' K',X(2),Y(Jc(2,Tr))-4);});
+    // active curve
+    var grd=ctx.createLinearGradient(PADL,0,W-PADR,0);grd.addColorStop(0,'#5ea0c0');grd.addColorStop(1,'#e94f9c');
+    ctx.strokeStyle=grd;ctx.lineWidth=2.8;ctx.beginPath();
+    for(var b=0;b<=Bmax;b+=0.2){var j=Jc(b,T);b?ctx.lineTo(X(b),Y(j)):ctx.moveTo(X(b),Y(j));}ctx.stroke();
+    // operating-current line
+    ctx.strokeStyle='rgba(123,196,127,0.7)';ctx.setLineDash([6,4]);ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(PADL,Y(Jop));ctx.lineTo(W-PADR,Y(Jop));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#7bc47f';ctx.textAlign='left';ctx.fillText('operating current',PADL+6,Y(Jop)-6);
+    // field markers
+    [[8.0,'B₀ 8.0 T','#8792a0'],[16.84,'coil 16.84 T','#8792a0'],[26.49,'conductor 26.49 T','#D4AD5C']].forEach(function(m){
+      ctx.strokeStyle=m[2]==='#D4AD5C'?'rgba(212,173,92,0.8)':'rgba(135,146,160,0.5)';ctx.setLineDash([3,3]);ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(X(m[0]),PADT);ctx.lineTo(X(m[0]),H-PADB);ctx.stroke();ctx.setLineDash([]);
+      ctx.save();ctx.translate(X(m[0])+4,PADT+8);ctx.fillStyle=m[2];ctx.font="10px 'Space Mono',monospace";ctx.textAlign='left';ctx.fillText(m[1],0,0);ctx.restore();
+      var j=Jc(m[0],T); ctx.fillStyle=m[2];ctx.beginPath();ctx.arc(X(m[0]),Y(j),3.5,0,6.2832);ctx.fill();});
+    // margin at conductor peak
+    var jc26=Jc(26.49,T), margin=jc26/Jop;
+    om.textContent=(margin>0?margin.toFixed(2)+'×':'below Jc');
+    if(margin>=1.5){ov.textContent='✓ ample margin';ov.style.color='#7bc47f';}
+    else if(margin>=1.0){ov.textContent='△ tight margin';ov.style.color='#D4AD5C';}
+    else{ov.textContent='✗ quench — go colder';ov.style.color='#e94f9c';}
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>

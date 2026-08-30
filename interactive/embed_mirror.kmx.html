@@ -1,0 +1,98 @@
+<!-- ==========================================================
+  © 2026 Kronos Fusion Energy. All rights reserved.
+  Owner: Kronos Fusion Energy · kronosfusionenergy.com
+  Asset: embed_mirror.kmx.html · Created: 2026-08-29
+  Provenance: Ratified freeze 2026-08-27 · De-Risking Register v1.0 (DOI 10.5281/zenodo.22133057)
+  Proprietary asset of Kronos Fusion Energy — canon-locked, conceptual design study.
+========================================================== -->
+<!-- KRONOS .kmx embed — interactive tandem-mirror confinement (self-contained, scoped, silent) -->
+<div data-owner="Kronos Fusion Energy" data-copyright="© 2026 Kronos Fusion Energy" data-canon="ratified freeze 2026-08-27" data-classification="public-web" class="kmx kmx-mir">
+  <div class="kmx-head">
+    <span class="kmx-kicker">AEGIS / METROVOLT · INTERACTIVE</span>
+    <h3>Magnetic-mirror confinement</h3>
+    <p class="kmx-sub">Drag the mirror ratio. The <em>loss cone</em> narrows as the end plugs get stronger — deeper confinement. Hyperion-class burner runs the plugs at R<sub>m</sub>&nbsp;=&nbsp;16×.</p>
+  </div>
+  <div class="kmx-stage">
+    <canvas class="kmx-canvas" width="900" height="440" aria-label="mirror field and loss cone"></canvas>
+    <div class="kmx-panel">
+      <label>mirror ratio R<sub>m</sub> <output class="kmx-rm">16×</output></label>
+      <input type="range" class="kmx-srm" min="2" max="30" step="1" value="16">
+      <div class="kmx-read">
+        <div>loss-cone angle θ<sub>LC</sub> = <b class="kmx-th">14.5°</b></div>
+        <div>velocity-space confined ≈ <b class="kmx-cf">75%</b></div>
+      </div>
+      <div class="kmx-facts">central cell · high-field end plugs · θ = arcsin(1/√R<sub>m</sub>)</div>
+    </div>
+  </div>
+  <div class="kmx-foot">© 2026 Kronos Fusion Energy · illustrative model · loss-cone from mirror ratio · conceptual design study · ratified freeze 2026-08-27</div>
+</div>
+<style>
+.kmx-mir{--bg:#0a0d12;--panel:#0c1016;--gold:#D4AD5C;--blue:#5ea0c0;--pink:#e94f9c;--txt:#e2e8ef;--mut:#8792a0;
+  background:var(--bg);color:var(--txt);border:1px solid #1c2530;border-radius:14px;padding:22px 22px 14px;
+  font-family:'Space Grotesk',system-ui,sans-serif;max-width:960px;margin:24px auto}
+.kmx-mir .kmx-kicker{font-family:'Space Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.kmx-mir h3{margin:.35em 0 .2em;font-size:22px;font-weight:600}
+.kmx-mir .kmx-sub{margin:0 0 14px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:64ch}
+.kmx-mir .kmx-sub em{color:var(--gold);font-style:normal}
+.kmx-mir .kmx-stage{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.kmx-mir .kmx-canvas{flex:1 1 420px;max-width:620px;width:100%;height:auto;background:var(--panel);border-radius:10px}
+.kmx-mir .kmx-panel{flex:1 1 200px;min-width:190px;display:flex;flex-direction:column;gap:6px;padding-top:8px}
+.kmx-mir .kmx-panel label{font-size:12.5px;color:var(--txt);display:flex;justify-content:space-between}
+.kmx-mir .kmx-panel output{font-family:'Space Mono',monospace;color:var(--gold)}
+.kmx-mir input[type=range]{width:100%;accent-color:var(--pink)}
+.kmx-mir .kmx-read{margin-top:14px;font-size:13px;line-height:1.9}
+.kmx-mir .kmx-read b{font-family:'Space Mono',monospace;color:var(--blue)}
+.kmx-mir .kmx-facts{margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.kmx-mir .kmx-foot{margin-top:12px;font-size:10.5px;color:var(--mut);font-style:italic}
+</style>
+<script>
+(function(){
+  var root=document.querySelector('.kmx-mir');
+  var cv=root.querySelector('.kmx-canvas'), ctx=cv.getContext('2d');
+  var srm=root.querySelector('.kmx-srm'), orm=root.querySelector('.kmx-rm');
+  var oth=root.querySelector('.kmx-th'), ocf=root.querySelector('.kmx-cf');
+  var W=cv.width,H=cv.height,t0=performance.now();
+  function draw(now){
+    var Rm=parseFloat(srm.value);
+    var th=Math.asin(1/Math.sqrt(Rm))*180/Math.PI;         // loss-cone half-angle (deg)
+    var cf=Math.sqrt(1-1/Rm);                               // confined fraction of velocity space
+    orm.value=Rm+'×'; oth.textContent=th.toFixed(1)+'°'; ocf.textContent=Math.round(cf*100)+'%';
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0c1016'; ctx.fillRect(0,0,W,H);
+    // ----- left: B(z) profile -----
+    var LX=40, LW=W*0.56, LY=H-56, LH=H-96;
+    ctx.strokeStyle='#2a333d'; ctx.lineWidth=1; ctx.beginPath();ctx.moveTo(LX,LY);ctx.lineTo(LX+LW,LY);ctx.stroke();
+    ctx.fillStyle='#8792a0'; ctx.font="12px 'Space Mono',monospace"; ctx.fillText('B(z) / B_cc', LX, 22);
+    ctx.fillText('z', LX+LW-6, LY+20);
+    function B(z){return 1+(Rm-1)*(Math.exp(-Math.pow((z+0.72)/0.075,2))+Math.exp(-Math.pow((z-0.72)/0.075,2)));}
+    var pulse=1+0.03*Math.sin((now-t0)/700);
+    ctx.strokeStyle='#5ea0c0'; ctx.lineWidth=2.4; ctx.beginPath();
+    for(var i=0;i<=240;i++){var z=-1+2*i/240; var b=B(z)*pulse; var x=LX+(z+1)/2*LW; var y=LY-b/(Rm+3)*LH;
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y);} ctx.stroke();
+    // central-cell plasma shade
+    ctx.fillStyle='rgba(233,79,156,0.14)';
+    ctx.fillRect(LX+(0.45)/2*LW+LW*0.05, LY-LH*0.09, LW*0.30, LH*0.09);
+    ctx.fillStyle='#e94f9c'; ctx.font="12px 'Space Grotesk',sans-serif";
+    ctx.fillText('central cell', LX+LW*0.40, LY-6);
+    ctx.fillStyle='#5ea0c0'; ctx.fillText('end plug', LX+LW*0.10, LY-LH*0.80);
+    ctx.fillText('end plug', LX+LW*0.80, LY-LH*0.80);
+    // Rm gold dashed
+    ctx.strokeStyle='rgba(212,173,92,0.55)'; ctx.setLineDash([5,4]); ctx.beginPath();
+    var yr=LY-Rm/(Rm+3)*LH; ctx.moveTo(LX,yr);ctx.lineTo(LX+LW,yr);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#D4AD5C'; ctx.fillText('R_m = '+Rm+'×', LX+LW*0.42, yr-6);
+    // ----- right: loss cone (velocity space) -----
+    var CX=W*0.80, CY=H/2, Rr=Math.min(W*0.16,H*0.36);
+    ctx.strokeStyle='#2a333d';ctx.lineWidth=1;ctx.beginPath();ctx.arc(CX,CY,Rr,0,2*Math.PI);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(CX-Rr,CY);ctx.lineTo(CX+Rr,CY);ctx.moveTo(CX,CY-Rr);ctx.lineTo(CX,CY+Rr);ctx.stroke();
+    var tr=th*Math.PI/180;
+    [1,-1].forEach(function(s){ctx.fillStyle='rgba(212,173,92,0.18)';ctx.strokeStyle='#D4AD5C';ctx.lineWidth=1.2;
+      ctx.beginPath();ctx.moveTo(CX,CY);ctx.lineTo(CX+s*Rr,CY-Rr*Math.tan(tr));ctx.lineTo(CX+s*Rr,CY+Rr*Math.tan(tr));ctx.closePath();ctx.fill();ctx.stroke();});
+    ctx.fillStyle='#D4AD5C';ctx.font="11px 'Space Grotesk',sans-serif";ctx.fillText('loss cone',CX+Rr*0.30,CY-4);
+    ctx.fillStyle='#5ea0c0';ctx.fillText('confined',CX-Rr*0.5,CY-Rr*0.7);
+    ctx.fillStyle='#8792a0';ctx.font="11px 'Space Mono',monospace";
+    ctx.fillText('v‖',CX+Rr+6,CY+4); ctx.fillText('v⊥',CX-8,CY-Rr-6);
+    ctx.fillStyle='#e2e8ef';ctx.font="13px 'Space Mono',monospace";ctx.fillText('θ = '+th.toFixed(1)+'°',CX-Rr,CY+Rr+26);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
