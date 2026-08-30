@@ -145,3 +145,9 @@
 - [SC-BU-2 — Build & manufacturability (>=30T plug coil / two housings) · Kronos Validators](https://kronosfe.github.io/Physics-Validation-Live_Simulation/gate/SC-BU-2.html)
 - [SC-BU-3 — Site licensing & build sequence · Kronos Validators](https://kronosfe.github.io/Physics-Validation-Live_Simulation/gate/SC-BU-3.html)
 - [Validator deck links · Kronos Fusion Energy](https://kronosfe.github.io/Physics-Validation-Live_Simulation/validators-registry.html)
+
+## Visuals (interactive + figures + renders)
+- [Visuals hub — interactive physics, figure library, render gallery](https://kronosfe.github.io/Physics-Validation-Live_Simulation/visuals.html)
+- [Interactive physics — 18 canon-locked visualizations (breeder + burner)](https://kronosfe.github.io/Physics-Validation-Live_Simulation/interactive-physics.html)
+- [Physics figure library — 138 computed figures & animations](https://kronosfe.github.io/Physics-Validation-Live_Simulation/figure-library.html)
+- [Render gallery — labeled cutaways, exploded views & silent films](https://kronosfe.github.io/Physics-Validation-Live_Simulation/render-gallery.html)
