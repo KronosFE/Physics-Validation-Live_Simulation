@@ -1,7 +1,7 @@
 /* Kronos universal shell CSS — clean rewrite matching live kronosfusionenergy.com (2026-09-04).
    Tokens: bg #232C39 · gold #D4AD5C · text #E0E5EB · Space Grotesk / Space Mono. */
 :root{
-  --kfe-bg:#232c39; --kfe-panel:#1b232e; --kfe-accent:#d4ad5c; --kfe-fg:#e0e5eb;
+  --kfe-bg:#232c39; --kfe-panel:#1f2733; --kfe-accent:#d4ad5c; --kfe-fg:#e0e5eb;
   --kfe-border:rgba(150,165,190,.20);
   --kfe-sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --kfe-mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;

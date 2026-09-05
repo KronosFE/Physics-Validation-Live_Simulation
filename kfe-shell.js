@@ -2,7 +2,7 @@
    Include on any page:  <link rel="stylesheet" href="kfe-shell.css"><script src="kfe-shell.js" defer></script>
    Idempotent: skips injection if a .kfe-header / .kfe-footer already exists. Root-absolute links. */
 (function(){
-  var LOGO='<svg viewBox="0 0 120 120" role="img" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><circle cx="60" cy="60" r="50"/><line x1="60" y1="16" x2="60" y2="104"/><path d="M26,60 C44,42 76,42 94,60"/><path d="M26,60 C44,78 76,78 94,60"/></g><circle cx="60" cy="60" r="7.5" fill="#e8c476"/></svg>';
+  var LOGO='<svg viewBox="0 0 120 120" role="img" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><circle cx="60" cy="60" r="50"/><line x1="60" y1="16" x2="60" y2="104"/><path d="M26,60 C44,42 76,42 94,60"/><path d="M26,60 C44,78 76,78 94,60"/></g><circle cx="60" cy="60" r="7.5" fill="#d4ad5c"/></svg>';
   var CARET='<svg class="kfe-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>';
   // Matches the live kronosfusionenergy.com header: 6 items + Kronos Model + Log in.
   // Blueprint lives under Technology; Computing/HPC/Science under Proof (keeps the bar clean).
