@@ -7,7 +7,7 @@
   // Matches the live kronosfusionenergy.com header: 6 items + Kronos Model + Log in.
   // Blueprint lives under Technology; Computing/HPC/Science under Proof (keeps the bar clean).
   var NAV=[
-    {label:'Technology',items:[['/how-it-works','How it works'],['/hyperion','Breeder — Hyperion'],['/aegis','Burner — Aegis'],['/metrovolt','Burner — MetroVolt'],['/ai','AI-Native Architecture'],['/magnets','Magnets'],['/fuel-cycle','Fuel cycle'],['/safety','Safety'],['/roadmap','Roadmap'],['/blueprint','Engineering Blueprint']]},
+    {label:'Technology',items:[['/how-it-works','How it works'],['/hyperion','Breeder — Hyperion'],['/aegis','Burner — Aegis'],['/metrovolt','Burner — MetroVolt'],['/ai','AI-Native Architecture'],['/magnets','Magnets'],['/fuel-cycle','Fuel cycle'],['/safety','Safety'],['/roadmap','Roadmap'],['/blueprint','Engineering Blueprint'],['/BOM','Bill of materials'],['/derisking','De-risking &amp; physics']]},
     {label:'Solutions',items:[['/metrovolt','AI & Data Centers'],['/defense','Defense & Government'],['/metrovolt','Grid & Baseload'],['/defense','Neutron Detection'],['/ai','Quantum']]},
     {link:['/learn/','Learn']},
     {link:['/technical/','Technical Library']},
@@ -47,7 +47,7 @@
       '<p class="kfe-footer-tag">A fusion energy company. Isotopes first, electricity next — building toward first construction in 2027.</p></div>'+
       '<div class="kfe-cols">'+
         col('Technology',[['/hyperion','Breeder — Hyperion'],['/aegis','Burner — Aegis'],['/metrovolt','Burner — MetroVolt'],['/how-it-works','How it works'],['/roadmap','Roadmap']])+
-        col('Blueprint & Computing',[['/blueprint','Blueprint overview'],['/blueprints/','Engineering portal 🔒'],['/computing','Computing & de-risking'],['/computing/hpc','High-performance computing'],['/science','Science & evidence']])+
+        col('Blueprint & Computing',[['/blueprint','Blueprint overview'],['/BOM','Bill of materials'],['/derisking','De-risking & physics'],['/blueprints/','Engineering portal 🔒'],['/computing','Computing & de-risking'],['/science','Science & evidence']])+
         col('Proof',[['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open science']])+
         col('Company',[['/mission','About / Mission'],['/leadership','Leadership'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']])+
       '</div></div>'+
@@ -112,7 +112,9 @@
     ehs:{name:'Environment, Health & Safety',links:[['/ehs','Overview']],faq:'/faq/environment.html'},
     leadership:{name:'Leadership',links:[['/leadership','Team'],['/mission','Mission']],faq:'/faq/about.html'},
     press:{name:'Press',links:[['/press','Press'],['/mission','Mission']],faq:'/faq/about.html'},
-    blueprint:{name:'Engineering Blueprint',links:[['/blueprint','Overview'],['/blueprints/','Team portal 🔒']],faq:'/faq/blueprint.html'},
+    blueprint:{name:'Engineering Blueprint',links:[['/blueprint','Overview'],['/BOM','Bill of materials'],['/derisking','De-risking'],['/blueprints/','Team portal 🔒']],faq:'/faq/blueprint.html'},
+    bom:{name:'Bill of materials',links:[['/BOM','Overview'],['/blueprint','Blueprint'],['/derisking','De-risking']],faq:'/faq/blueprint.html'},
+    derisking:{name:'De-risking & physics',links:[['/derisking','Overview'],['/blueprint','Blueprint'],['/BOM','Bill of materials'],['/science','Science']],faq:'/faq/science.html'},
     faq:{name:'FAQ',links:[['/faq','All questions'],['/mission','About']],faq:'/faq'}
   };
   function currentSection(){
