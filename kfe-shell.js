@@ -94,17 +94,48 @@
       document.dispatchEvent(new CustomEvent('kfe:subtab',{detail:b.getAttribute('data-tab')}));
     });});
   }
+  // per-section footer strips — auto-detected from the URL's first path segment (or window.KFE_SECTION / ?section=)
+  var SECTIONS={
+    hyperion:{name:'Hyperion — Breeder',links:[['/hyperion','Overview'],['/how-it-works','How it works'],['/fuel-cycle','Fuel cycle'],['/magnets','Magnets']],faq:'/faq/breeder.html'},
+    aegis:{name:'Aegis — Burner',links:[['/aegis','Overview'],['/defense','Defense & Government'],['/how-it-works','How it works']],faq:'/faq/aegis.html'},
+    metrovolt:{name:'MetroVolt — Burner',links:[['/metrovolt','Overview'],['/how-it-works','How it works']],faq:'/faq/metrovolt.html'},
+    defense:{name:'Defense & Government',links:[['/defense','Overview'],['/aegis','Aegis burner']],faq:'/faq/defense.html'},
+    ai:{name:'AI-Native Architecture',links:[['/ai','Overview'],['/computing','Computing']],faq:'/faq/ai.html'},
+    computing:{name:'Computing & De-risking',links:[['/computing','Overview'],['/science','Science & Evidence']],faq:'/faq/computing.html'},
+    learn:{name:'Learn',links:[['/learn/','Knowledge base'],['/technical/','Technical Library']],faq:'/faq/general.html'},
+    technical:{name:'Technical Library',links:[['/technical/','Library'],['/publications','Publications'],['/whitepapers','Whitepapers']],faq:'/faq/technical.html'},
+    publications:{name:'Publications',links:[['/publications','Publications'],['/technical/','Technical Library']],faq:'/faq/publications.html'},
+    whitepapers:{name:'Whitepapers',links:[['/whitepapers','Whitepapers'],['/publications','Publications']],faq:'/faq/publications.html'},
+    mission:{name:'Mission',links:[['/mission','About'],['/leadership','Leadership']],faq:'/faq/about.html'},
+    investors:{name:'Investors',links:[['/investors','Overview'],['/mission','Mission']],faq:'/faq/investors.html'},
+    careers:{name:'Careers',links:[['/careers','Openings'],['/mission','Mission']],faq:'/faq/careers.html'},
+    ehs:{name:'Environment, Health & Safety',links:[['/ehs','Overview']],faq:'/faq/environment.html'},
+    leadership:{name:'Leadership',links:[['/leadership','Team'],['/mission','Mission']],faq:'/faq/about.html'},
+    press:{name:'Press',links:[['/press','Press'],['/mission','Mission']],faq:'/faq/about.html'},
+    blueprint:{name:'Engineering Blueprint',links:[['/blueprint','Overview'],['/blueprints/','Team portal 🔒']],faq:'/faq/blueprint.html'},
+    faq:{name:'FAQ',links:[['/faq','All questions'],['/mission','About']],faq:'/faq'}
+  };
+  function currentSection(){
+    var q=(location.search.match(/[?&]section=([^&]+)/)||[])[1];
+    var seg=(location.pathname.replace(/^\//,'').split('/')[0]||'').toLowerCase();
+    return SECTIONS[(q||window.KFE_SECTION||seg||'').toLowerCase()]||null;
+  }
+  function secfoot(){
+    var s=currentSection(); if(!s) return '';
+    var links=s.links.map(function(l){return '<a href="'+l[0]+'">'+esc(l[1])+'</a>';}).join('');
+    return '<div class="kfe-secfoot"><div class="kfe-secfoot-inner"><b>'+esc(s.name)+'</b>'+links+
+      (s.faq&&s.faq!=='/faq'?'<a class="kfe-secfaq" href="'+s.faq+'">'+esc(s.name.split(/ [—·]/)[0])+' FAQ ↗</a>':'')+
+      '</div></div>';
+  }
   function inject(){
-    // unify: replace ANY existing site header/subnav/footer with the shell's.
-    // Removes the current .kfe-* shell bits AND legacy nav (header.top); leaves page heros (header.hero).
-    ['.kfe-header','.kfe-subnav','header.top'].forEach(function(s){
+    // unify: replace ANY existing site header/subnav/footer with the shell's; leave page heros (header.hero).
+    ['.kfe-header','.kfe-subnav','header.top','.kfe-secfoot'].forEach(function(s){
       [].slice.call(document.querySelectorAll(s)).forEach(function(el){el.remove();});
     });
-    // remove body-level site footers (legacy + old kfe); nested content footers are left alone
     [].slice.call(document.querySelectorAll('body > footer, .kfe-footer')).forEach(function(el){el.remove();});
     document.body.insertAdjacentHTML('afterbegin', header());
     var sub=subnav(); if(sub) document.querySelector('.kfe-header').insertAdjacentHTML('afterend', sub);
-    document.body.insertAdjacentHTML('beforeend', footer());
+    document.body.insertAdjacentHTML('beforeend', secfoot()+footer());
     wire(document); wireSub();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',inject); else inject();

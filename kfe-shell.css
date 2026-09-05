@@ -95,3 +95,10 @@
 .kfe-header .kfe-dropdown{background:var(--kfe-panel)!important;border:1px solid var(--kfe-border)!important}
 .kfe-header .kfe-dropdown a{color:rgba(224,229,235,.82)!important;text-transform:none!important;font-size:13px!important;letter-spacing:normal!important;font-family:var(--kfe-sans)!important}
 .kfe-header .kfe-brand-text b{color:var(--kfe-fg)!important;font-family:var(--kfe-mono)!important}
+/* per-section footer strip */
+.kfe-secfoot{background:#1f2733;border-top:1px solid var(--kfe-border)}
+.kfe-secfoot-inner{max-width:1440px;margin:0 auto;padding:14px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;font-size:13px}
+.kfe-secfoot b{color:var(--kfe-accent);font-family:var(--kfe-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.kfe-secfoot a{color:rgba(224,229,235,.75);text-decoration:none}
+.kfe-secfoot a:hover{color:var(--kfe-accent)}
+.kfe-secfoot .kfe-secfaq{margin-left:auto;color:var(--kfe-accent)}
