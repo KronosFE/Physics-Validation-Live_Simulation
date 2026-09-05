@@ -12,7 +12,7 @@
     {link:['/learn/','Learn']},
     {link:['/technical/','Technical Library']},
     {label:'Proof',items:[['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open Science & Reproducibility'],['/science','Science & Evidence'],['/computing','Computing & De-risking'],['/computing/hpc','High-Performance Computing']]},
-    {label:'Company',items:[['/mission','About / Mission'],['/leadership','Leadership'],['/ehs','Environment, Health & Safety'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/contact','Contact']]}
+    {label:'Company',items:[['/mission','About / Mission'],['/leadership','Leadership'],['/ehs','Environment, Health & Safety'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']]}
   ];
   function esc(s){return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function navHtml(){
@@ -49,7 +49,7 @@
         col('Technology',[['/hyperion','Breeder — Hyperion'],['/aegis','Burner — Aegis'],['/metrovolt','Burner — MetroVolt'],['/how-it-works','How it works'],['/roadmap','Roadmap']])+
         col('Blueprint & Computing',[['/blueprint','Blueprint overview'],['/blueprints/','Engineering portal 🔒'],['/computing','Computing & de-risking'],['/computing/hpc','High-performance computing'],['/science','Science & evidence']])+
         col('Proof',[['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open science']])+
-        col('Company',[['/mission','About / Mission'],['/leadership','Leadership'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/contact','Contact']])+
+        col('Company',[['/mission','About / Mission'],['/leadership','Leadership'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']])+
       '</div></div>'+
       '<div class="kfe-footer-legal"><span>© 2026 Kronos Fusion Energy — a fusion energy company.</span>'+
         '<span class="kfe-legal-links"><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/corrections">Corrections</a><a href="/legal/accessibility">Accessibility</a></span></div>'+
