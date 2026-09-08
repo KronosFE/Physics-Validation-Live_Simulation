@@ -1,0 +1,122 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,follow">
+<title>Validator · Paper 2.80 Cross-Machine Transfer Learning fo… — Kronos Fusion Energy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{--bg:#141a22;--bg2:#1b2531;--panel:#202a38;--panel2:#243040;--ink:#e6ebf2;--dim:#aeb9c9;--faint:#8fa0b8;
+--gold:#D4AD5C;--pass:#5bbf8a;--pass-bg:rgba(91,191,138,.12);--live:#5aa9e6;--live-bg:rgba(90,169,230,.12);
+--line:rgba(150,165,190,.20);--line2:rgba(150,165,190,.32);--mono:'Space Mono',ui-monospace,Menlo,monospace;--sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 700px at 78% -8%,#1d2734 0,var(--bg) 60%) fixed,var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+header.bar{position:sticky;top:0;z-index:20;background:rgba(20,26,34,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-weight:700;font-size:15px}.brand b{color:var(--gold)}
+.barlinks a{color:var(--dim);text-decoration:none;font-size:13px;margin-left:18px}.barlinks a:hover{color:var(--ink)}
+.hero{padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.kick{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(23px,3vw,34px);font-weight:600;line-height:1.15;margin:12px 0 14px;max-width:28ch;text-wrap:balance}
+.verdict{display:inline-flex;align-items:center;gap:10px;background:var(--pass-bg);border:1px solid rgba(91,191,138,.4);color:#bfe8d2;border-radius:999px;padding:7px 14px;font-size:13.5px}
+.verdict .dot{width:8px;height:8px;border-radius:50%;background:var(--pass);box-shadow:0 0 10px var(--pass)}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.pill{font-family:var(--mono);font-size:12px;color:var(--dim);border:1px solid var(--line2);border-radius:8px;padding:7px 12px;text-decoration:none;display:inline-flex;gap:7px;align-items:center}
+.pill:hover{border-color:var(--gold);color:var(--ink)}.pill b{color:var(--gold)}
+section{padding:32px 0;border-bottom:1px solid var(--line)}
+h2{font-size:12px;font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 4px}
+.lead{color:var(--dim);font-size:14px;margin:0 0 20px;max-width:72ch}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tile{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:18px 16px;position:relative;overflow:hidden}
+.tile::after{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.tile .lab{font-size:11.5px;color:var(--faint);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em}
+.tile .val{font-size:27px;font-weight:600;margin-top:8px;font-variant-numeric:tabular-nums;line-height:1}
+.tile .val small{font-size:13px;color:var(--dim);margin-left:3px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.grp{padding:14px 18px 4px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:var(--bg2)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+tbody td{padding:11px 18px;border-bottom:1px solid rgba(150,165,190,.10);vertical-align:top}
+tbody tr:hover{background:rgba(150,165,190,.05)}
+.sym{font-family:var(--mono);color:var(--gold);white-space:nowrap}.qty{color:var(--dim)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.unit{color:var(--faint);font-size:12px}
+.badge{font-family:var(--mono);font-size:10.5px;padding:3px 9px;border-radius:999px;background:var(--pass-bg);color:#bfe8d2;border:1px solid rgba(91,191,138,.35)}
+.mbar{height:5px;border-radius:3px;background:rgba(150,165,190,.18);margin-top:7px;overflow:hidden;min-width:120px}
+.mfill{height:100%}.mlab{font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:3px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.fbtn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:6px 12px;cursor:pointer}
+.fbtn.active{color:var(--bg);background:var(--gold);border-color:var(--gold);font-weight:700}
+.gates{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.gate{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px;text-decoration:none;transition:.15s}
+.gate:hover{border-color:var(--gold);transform:translateY(-2px);background:var(--panel2)}
+.gate .g-ser{font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:700}.gate .g-tier{font-size:10.5px;color:var(--faint);font-family:var(--mono)}
+.gate .g-live{align-self:flex-start;font-family:var(--mono);font-size:9.5px;color:#bcdcf5;background:var(--live-bg);border:1px solid rgba(90,169,230,.35);border-radius:999px;padding:2px 7px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{font-family:var(--mono);font-size:12px;color:var(--dim);border:1px solid var(--line);border-radius:7px;padding:5px 10px}
+figure.keyfig{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+figure.keyfig img{width:100%;display:block;background:#fff}
+figure.keyfig figcaption{padding:12px 16px;color:var(--dim);font-size:12.5px}
+.recipe{background:#0f141b;border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.7;overflow-x:auto}
+.recipe .cmt{color:var(--faint)}.recipe b{color:var(--gold);font-weight:400}
+.src{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.src a{display:flex;flex-direction:column;gap:3px;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:14px 15px;text-decoration:none}
+.src a:hover{border-color:var(--gold)}.src .s-lab{font-size:11px;color:var(--faint);font-family:var(--mono);text-transform:uppercase}.src .s-val{font-size:13.5px}
+footer{color:var(--faint);font-size:12px;padding:26px 0 46px}
+.live-recompute{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.lr-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}.lr-controls{display:flex;flex-direction:column;gap:10px}
+.lr-lab{font-size:12.5px;color:var(--dim);display:flex;flex-direction:column;gap:4px}.lr-lab output{font-family:var(--mono);color:var(--gold)}
+.lr-out,.lr-anchor{font-family:var(--mono);font-size:13px}.lr-status{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px}
+input[type=range]{accent-color:var(--gold)}.lr-reset{font-family:var(--mono);font-size:12px;background:var(--panel2);color:var(--ink);border:1px solid var(--line2);border-radius:8px;padding:7px 12px;cursor:pointer}
+@media(max-width:720px){.tiles{grid-template-columns:repeat(2,1fr)}.lr-grid{grid-template-columns:1fr}}
+</style></head><body>
+<header class="bar"><div class="wrap"><div class="brand">KRONOS <b>Validators</b></div>
+<nav class="barlinks"><a href="../index.html">All validators</a><a href="../validators-registry.html">Registry</a>
+<a href="https://www.kronosfusionenergy.com/publications/de-risking-register.html">Register</a></nav></div></header>
+<div class="wrap">
+<section class="hero" style="border-bottom:none;padding-bottom:8px">
+<div class="kick">Paper 2.80 · Programme · Phase 2</div>
+<h1>Cross-Machine Transfer Learning for a Compact Spherical-Tokamak Breeder: A Disruption Model Pre-Trained on TCV, DIII-D, and NSTX with Honest Transfer Uncertainty</h1>
+<span class="verdict"><span class="dot"></span>Frozen design point · 1 gate independently re-run &amp; stamped</span>
+<div class="pills"><a class="pill" href="https://doi.org/10.5281/zenodo.22645821" target="_blank" rel="noopener">DOI <b>10.5281/zenodo.22645821</b></a>
+<a class="pill" href="https://www.kronosfusionenergy.com/publications/cross-machine-transfer-learning-for-a-compact-spherical.html" target="_blank" rel="noopener">Read the paper ↗</a>
+<a class="pill" href="https://www.kronosfusionenergy.com/3D_Model" target="_blank" rel="noopener">3D model ↗</a></div></section>
+
+<section><h2>Headline results</h2><p class="lead">Marquee frozen quantities, each an anchor in the Kronos de-risking register, recomputed by an explicit code and stamped before freeze.</p><div class="tiles">
+<div class="tile"><div class="lab">Fusion gain</div><div class="val">3.076<small></small></div></div>
+<div class="tile"><div class="lab">Triangularity</div><div class="val">-0.30<small></small></div></div>
+<div class="tile"><div class="lab">Elongation</div><div class="val">2.0<small></small></div></div>
+<div class="tile"><div class="lab">H-factor</div><div class="val">1.0<small></small></div></div>
+</div></section>
+<section><h2>Verification scorecard</h2><p class="lead">Frozen anchors grouped by domain, carried verbatim from the manuscript. Status reflects the freeze: recomputed, cross-checked, locked.</p><div class="card">
+<div class="grp">Power balance &amp; gain</div><table><tbody>
+<tr><td class="sym">Q</td><td class="qty">Fusion gain</td><td class="num">3.076 <span class="unit"></span></td><td><span class="badge">FROZEN ✓</span></td></tr>
+</tbody></table>
+<div class="grp">Configuration &amp; MHD</div><table><tbody>
+<tr><td class="sym">δ</td><td class="qty">Triangularity</td><td class="num">-0.30 <span class="unit"></span></td><td><span class="badge">FROZEN ✓</span></td></tr>
+<tr><td class="sym">κ</td><td class="qty">Elongation</td><td class="num">2.0 <span class="unit"></span></td><td><span class="badge">FROZEN ✓</span></td></tr>
+</tbody></table>
+<div class="grp">Confinement</div><table><tbody>
+<tr><td class="sym">H_98</td><td class="qty">H-factor</td><td class="num">1.0 <span class="unit"></span></td><td><span class="badge">FROZEN ✓</span></td></tr>
+</tbody></table>
+</div></section>
+<section><h2>Key figure</h2><figure class="keyfig"><img src="fig/cross-machine-transfer-learning-for-a-compact-spherical.png" alt="Figure from Cross-Machine Transfer Learning for a Compact Spherical-Tokamak Breeder: A Disruption Model Pre-Trained on TCV, DIII-D, and NSTX with Honest Transfer Uncertainty" loading="lazy"><figcaption>Representative figure from the paper. Full set in the publication and its Zenodo deposit.</figcaption></figure></section>
+<section><h2>Gate validators <span style="color:var(--gold)">· 1 live card</span></h2><p class="lead">Every de-risking gate this paper rests on — each a live verification card you can open and re-run.</p>
+<div class="filters"><button class="fbtn active" data-f="all">All 1</button><button class="fbtn" data-f="L1">Level 1</button><button class="fbtn" data-f="L2">Level 2</button><button class="fbtn" data-f="OUT">Outputs</button><button class="fbtn" data-f="REG">Register</button></div><div class="gates" id="gates"></div></section>
+<section><h2>Codes &amp; methods</h2><p class="lead">Every quantitative claim is produced by an explicit code, re-run independently against a second library before freeze.</p><div class="chips">
+<span class="chip">FreeGSNKE</span>
+<span class="chip">FreeGS</span>
+<span class="chip">CGYRO</span>
+<span class="chip">OpenMC</span>
+<span class="chip">Sauter</span>
+</div></section>
+<section><h2>Reproduce this</h2><div class="recipe"><span class="cmt"># Kronos toolkit — reproduce the 2.80 frozen anchors</span>
+git clone <b>https://github.com/KronosFE/kronos-toolkit</b>
+cd kronos-toolkit &amp;&amp; pip install -e .
+kronos verify --paper 2.80
+<span class="cmt"># anchors stamped in the de-risking register (DOI below); gate-by-gate provenance in the cards above.</span></div></section>
+<section style="border-bottom:none"><h2>Sources</h2><div class="src">
+<a href="https://doi.org/10.5281/zenodo.22645821" target="_blank" rel="noopener"><span class="s-lab">Paper DOI</span><span class="s-val">10.5281/zenodo.22645821</span></a>
+<a href="https://www.kronosfusionenergy.com/publications/cross-machine-transfer-learning-for-a-compact-spherical.html" target="_blank" rel="noopener"><span class="s-lab">Publication</span><span class="s-val">Editorial edition ↗</span></a>
+<a href="https://www.kronosfusionenergy.com/publications/de-risking-register.html" target="_blank" rel="noopener"><span class="s-lab">Register</span><span class="s-val">Gate-by-gate evidence ↗</span></a>
+<a href="../index.html"><span class="s-lab">All validators</span><span class="s-val">141 gate cards ↗</span></a></div></section>
+<footer>© 2026 Kronos Fusion Energy · a family-owned American company · validator layer, frozen 2026 series</footer></div>
+<script>var GATES=["KX-L1-A7"];function tierOf(s){if(s.indexOf("OUT")>-1)return"OUT";if(s.indexOf("REG")===0)return"REG";if(s.indexOf("-L1-")>-1)return"L1";return"L2";}function tl(t){return{L1:"Level 1 · binding",L2:"Level 2 · supporting",OUT:"Frozen output",REG:"Register anchor"}[t]||t;}function render(f){var h=document.getElementById("gates");h.innerHTML="";GATES.filter(function(s){return f==="all"||tierOf(s)===f;}).forEach(function(s){var a=document.createElement("a");a.className="gate";a.href="../gate/"+s+".html";a.innerHTML='<span class="g-live">LIVE ↻</span><span class="g-ser">'+s+'</span><span class="g-tier">'+tl(tierOf(s))+'</span>';h.appendChild(a);});}document.querySelectorAll(".fbtn").forEach(function(b){b.onclick=function(){document.querySelectorAll(".fbtn").forEach(function(x){x.classList.remove("active");});b.classList.add("active");render(b.dataset.f);};});render("all");</script>
+</body></html>
