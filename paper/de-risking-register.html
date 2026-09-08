@@ -1,0 +1,240 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,follow">
+<title>Validator · Paper 1.0 The De-Risking Register — Kronos Fusion Energy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{--bg:#141a22;--bg2:#1b2531;--panel:#202a38;--panel2:#243040;--ink:#e6ebf2;--dim:#aeb9c9;--faint:#8fa0b8;
+--gold:#D4AD5C;--pass:#5bbf8a;--pass-bg:rgba(91,191,138,.12);--live:#5aa9e6;--live-bg:rgba(90,169,230,.12);
+--line:rgba(150,165,190,.20);--line2:rgba(150,165,190,.32);--mono:'Space Mono',ui-monospace,Menlo,monospace;--sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1300px 800px at 50% -10%,#22303f 0,var(--bg) 62%) fixed,var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header.bar{position:sticky;top:0;z-index:20;background:rgba(20,26,34,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-weight:700;font-size:15px}.brand b{color:var(--gold)}
+.barlinks a{color:var(--dim);text-decoration:none;font-size:13px;margin-left:18px}.barlinks a:hover{color:var(--ink)}
+.hero{padding:56px 0 34px;text-align:center;border-bottom:1px solid var(--line)}
+.mship{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:clamp(30px,5vw,52px);font-weight:700;letter-spacing:-.01em;margin:14px auto 8px;max-width:18ch;line-height:1.08;text-wrap:balance}
+.hero .sub{color:var(--dim);font-size:16px;max-width:60ch;margin:0 auto 20px}
+.verdict{display:inline-flex;align-items:center;gap:10px;background:var(--pass-bg);border:1px solid rgba(91,191,138,.4);color:#bfe8d2;border-radius:999px;padding:9px 18px;font-size:14px}
+.verdict .dot{width:9px;height:9px;border-radius:50%;background:var(--pass);box-shadow:0 0 12px var(--pass)}
+.pills{display:flex;gap:11px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+.pill{font-family:var(--mono);font-size:12.5px;color:var(--dim);border:1px solid var(--line2);border-radius:9px;padding:9px 15px;text-decoration:none}
+.pill:hover{border-color:var(--gold);color:var(--ink)}.pill b{color:var(--gold)}
+.pill.primary{background:var(--gold);color:#141a22;border-color:var(--gold);font-weight:700}
+section{padding:38px 0;border-bottom:1px solid var(--line)}
+h2{font-size:12px;font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 6px;text-align:center}
+.lead{color:var(--dim);font-size:14px;margin:0 auto 24px;max-width:70ch;text-align:center}
+.machines{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mach{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+.mach h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0 0 3px}
+.mach .role{font-size:12.5px;color:var(--faint);margin-bottom:14px}
+.mach dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:9px 12px}
+.mach dt{color:var(--dim);font-size:13px}.mach dd{margin:0;font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.stripe{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin:6px 0 0}
+.stat{text-align:center}.stat b{display:block;font-family:var(--mono);font-size:30px;font-weight:700;color:var(--ink)}
+.stat span{font-size:11.5px;color:var(--faint);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em}
+.pdfwrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#1a2430;box-shadow:0 20px 60px -30px #000;margin-top:8px}
+.pdfwrap iframe{width:100%;height:78vh;min-height:560px;border:0;display:block;background:#2a3644}
+.pvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.pv{display:flex;gap:10px;align-items:baseline;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 13px;text-decoration:none;transition:.14s}
+.pv:hover{border-color:var(--gold);transform:translateY(-2px);background:var(--panel2)}
+.pv-n{font-family:var(--mono);color:var(--gold);font-size:12.5px;font-weight:700;min-width:38px}
+.pv-t{font-size:12.5px;color:var(--dim);line-height:1.3}
+.subhead{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:22px 0 12px;text-align:left}
+.gatelinks{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{color:var(--faint);font-size:12px;padding:30px 0 54px;text-align:center}
+@media(max-width:820px){.machines{grid-template-columns:1fr}}
+</style></head><body>
+<header class="bar"><div class="wrap"><div class="brand">KRONOS <b>Validators</b></div>
+<nav class="barlinks"><a href="../index.html">All gate cards</a><a href="../validators-registry.html">Registry</a>
+<a href="https://www.kronosfusionenergy.com/publications">Publications</a></nav></div></header>
+
+<div class="wrap">
+<section class="hero" style="border-bottom:none">
+  <div class="mship">Paper 1.0 · The Mothership · Every paper refers here</div>
+  <h1>The Physics De-Risking Register</h1>
+  <p class="sub">Gate-by-gate evidence — independently re-run and stamped — across the compact spherical-tokamak breeder and its D–³He tandem-mirror burners. This is the spine the entire 115-paper series is built on.</p>
+  <span class="verdict"><span class="dot"></span>321 public gates cleared · 141 live validator cards · 3 frozen designs</span>
+  <div class="pills">
+    <a class="pill primary" href="de-risking-register.pdf" download>Download the register — 779 pp PDF</a>
+    <a class="pill" href="https://doi.org/10.5281/zenodo.22645689" target="_blank" rel="noopener">DOI <b>10.5281/zenodo.22645689</b></a>
+    <a class="pill" href="https://www.kronosfusionenergy.com/publications" target="_blank" rel="noopener">115-paper series ↗</a>
+    <a class="pill" href="https://www.kronosfusionenergy.com/3D_Model" target="_blank" rel="noopener">3D model ↗</a>
+  </div>
+</section>
+
+<section>
+  <h2>The three frozen designs</h2>
+  <p class="lead">One register, three machines — each number a stamped anchor, recomputed by an explicit code on the NVIDIA GPU HPC platform and locked at the Tier-2 freeze.</p>
+  <div class="machines">
+    <div class="mach"><h3>Hyperion</h3><div class="role">Spherical-tokamak breeder</div><dl>
+      <dt>Fusion gain Q</dt><dd>3.076</dd><dt>Fusion power</dt><dd>85.04 MW</dd>
+      <dt>Plasma current</dt><dd>9.66 MA</dd><dt>On-axis field</dt><dd>8.0 T</dd>
+      <dt>Centrepost peak</dt><dd>16.84 T</dd><dt>Net tritium breeding</dt><dd>≥1.05</dd></dl></div>
+    <div class="mach"><h3>Aegis</h3><div class="role">Forward-base D–³He burner</div><dl>
+      <dt>Engineering gain Q_E</dt><dd>1.318</dd><dt>Plug field</dt><dd>26.49 T</dd>
+      <dt>Neutron fraction</dt><dd>5.44%</dd><dt>Conversion η</dt><dd>0.49</dd>
+      <dt>Configuration</dt><dd>Tandem mirror</dt></dl></div>
+    <div class="mach"><h3>MetroVolt</h3><div class="role">Data-center D–³He burner</div><dl>
+      <dt>Engineering gain Q_E</dt><dd>1.318</dd><dt>Plug field</dt><dd>26.49 T</dd>
+      <dt>Power interface</dt><dd>HVDC-native</dd><dt>Neutron fraction</dt><dd>5.44%</dd>
+      <dt>Siting</dt><dd>Islanded / campus</dd></dl></div>
+  </div>
+  <div class="stripe" style="margin-top:24px">
+    <div class="stat"><b>115</b><span>papers</span></div>
+    <div class="stat"><b>321</b><span>public gates</span></div>
+    <div class="stat"><b>141</b><span>live validators</span></div>
+    <div class="stat"><b>779</b><span>register pages</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Read the register</h2>
+  <p class="lead">The full public edition — CC BY 4.0. Gate-by-gate evidence, the 115-paper DOI hub, and the Phase 1–4 roadmap.</p>
+  <div class="pdfwrap"><iframe src="de-risking-register.pdf#view=FitH" title="Kronos Physics De-Risking Register (public edition)" loading="lazy"></iframe></div>
+</section>
+
+<section>
+  <h2>Every validator in the program</h2>
+  <p class="lead">The register is the hub: each of the 115 papers has its own validator, and each rests on the shared pool of 141 live gate-by-gate cards. Open any of them.</p>
+  <div class="gatelinks">
+    <a class="pill" href="../index.html">Browse all 141 gate cards ↗</a>
+    <a class="pill" href="../validators-registry.html">Validators registry (results table) ↗</a>
+  </div>
+  <div class="subhead">Phase 1 — foundational designs (1.1–1.5)</div>
+  <div class="pvgrid">
+<a class="pv" href="breeder.html"><span class="pv-n">1.1</span><span class="pv-t">Hyperion as a Strategic-Materials Platform: Gain, Tritium Breeding, He</span></a>
+<a class="pv" href="aegis-burner.html"><span class="pv-n">1.2a</span><span class="pv-t">The Aegis Forward-Base Burner: Q_E Closure, Plug Requirement, and Mirr</span></a>
+<a class="pv" href="metrovolt-burner.html"><span class="pv-n">1.2b</span><span class="pv-t">The MetroVolt Data-Center Burner: Direct-DC Campus Power, Q_E Closure,</span></a>
+<a class="pv" href="magnets.html"><span class="pv-n">1.3</span><span class="pv-t">The REBCO High-Field Superconductor Basis: Conductor, Winding, and the</span></a>
+<a class="pv" href="direct-energy-conversion.html"><span class="pv-n">1.4</span><span class="pv-t">Direct Energy Conversion for a D–³He Tandem-Mirror Burner: Recovering </span></a>
+<a class="pv" href="ai-quantum-control.html"><span class="pv-n">1.5</span><span class="pv-t">AI and Quantum Computing for Fusion: ML Surrogates, Real-Time Control,</span></a>
+  </div>
+  <div class="subhead">Phase 2 — de-risking &amp; systems (2.1–2.108)</div>
+  <div class="pvgrid">
+<a class="pv" href="integrated-platform-overview.html"><span class="pv-n">2.1</span><span class="pv-t">The Kronos Strategic-Materials Platform: An Integrated Spherical-Tokam</span></a>
+<a class="pv" href="alpha-fast-product-confinement.html"><span class="pv-n">2.10</span><span class="pv-t">Fast-Ion and Alpha-Particle Confinement in a Compact Spherical-Tokamak</span></a>
+<a class="pv" href="admissible-operating-window-synthesis.html"><span class="pv-n">2.100</span><span class="pv-t">Lifetime-Constrained Operating-Window Synthesis for a Compact Spherica</span></a>
+<a class="pv" href="red-team-of-the-binding-gates.html"><span class="pv-n">2.101</span><span class="pv-t">Red-Teaming the Frozen Design Point: Current-Drive and beta-Headroom M</span></a>
+<a class="pv" href="balance-of-plant-for-a-compact-spherical-tokamak-breede.html"><span class="pv-n">2.102</span><span class="pv-t">Balance of Plant for a Compact Spherical-Tokamak Breeder: Heat Rejecti</span></a>
+<a class="pv" href="heating-and-current-drive-actuator-systems-for-a-compac.html"><span class="pv-n">2.103</span><span class="pv-t">Heating and Current-Drive Actuator Systems for a Compact Spherical-Tok</span></a>
+<a class="pv" href="operating-the-consumable-centrepost-of-a-compact-spheri.html"><span class="pv-n">2.104</span><span class="pv-t">Operating the Consumable Centrepost of a Compact Spherical-Tokamak Bre</span></a>
+<a class="pv" href="fleet-availability-under-consumable-centrepost-swap-cad.html"><span class="pv-n">2.105</span><span class="pv-t">Fleet Availability under Consumable-Centrepost Swap Cadence: A Time-Do</span></a>
+<a class="pv" href="supply-chain-and-fleet-buildability.html"><span class="pv-n">2.106</span><span class="pv-t">Critical-Materials Buildability for a Spherical-Tokamak Breeder Fleet:</span></a>
+<a class="pv" href="inherent-safety-and-environmental-case.html"><span class="pv-n">2.107</span><span class="pv-t">Environmental Profile, Accident Analysis and the Tritium Safety Case f</span></a>
+<a class="pv" href="licensing-byproduct-material-part-30.html"><span class="pv-n">2.108</span><span class="pv-t">The Sub-100 MW Byproduct-Material Thesis: Why a Compact Spherical-Toka</span></a>
+<a class="pv" href="current-drive-and-bootstrap.html"><span class="pv-n">2.11</span><span class="pv-t">Bootstrap-Aligned Steady-State Current Sustainment Without a Central S</span></a>
+<a class="pv" href="solenoid-free-startup.html"><span class="pv-n">2.12</span><span class="pv-t">From Breakdown to Flat-Top: Solenoid-Free Startup and Disruption-Free </span></a>
+<a class="pv" href="toroidal-rotation-flow-shear-stabilization-and-error-fi.html"><span class="pv-n">2.13</span><span class="pv-t">Toroidal Rotation, Flow-Shear Stabilization and Error-Field Correction</span></a>
+<a class="pv" href="the-greenwald-fraction-density-limit-and-the-radiative-.html"><span class="pv-n">2.14</span><span class="pv-t">The Greenwald-Fraction Density Limit and the Radiative Boundary: Mappi</span></a>
+<a class="pv" href="peeling-ballooning-access-to-the-elm-free-pedestal-at-0.html"><span class="pv-n">2.15</span><span class="pv-t">Peeling-Ballooning Access to the ELM-Free Pedestal at δ = −0.30: How N</span></a>
+<a class="pv" href="centrepost-and-magnet-integrity.html"><span class="pv-n">2.16</span><span class="pv-t">The Consumable Centrepost: Coverage-versus-Protection Neutronics, Coil</span></a>
+<a class="pv" href="rebco-conductor-materials-under-irradiation.html"><span class="pv-n">2.17</span><span class="pv-t">REBCO Conductor and Stabilizer Materials Under Neutron Irradiation: Th</span></a>
+<a class="pv" href="first-principles-radiation-tolerance-of-centrepost-rebc.html"><span class="pv-n">2.18</span><span class="pv-t">First-Principles Radiation Tolerance of Centrepost REBCO in a Compact </span></a>
+<a class="pv" href="quench-detection-and-nv-sensing.html"><span class="pv-n">2.19</span><span class="pv-t">Fused Strain-Rate and Magnetization Quench Detection with In-Winding N</span></a>
+<a class="pv" href="advanced-fuel-scorecard.html"><span class="pv-n">2.2</span><span class="pv-t">An Advanced-Fuel Scorecard for D-T, D-D, D-3He and p-11B: Reactivity, </span></a>
+<a class="pv" href="poloidal-field-coil-set-and-equilibrium-current-optimiz.html"><span class="pv-n">2.20</span><span class="pv-t">Poloidal-Field Coil Set and Equilibrium-Current Optimization for a Com</span></a>
+<a class="pv" href="engineering-the-26-49-t-plug-coil-of-a-d-he-tandem-mirr.html"><span class="pv-n">2.21</span><span class="pv-t">Engineering the 26.49 T Plug Coil of a D–³He Tandem-Mirror Burner: Thr</span></a>
+<a class="pv" href="vacuum-vessel-and-support-structural-mechanics-under-el.html"><span class="pv-n">2.22</span><span class="pv-t">Vacuum-Vessel and Support Structural Mechanics Under Electromagnetic, </span></a>
+<a class="pv" href="cryogenics-and-the-cold-mass-thermal-budget-of-a-high-f.html"><span class="pv-n">2.23</span><span class="pv-t">Cryogenics and the Cold-Mass Thermal Budget of a High-Field Spherical-</span></a>
+<a class="pv" href="blanket-tritium-breeding-lever.html"><span class="pv-n">2.24</span><span class="pv-t">From Tritium Consumer to Breeding Fleet: Net Blanket TBR and the Cross</span></a>
+<a class="pv" href="cad-faithful-neutronics-for-a-compact-spherical-tokamak.html"><span class="pv-n">2.25</span><span class="pv-t">CAD-Faithful Neutronics for a Compact Spherical-Tokamak Breeder: STEP-</span></a>
+<a class="pv" href="centrepost-fluence-and-shielding.html"><span class="pv-n">2.26</span><span class="pv-t">The Centrepost Life-Limiter: Fast-Fluence, dpa, and Shielding Setting </span></a>
+<a class="pv" href="nuclear-data-uq-for-the-tbr.html"><span class="pv-n">2.27</span><span class="pv-t">Nuclear-Data Uncertainty Quantification for Tritium Breeding: Which 14</span></a>
+<a class="pv" href="neutron-streaming-duct-and-port-penetrations-and-occupa.html"><span class="pv-n">2.28</span><span class="pv-t">Neutron Streaming, Duct and Port Penetrations, and Occupational Dose A</span></a>
+<a class="pv" href="component-activation-waste-class-routing-and-decommissi.html"><span class="pv-n">2.29</span><span class="pv-t">Component Activation, Waste-Class Routing, and Decommissioning of a Lo</span></a>
+<a class="pv" href="isotopes-and-14-mev-applications.html"><span class="pv-n">2.3</span><span class="pv-t">The Medical-Isotope Mission of a Compact Spherical-Tokamak Breeder: Mo</span></a>
+<a class="pv" href="first-wall-neutron-damage-lifetime.html"><span class="pv-n">2.30</span><span class="pv-t">First-Wall and Plasma-Facing-Component Lifetime Under 14 MeV Loading: </span></a>
+<a class="pv" href="beryllium-and-be-ti-neutron-multipliers-for-a-compact-s.html"><span class="pv-n">2.31</span><span class="pv-t">Beryllium and Be₁₂Ti Neutron Multipliers for a Compact Spherical-Tokam</span></a>
+<a class="pv" href="breeding-blanket-and-neutron-multiplier-concept-down-se.html"><span class="pv-n">2.32</span><span class="pv-t">Breeding-Blanket and Neutron-Multiplier Concept Down-Select for a Comp</span></a>
+<a class="pv" href="tritium-fuel-cycle-and-breeding-ladder.html"><span class="pv-n">2.33</span><span class="pv-t">The Tritium Breeding Ladder for a Compact Spherical-Tokamak Breeder: P</span></a>
+<a class="pv" href="a-real-time-tritium-accountancy-twin-for-a-compact-sphe.html"><span class="pv-n">2.34</span><span class="pv-t">A Real-Time Tritium-Accountancy Twin for a Compact Spherical-Tokamak B</span></a>
+<a class="pv" href="helium-3-fuel-cycle.html"><span class="pv-n">2.35</span><span class="pv-t">The D-3He Fuel Cycle Does Not Close Indigenously: Helium-3 Supply, the</span></a>
+<a class="pv" href="a-neutronics-and-activation-digital-twin-with-rigorous-.html"><span class="pv-n">2.36</span><span class="pv-t">A Neutronics and Activation Digital Twin with Rigorous-Two-Step Shutdo</span></a>
+<a class="pv" href="divertor-portfolio.html"><span class="pv-n">2.37</span><span class="pv-t">A Stacked Detachment Portfolio for a Compact Spherical-Tokamak Breeder</span></a>
+<a class="pv" href="a-divertor-exhaust-concept-down-select-for-a-compact-sp.html"><span class="pv-n">2.38</span><span class="pv-t">A Divertor-Exhaust Concept Down-Select for a Compact Spherical-Tokamak</span></a>
+<a class="pv" href="flowing-lithium-vapor-box-divertor.html"><span class="pv-n">2.39</span><span class="pv-t">A Flowing-Lithium Vapor-Box Divertor with Molten-Salt In-Loop Tritium </span></a>
+<a class="pv" href="negative-triangularity-confinement.html"><span class="pv-n">2.4</span><span class="pv-t">Negative-Triangularity Turbulence Suppression in a Compact Spherical-T</span></a>
+<a class="pv" href="real-time-detachment-control-for-a-super-x-divertor-in-.html"><span class="pv-n">2.40</span><span class="pv-t">Real-Time Detachment Control for a Super-X Divertor in a Compact Spher</span></a>
+<a class="pv" href="collisional-radiative-impurity-radiation-modeling-for-a.html"><span class="pv-n">2.41</span><span class="pv-t">Collisional-Radiative Impurity-Radiation Modeling for a Compact Spheri</span></a>
+<a class="pv" href="plasma-material-interaction-in-a-compact-spherical-toka.html"><span class="pv-n">2.42</span><span class="pv-t">Plasma-Material Interaction in a Compact Spherical-Tokamak Breeder: Sp</span></a>
+<a class="pv" href="first-wall-thermomechanics-and-fatigue-life-of-plasma-f.html"><span class="pv-n">2.43</span><span class="pv-t">First-Wall Thermomechanics and Fatigue Life of Plasma-Facing Component</span></a>
+<a class="pv" href="blanket-and-divertor-thermal-hydraulics-for-a-compact-s.html"><span class="pv-n">2.44</span><span class="pv-t">Blanket and Divertor Thermal-Hydraulics for a Compact Spherical-Tokama</span></a>
+<a class="pv" href="pellet-fueling-particle-balance-and-helium-ash-exhaust-.html"><span class="pv-n">2.45</span><span class="pv-t">Pellet Fueling, Particle Balance, and Helium-Ash Exhaust for Sustained</span></a>
+<a class="pv" href="low-activation-alloys.html"><span class="pv-n">2.46</span><span class="pv-t">First-Principles Near-Neutral Low-Activation Refractory Alloys for Fus</span></a>
+<a class="pv" href="a-radiation-tolerant-refractory-high-entropy-alloy-for-.html"><span class="pv-n">2.47</span><span class="pv-t">A Radiation-Tolerant Refractory High-Entropy Alloy for Fusion Plasma-F</span></a>
+<a class="pv" href="a-tantalum-and-rhenium-free-low-activation-alloy-family.html"><span class="pv-n">2.48</span><span class="pv-t">A Tantalum- and Rhenium-Free Low-Activation Alloy Family for First Wal</span></a>
+<a class="pv" href="qualifying-reduced-activation-ferritic-martensitic-stee.html"><span class="pv-n">2.49</span><span class="pv-t">Qualifying Reduced-Activation Ferritic-Martensitic Steel for a Compact</span></a>
+<a class="pv" href="neoclassical-transport-poloidal-flows-and-impurity-scre.html"><span class="pv-n">2.5</span><span class="pv-t">Neoclassical Transport, Poloidal Flows, and Impurity Screening in a Co</span></a>
+<a class="pv" href="tritium-permeation-barrier-coatings-for-a-compact-spher.html"><span class="pv-n">2.50</span><span class="pv-t">Tritium Permeation-Barrier Coatings for a Compact Spherical-Tokamak Br</span></a>
+<a class="pv" href="ml-potential-materials-discovery-pipeline.html"><span class="pv-n">2.51</span><span class="pv-t">A Machine-Learning Interatomic-Potential to Activation-Transport Pipel</span></a>
+<a class="pv" href="tandem-mirror-design-space-mapping-for-a-d-he-burner-0-.html"><span class="pv-n">2.52</span><span class="pv-t">Tandem-Mirror Design-Space Mapping for a D–³He Burner: 0-D Power Balan</span></a>
+<a class="pv" href="rf-alpha-channeling.html"><span class="pv-n">2.53</span><span class="pv-t">RF Alpha-Channeling in a D–³He Tandem-Mirror Burner: Raising the Recov</span></a>
+<a class="pv" href="dclc-loss-cone-microstability.html"><span class="pv-n">2.54</span><span class="pv-t">Velocity-Space Microstability at the DCLC Knee: Warm-Fill Requirements</span></a>
+<a class="pv" href="synchrotron-radiation-transport.html"><span class="pv-n">2.55</span><span class="pv-t">Synchrotron Radiation Transport in a D-3He Tandem-Mirror Burner: Pinni</span></a>
+<a class="pv" href="ech-thermal-barrier-decoupling.html"><span class="pv-n">2.56</span><span class="pv-t">ECH-Sustained Thermal-Barrier Decoupling in the D-3He Tandem-Mirror Pl</span></a>
+<a class="pv" href="sloshing-ion-ambipolar-potential-formation-in-a-d-he-ta.html"><span class="pv-n">2.57</span><span class="pv-t">Sloshing-Ion Ambipolar-Potential Formation in a D–³He Tandem-Mirror Bu</span></a>
+<a class="pv" href="central-cell-radial-transport-and-interchange-balloonin.html"><span class="pv-n">2.58</span><span class="pv-t">Central-Cell Radial Transport and Interchange/Ballooning MHD Stability</span></a>
+<a class="pv" href="end-cell-expander-and-halo-physics-in-a-d-3he-tandem-mi.html"><span class="pv-n">2.59</span><span class="pv-t">End-Cell, Expander, and Halo Physics in a D-3He Tandem-Mirror Burner: </span></a>
+<a class="pv" href="the-negative-triangularity-edge-heat-flux-width-the-elm.html"><span class="pv-n">2.6</span><span class="pv-t">The Negative-Triangularity Edge: Heat-Flux Width, the ELM-Free Pedesta</span></a>
+<a class="pv" href="tandem-mirror-end-cell-and-plug-alternatives-for-a-d-he.html"><span class="pv-n">2.60</span><span class="pv-t">Tandem-Mirror End-Cell and Plug Alternatives for a D–³He Burner: Kinet</span></a>
+<a class="pv" href="recirculation-resolved-q-e-closure-in-a-d-he-tandem-mir.html"><span class="pv-n">2.61</span><span class="pv-t">Recirculation-Resolved Q_E Closure in a D-³He Tandem-Mirror Burner: Th</span></a>
+<a class="pv" href="the-neutron-lean-siting-case-for-a-d-he-tandem-mirror-b.html"><span class="pv-n">2.62</span><span class="pv-t">The Neutron-Lean Siting Case for a D–³He Tandem-Mirror Burner: Parasit</span></a>
+<a class="pv" href="direct-energy-converter-collector-physics-in-a-d-he-tan.html"><span class="pv-n">2.63</span><span class="pv-t">Direct-Energy-Converter Collector Physics in a D-³He Tandem-Mirror Bur</span></a>
+<a class="pv" href="direct-energy-converter-architectures-for-a-d-he-tandem.html"><span class="pv-n">2.64</span><span class="pv-t">Direct-Energy-Converter Architectures for a D–³He Tandem-Mirror Burner</span></a>
+<a class="pv" href="islanded-forward-base-operation-of-the-aegis-d-he-tande.html"><span class="pv-n">2.65</span><span class="pv-t">Islanded Forward-Base Operation of the Aegis D-³He Tandem-Mirror Burne</span></a>
+<a class="pv" href="data-center-integration-of-a-d-he-tandem-mirror-burner-.html"><span class="pv-n">2.66</span><span class="pv-t">Data-Center Integration of a D–³He Tandem-Mirror Burner: Four-Nines Up</span></a>
+<a class="pv" href="metrovolt-hvdc-native-power-interface.html"><span class="pv-n">2.67</span><span class="pv-t">The Direct-Energy-Converter-to-Load Interface in a D-3He Tandem-Mirror</span></a>
+<a class="pv" href="power-delivery-topologies-for-a-d-he-tandem-mirror-data.html"><span class="pv-n">2.68</span><span class="pv-t">Power-Delivery Topologies for a D–³He Tandem-Mirror Data-Center Burner</span></a>
+<a class="pv" href="control-barrier-safety-clamp.html"><span class="pv-n">2.69</span><span class="pv-t">A Certified Control-Barrier Safety Filter for Fusion Control: Forward-</span></a>
+<a class="pv" href="ideal-mhd-stability.html"><span class="pv-n">2.7</span><span class="pv-t">Free-Boundary Equilibrium and Ideal-MHD Stability of a Compact Spheric</span></a>
+<a class="pv" href="maturity-gated-actuation-authority.html"><span class="pv-n">2.70</span><span class="pv-t">Maturity-Gated Actuation Authority: Binding PCMM Verification Credibil</span></a>
+<a class="pv" href="sub-millisecond-neural-equilibrium-reconstruction-robus.html"><span class="pv-n">2.71</span><span class="pv-t">Sub-Millisecond Neural Equilibrium Reconstruction Robust to Sensor Dro</span></a>
+<a class="pv" href="neural-operator-flux-surrogates-for-control-latency-tra.html"><span class="pv-n">2.72</span><span class="pv-t">Neural-Operator Flux Surrogates for Control-Latency Transport: Differe</span></a>
+<a class="pv" href="four-coupled-digital-twins-for-a-compact-spherical-toka.html"><span class="pv-n">2.73</span><span class="pv-t">Four Coupled Digital Twins for a Compact Spherical-Tokamak Breeder: Mu</span></a>
+<a class="pv" href="model-predictive-burn-control-inside-a-certified-safe-e.html"><span class="pv-n">2.74</span><span class="pv-t">Model-Predictive Burn Control Inside a Certified Safe Envelope: A Refe</span></a>
+<a class="pv" href="a-real-time-control-suite-for-a-compact-negative-triang.html"><span class="pv-n">2.75</span><span class="pv-t">A Real-Time Control Suite for a Compact Negative-Triangularity Spheric</span></a>
+<a class="pv" href="a-real-time-control-suite-for-a-d-3he-tandem-mirror-bur.html"><span class="pv-n">2.76</span><span class="pv-t">A Real-Time Control Suite for a D-3He Tandem-Mirror Burner: Plug-Poten</span></a>
+<a class="pv" href="calibrated-uncertainty-conformal-prediction-and-abstent.html"><span class="pv-n">2.77</span><span class="pv-t">Calibrated Uncertainty, Conformal Prediction, and Abstention for Safet</span></a>
+<a class="pv" href="runtime-assurance-with-signed-ledger-provenance-for-aut.html"><span class="pv-n">2.78</span><span class="pv-t">Runtime Assurance with Signed-Ledger Provenance for Autonomous Fusion </span></a>
+<a class="pv" href="out-of-distribution-detection-and-epistemic-gating-for-.html"><span class="pv-n">2.79</span><span class="pv-t">Out-of-Distribution Detection and Epistemic Gating for Autonomous Fusi</span></a>
+<a class="pv" href="vertical-stability-at-high-elongation-displacement-grow.html"><span class="pv-n">2.8</span><span class="pv-t">Vertical Stability at High Elongation: Displacement Growth Rates, Cont</span></a>
+<a class="pv" href="cross-machine-transfer-learning-for-a-compact-spherical.html"><span class="pv-n">2.80</span><span class="pv-t">Cross-Machine Transfer Learning for a Compact Spherical-Tokamak Breede</span></a>
+<a class="pv" href="safe-reinforcement-learning-from-operator-feedback-for-.html"><span class="pv-n">2.81</span><span class="pv-t">Safe Reinforcement Learning from Operator Feedback for Fusion Control:</span></a>
+<a class="pv" href="causal-intervention-models-for-regulator-facing-plasma-.html"><span class="pv-n">2.82</span><span class="pv-t">Causal Intervention Models for Regulator-Facing Plasma Control: Do-Cal</span></a>
+<a class="pv" href="mlops-for-a-safety-critical-fusion-control-stack-versio.html"><span class="pv-n">2.83</span><span class="pv-t">MLOps for a Safety-Critical Fusion Control Stack: Versioned Lineage, G</span></a>
+<a class="pv" href="the-plasma-diagnostic-suite-and-real-time-state-estimat.html"><span class="pv-n">2.84</span><span class="pv-t">The Plasma Diagnostic Suite and Real-Time State Estimation for a Compa</span></a>
+<a class="pv" href="centrepost-prognostics-and-rul-control.html"><span class="pv-n">2.85</span><span class="pv-t">Prognostics and Remaining-Useful-Life Estimation for the Consumable Ce</span></a>
+<a class="pv" href="the-human-machine-layer-for-autonomous-fusion-operation.html"><span class="pv-n">2.86</span><span class="pv-t">The Human-Machine Layer for Autonomous Fusion Operation: Natural-Langu</span></a>
+<a class="pv" href="a-real-time-optimization-backbone-for-fusion-plasma-con.html"><span class="pv-n">2.87</span><span class="pv-t">A Real-Time Optimization Backbone for Fusion Plasma Control: Quadratic</span></a>
+<a class="pv" href="global-sensitivity-and-uncertainty-quantification-acros.html"><span class="pv-n">2.88</span><span class="pv-t">Global Sensitivity and Uncertainty Quantification across the Breeder a</span></a>
+<a class="pv" href="bayesian-optimal-experimental-design-and-multi-fidelity.html"><span class="pv-n">2.89</span><span class="pv-t">Bayesian Optimal Experimental Design and Multi-Fidelity Data Fusion: P</span></a>
+<a class="pv" href="disruptions-and-runaway-electrons.html"><span class="pv-n">2.9</span><span class="pv-t">Disruptions, Runaway-Electron Avalanche and Electromagnetic Loads in a</span></a>
+<a class="pv" href="quantum-computing-for-fusion.html"><span class="pv-n">2.90</span><span class="pv-t">Resource-Honest Quantum Computing for Fusion: Variational Landau-Dampi</span></a>
+<a class="pv" href="quantum-optimization-and-reinforcement-learning-for-rea.html"><span class="pv-n">2.91</span><span class="pv-t">Quantum Optimization and Reinforcement Learning for Real-Time Plasma C</span></a>
+<a class="pv" href="quantum-machine-learning-surrogates-entanglement-enhanc.html"><span class="pv-n">2.92</span><span class="pv-t">Quantum Machine-Learning Surrogates, Entanglement-Enhanced Magnetometr</span></a>
+<a class="pv" href="quantum-algorithms-for-the-real-time-control-loop-hhl-e.html"><span class="pv-n">2.93</span><span class="pv-t">Quantum Algorithms for the Real-Time Control Loop: HHL Equilibrium Rec</span></a>
+<a class="pv" href="the-burner-quantum-stack-entanglement-enhanced-plug-fie.html"><span class="pv-n">2.94</span><span class="pv-t">The Burner Quantum Stack: Entanglement-Enhanced Plug-Field Magnetometr</span></a>
+<a class="pv" href="quantum-chemistry-beyond-dft-for-low-activation-fusion-.html"><span class="pv-n">2.95</span><span class="pv-t">Quantum Chemistry Beyond DFT for Low-Activation Fusion Alloys: ADAPT-V</span></a>
+<a class="pv" href="tensor-network-kinetic-solver.html"><span class="pv-n">2.96</span><span class="pv-t">A Tensor-Network Kinetic Solver for Fusion Transport: Matrix-Product-S</span></a>
+<a class="pv" href="verification-and-validation-47-code-provenance.html"><span class="pv-n">2.97</span><span class="pv-t">Verification-First Fusion Modeling: Frozen Anchors, Independent-Librar</span></a>
+<a class="pv" href="two-code-cross-validation-of-negative-triangularity-tur.html"><span class="pv-n">2.98</span><span class="pv-t">Two-Code Cross-Validation of Negative-Triangularity Turbulence Suppres</span></a>
+<a class="pv" href="the-code-by-code-verification-backbone-role-version-and.html"><span class="pv-n">2.99</span><span class="pv-t">The Code-by-Code Verification Backbone: Role, Version, and Reference-B</span></a>
+  </div>
+</section>
+
+<section style="border-bottom:none">
+  <h2>Reproduce &amp; cite</h2>
+  <p class="lead">Every anchor in this register is reproducible from the open toolkit; the deposit carries the data, methods, and full provenance.</p>
+  <div class="gatelinks">
+    <a class="pill" href="https://github.com/KronosFE/kronos-toolkit" target="_blank" rel="noopener">kronos-toolkit ↗</a>
+    <a class="pill" href="https://doi.org/10.5281/zenodo.22136279" target="_blank" rel="noopener">CGYRO verification deposit ↗</a>
+    <a class="pill" href="https://www.kronosfusionenergy.com/publications/de-risking-register.html" target="_blank" rel="noopener">Register web edition ↗</a>
+  </div>
+</section>
+<footer>© 2026 Kronos Fusion Energy · a family-owned American company · the de-risking register is the reference spine of the 2026 series</footer>
+</div>
+</body></html>
