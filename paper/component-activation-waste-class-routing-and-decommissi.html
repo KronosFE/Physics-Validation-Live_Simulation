@@ -66,7 +66,12 @@ footer{color:var(--faint);font-size:12px;padding:26px 0 46px}
 .lr-out,.lr-anchor{font-family:var(--mono);font-size:13px}.lr-status{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px}
 input[type=range]{accent-color:var(--gold)}.lr-reset{font-family:var(--mono);font-size:12px;background:var(--panel2);color:var(--ink);border:1px solid var(--line2);border-radius:8px;padding:7px 12px;cursor:pointer}
 @media(max-width:720px){.tiles{grid-template-columns:repeat(2,1fr)}.lr-grid{grid-template-columns:1fr}}
-</style></head><body>
+</style><meta property="og:image" content="https://www.kronosfusionenergy.com/og/derisking.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kronosfusionenergy.com/og/derisking.png">
+</head><body>
 <header class="bar"><div class="wrap"><div class="brand">KRONOS <b>Validators</b></div>
 <nav class="barlinks"><a href="../index.html">All validators</a><a href="../validators-registry.html">Registry</a>
 <a href="https://www.kronosfusionenergy.com/publications/de-risking-register.html">Register</a></nav></div></header>
@@ -108,7 +113,7 @@ input[type=range]{accent-color:var(--gold)}.lr-reset{font-family:var(--mono);fon
 <label class="lr-lab">Ion temperature T_i0 (keV) <output>15</output><input type="range" data-k="Ti0" min="8" max="40" step="0.5" value="15"></label>
 <button type="button" class="lr-reset" data-lr-reset>Reset to frozen anchor</button></div><div class="lr-out" data-lr-out></div></div><div class="lr-anchor" data-lr-anchor></div></div></section>
 <script src="../live_engine.js" defer></script>
-<section><h2>Key figure</h2><figure class="keyfig"><img src="fig/component-activation-waste-class-routing-and-decommissi.png" alt="Figure from Component Activation, Waste-Class Routing, and Decommissioning of a Low-Activation Compact Spherical-Tokamak Breeder: No Isotope Beyond a Century&#x27;s Half-Life" loading="lazy"><figcaption>Representative figure from the paper. Full set in the publication and its Zenodo deposit.</figcaption></figure></section>
+<section><h2>Key figure</h2><figure class="keyfig"><img src="fig/component-activation-waste-class-routing-and-decommissi.png" alt="Figure from Component Activation, Waste-Class Routing, and Decommissioning of a Low-Activation Compact Spherical-Tokamak Breeder: No Isotope Beyond a Century&#x27;s Half-Life" loading="lazy" width="746" height="548"><figcaption>Representative figure from the paper. Full set in the publication and its Zenodo deposit.</figcaption></figure></section>
 <section><h2>Gate validators <span style="color:var(--gold)">· 6 live cards</span></h2><p class="lead">Every de-risking gate this paper rests on — each a live verification card you can open and re-run.</p>
 <div class="filters"><button class="fbtn active" data-f="all">All 6</button><button class="fbtn" data-f="L1">Level 1</button><button class="fbtn" data-f="L2">Level 2</button><button class="fbtn" data-f="OUT">Outputs</button><button class="fbtn" data-f="REG">Register</button></div><div class="gates" id="gates"></div></section>
 <section><h2>Codes &amp; methods</h2><p class="lead">Every quantitative claim is produced by an explicit code, re-run independently against a second library before freeze.</p><div class="chips">
