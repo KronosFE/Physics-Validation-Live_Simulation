@@ -120,3 +120,20 @@ body:not(.kfe-ready) .kfe-header,body:not(.kfe-ready) header.top,body:not(.kfe-r
 .kfe-secfoot a{color:rgba(224,229,235,.82)!important}
 .kfe-embed figcaption,.kfe-ctx-fig figcaption{color:#aeb9c7!important}
 .kfe-ctx-fig img,.kfe-embed img{height:auto}
+
+/* ---- 2026-10-18 v3: verify cards · lightbox · related pages ---- */
+.kfe-vn{border-bottom:1px dotted var(--kfe-accent);cursor:help;white-space:nowrap}
+.kfe-vn sup{font-size:.6em;color:var(--kfe-accent);margin-left:2px;line-height:0}
+.kfe-vnpop{position:absolute;z-index:9500;max-width:340px;background:var(--kfe-panel);border:1px solid rgba(212,173,92,.5);border-radius:6px;padding:12px 14px;font:13px/1.5 var(--kfe-sans);color:var(--kfe-fg);box-shadow:0 12px 30px rgba(5,8,12,.55)}
+.kfe-vnpop b{display:block;font-family:var(--kfe-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--kfe-accent);margin-bottom:6px}
+.kfe-vnpop strong{display:block;font-weight:600;margin-bottom:4px}.kfe-vnpop p{margin:0 0 8px;color:rgba(224,229,235,.82)}
+.kfe-vnlinks a{color:var(--kfe-accent)!important;margin-right:12px;font-size:12px;text-decoration:none}
+figure img.kfe-zoomable,.kfe-ctx-fig img.kfe-zoomable{cursor:zoom-in}
+.kfe-lightbox{position:fixed;inset:0;z-index:9800;background:rgba(10,14,20,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.kfe-lightbox img{max-width:min(96vw,1600px);max-height:82vh;width:auto;height:auto;border:1px solid var(--kfe-border);background:#1a222c}
+.kfe-lightbox figcaption{margin-top:12px;max-width:900px;text-align:center;font:13px/1.5 var(--kfe-sans);color:rgba(224,229,235,.85)}
+.kfe-related{background:var(--kfe-bg);border-top:1px solid var(--kfe-border)}
+.kfe-related-inner{max-width:1440px;margin:0 auto;padding:20px 24px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline}
+.kfe-related b{font-family:var(--kfe-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--kfe-accent);margin-right:6px}
+.kfe-related a{color:rgba(224,229,235,.85)!important;font-size:13.5px;text-decoration:none;border-bottom:1px solid rgba(212,173,92,.35)}
+.kfe-related a:hover{color:var(--kfe-accent)!important}
