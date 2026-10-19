@@ -143,3 +143,19 @@ body.kfe-ready header.hero{position:relative;isolation:isolate}
 body.kfe-ready header.hero::before{content:"";position:absolute;inset:-24px -24px 0 -24px;z-index:-1;pointer-events:none;
   background-image:linear-gradient(rgba(212,173,92,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(212,173,92,.045) 1px,transparent 1px);background-size:56px 56px}
 body.kfe-ready header.hero::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:1px;background:rgba(212,173,92,.45);pointer-events:none}
+
+/* ---- 2026-10-19 v5: reading progress + native forms (careers apply, investor access) ---- */
+.kfe-progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--kfe-accent);z-index:100000;pointer-events:none}
+.kfe-form{margin:14px 0 4px;display:grid;gap:12px;font-family:var(--kfe-sans,'Space Grotesk',system-ui,sans-serif)}
+.kfe-form-row{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media(max-width:640px){.kfe-form-row{grid-template-columns:1fr}}
+.kfe-form label{display:block;font-family:var(--kfe-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(224,229,235,.75)}
+.kfe-form input,.kfe-form textarea{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:11px 12px;font:15px/1.4 var(--kfe-sans,'Space Grotesk',system-ui,sans-serif);color:#E7EBF2;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);border-radius:3px}
+.kfe-form input:focus,.kfe-form textarea:focus{outline:none;border-color:var(--kfe-accent)}
+.kfe-form .kfe-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.kfe-form button{justify-self:start;padding:12px 18px;border:0;border-radius:3px;background:var(--kfe-accent);color:#141a22;font:600 12px/1 var(--kfe-mono);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.kfe-form button[disabled]{opacity:.6;cursor:wait}
+.kfe-form-note,.kfe-form-status{margin:0;font-size:13px;color:rgba(224,229,235,.7)}
+.kfe-form-note a,.kfe-form-status a{color:var(--kfe-accent)!important}
+.kfe-form-status[data-state="ok"]{color:#E7EBF2;font-size:15px}
+.kfe-form-status[data-state="err"]{color:#e8a0a0}

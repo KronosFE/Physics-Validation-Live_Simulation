@@ -1,4 +1,4 @@
-/* Kronos universal site shell — self-injecting header + footer. One source of truth. v3 (2026-10-18).
+/* Kronos universal site shell — self-injecting header + footer. One source of truth. v5 (2026-10-19).
    Include on any page:  <link rel="stylesheet" href="kfe-shell.css"><script src="kfe-shell.js" defer></script>
    Idempotent: skips injection if a .kfe-header / .kfe-footer already exists. Root-absolute links. */
 (function(){
@@ -13,7 +13,7 @@
     {link:['/learn/','Learn']},
     {link:['/technical/','Technical Library']},
     {link:['/kodex','Kodex']},
-    {label:'Proof',items:[['/by-the-numbers','By the numbers'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open Science & Reproducibility'],['/science','Science & Evidence'],['/computing','Computing & De-risking'],['/computing/hpc','High-Performance Computing']]},
+    {label:'Proof',items:[['/by-the-numbers','By the numbers'],['/ask','Ask the open record'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open Science & Reproducibility'],['/science','Science & Evidence'],['/computing','Computing & De-risking'],['/computing/hpc','High-Performance Computing']]},
     {label:'Company',items:[['/mission','About / Mission'],['/leadership','Leadership'],['/ehs','Environment, Health & Safety'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']]}
   ];
   function esc(s){return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -50,7 +50,7 @@
       '<div class="kfe-cols">'+
         col('Technology',[['/hyperion','Breeder — Hyperion'],['/aegis','Burner — Aegis'],['/metrovolt','Burner — MetroVolt'],['/how-it-works','How it works'],['/roadmap','Roadmap']])+
         col('Blueprint & Computing',[['/blueprints','Blueprint overview'],['/BOM','Bill of materials'],['/derisking','De-risking & physics'],['/blueprints/','Engineering portal 🔒'],['/computing','Computing & de-risking'],['/science','Science & evidence']])+
-        col('Proof',[['/by-the-numbers','By the numbers'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open science']])+
+        col('Proof',[['/by-the-numbers','By the numbers'],['/ask','Ask the open record'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open science']])+
         col('Company',[['/mission','About / Mission'],['/leadership','Leadership'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']])+
       '</div></div>'+
       '<div class="kfe-footer-legal"><span>© 2026 Kronos Fusion Energy — a fusion energy company.<button class="kfe-cite" type="button" title="Copy a citation for this page">Cite this page</button></span>'+
@@ -244,7 +244,14 @@
       else{window.prompt('Copy this citation:',c);}
     });
     document.body.classList.add('kfe-ready');   // releases the zero-CLS placeholder (see kfe-shell.css)
-    try{breadcrumbsLd();}catch(e){} try{verifyNumbers();}catch(e){} try{lightbox();}catch(e){} try{relatedPages();}catch(e){}
+    try{breadcrumbsLd();}catch(e){} try{verifyNumbers();}catch(e){} try{lightbox();}catch(e){} try{relatedPages();}catch(e){} try{progressBar();}catch(e){}
+  }
+  // v5: reading-progress hairline (solid accent, 2px) on long pages — no gradients, no glow.
+  function progressBar(){
+    var h=document.documentElement; if((h.scrollHeight-window.innerHeight)<window.innerHeight*0.6)return;
+    var bar=document.createElement('div'); bar.className='kfe-progress'; bar.setAttribute('aria-hidden','true'); document.body.appendChild(bar);
+    var q=false; function upd(){q=false; var m=h.scrollHeight-window.innerHeight; bar.style.width=(m>0?Math.min(100,Math.max(0,(window.scrollY/m)*100)):0)+'%';}
+    window.addEventListener('scroll',function(){if(!q){q=true;requestAnimationFrame(upd);}},{passive:true}); window.addEventListener('resize',upd); upd();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',inject); else inject();
 })();
