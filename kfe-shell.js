@@ -13,7 +13,7 @@
     {link:['/learn/','Learn']},
     {link:['/technical/','Technical Library']},
     {link:['/kodex','Kodex']},
-    {label:'Proof',items:[['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open Science & Reproducibility'],['/science','Science & Evidence'],['/computing','Computing & De-risking'],['/computing/hpc','High-Performance Computing']]},
+    {label:'Proof',items:[['/by-the-numbers','By the numbers'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open Science & Reproducibility'],['/science','Science & Evidence'],['/computing','Computing & De-risking'],['/computing/hpc','High-Performance Computing']]},
     {label:'Company',items:[['/mission','About / Mission'],['/leadership','Leadership'],['/ehs','Environment, Health & Safety'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']]}
   ];
   function esc(s){return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -50,7 +50,7 @@
       '<div class="kfe-cols">'+
         col('Technology',[['/hyperion','Breeder — Hyperion'],['/aegis','Burner — Aegis'],['/metrovolt','Burner — MetroVolt'],['/how-it-works','How it works'],['/roadmap','Roadmap']])+
         col('Blueprint & Computing',[['/blueprints','Blueprint overview'],['/BOM','Bill of materials'],['/derisking','De-risking & physics'],['/blueprints/','Engineering portal 🔒'],['/computing','Computing & de-risking'],['/science','Science & evidence']])+
-        col('Proof',[['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open science']])+
+        col('Proof',[['/by-the-numbers','By the numbers'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open science']])+
         col('Company',[['/mission','About / Mission'],['/leadership','Leadership'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']])+
       '</div></div>'+
       '<div class="kfe-footer-legal"><span>© 2026 Kronos Fusion Energy — a fusion energy company.<button class="kfe-cite" type="button" title="Copy a citation for this page">Cite this page</button></span>'+

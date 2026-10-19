@@ -137,3 +137,9 @@ figure img.kfe-zoomable,.kfe-ctx-fig img.kfe-zoomable{cursor:zoom-in}
 .kfe-related b{font-family:var(--kfe-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--kfe-accent);margin-right:6px}
 .kfe-related a{color:rgba(224,229,235,.85)!important;font-size:13.5px;text-decoration:none;border-bottom:1px solid rgba(212,173,92,.35)}
 .kfe-related a:hover{color:var(--kfe-accent)!important}
+
+/* ---- 2026-10-19 v4: depth treatment on static section heroes (flat layers, hairline, no colour gradients) ---- */
+body.kfe-ready header.hero{position:relative;isolation:isolate}
+body.kfe-ready header.hero::before{content:"";position:absolute;inset:-24px -24px 0 -24px;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(212,173,92,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(212,173,92,.045) 1px,transparent 1px);background-size:56px 56px}
+body.kfe-ready header.hero::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:1px;background:rgba(212,173,92,.45);pointer-events:none}
