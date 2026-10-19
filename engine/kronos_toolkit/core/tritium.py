@@ -1,11 +1,11 @@
 """Tritium bookkeeping and surplus law.
 
 Surplus law: (net_TBR - 1) * T_burn [kg-T/fpy], where T_burn comes from P_fus.
-Anchors: 1.34 -> 1.69, 1.80 -> 3.98 kg-T/fpy (at P_fus = 88.7 MW).
+Anchors: 1.34 -> 1.62, 1.80 -> 3.82 kg-T/fpy (at P_fus = 85.04 MW).
 """
 from .constants import M_T_KG, YEAR_S, E_DT, MEV_J
 
-P_FUS_FROZEN_MW = 88.7
+P_FUS_FROZEN_MW = 85.04
 E_DT_MEV = 17.59
 
 

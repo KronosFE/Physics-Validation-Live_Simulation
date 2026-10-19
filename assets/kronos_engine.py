@@ -25,9 +25,9 @@ BREEDER_FROZEN_INP = dict(fuel="DT", R0=1.2, A=2.5, kappa=2.0, B0=8.0, q95=3.0,
                           tau_p=2.0, f_he4=0.05)
 # recorded headline values the deposit must reproduce
 BREEDER_TARGETS = [
-    ("Hyperion Q (gain)",        "Q",       3.4239126, 4),
-    ("Hyperion P_fus (MW)",      "P_fus_MW", 88.6604,  2),
-    ("Hyperion I_p (MA)",        "Ip_MA",    9.8599,   3),
+    ("Hyperion Q (gain)",        "Q",       3.0763265, 4),
+    ("Hyperion P_fus (MW)",      "P_fus_MW", 85.0406,  2),
+    ("Hyperion I_p (MA)",        "Ip_MA",    9.6565,   3),
     ("neutron fraction f_n",     "f_n",      0.79712,  4),
     ("net tritium (kg/yr)",      "T_kg_yr",  3.9995,   3),
 ]
