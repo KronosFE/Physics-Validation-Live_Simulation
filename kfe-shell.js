@@ -1,4 +1,4 @@
-/* Kronos universal site shell — self-injecting header + footer. One source of truth. v5 (2026-10-19).
+/* Kronos universal site shell — self-injecting header + footer. One source of truth. v6 (2026-10-20).
    Include on any page:  <link rel="stylesheet" href="kfe-shell.css"><script src="kfe-shell.js" defer></script>
    Idempotent: skips injection if a .kfe-header / .kfe-footer already exists. Root-absolute links. */
 (function(){
@@ -13,7 +13,7 @@
     {link:['/learn/','Learn']},
     {link:['/technical/','Technical Library']},
     {link:['/kodex','Kodex']},
-    {label:'Proof',items:[['/by-the-numbers','By the numbers'],['/ask','Ask the open record'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open Science & Reproducibility'],['/science','Science & Evidence'],['/computing','Computing & De-risking'],['/computing/hpc','High-Performance Computing']]},
+    {label:'Proof',items:[['/by-the-numbers','By the numbers'],['/ask','Ask the open record'],['/publications','Publications'],['/whitepapers','Whitepapers'],['/technical/','Technical Library'],['/mission','Open Science & Reproducibility'],['/science','Science & Evidence'],['/computing','Computing & De-risking'],['/ai/hubs/hpc.html','High-Performance Computing']]},
     {label:'Company',items:[['/mission','About / Mission'],['/leadership','Leadership'],['/ehs','Environment, Health & Safety'],['/investors','Investors'],['/careers','Careers'],['/press','Press'],['/faq','FAQ'],['/contact','Contact']]}
   ];
   function esc(s){return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -244,7 +244,7 @@
       else{window.prompt('Copy this citation:',c);}
     });
     document.body.classList.add('kfe-ready');   // releases the zero-CLS placeholder (see kfe-shell.css)
-    try{breadcrumbsLd();}catch(e){} try{verifyNumbers();}catch(e){} try{lightbox();}catch(e){} try{relatedPages();}catch(e){} try{progressBar();}catch(e){}
+    try{breadcrumbsLd();}catch(e){} try{verifyNumbers();}catch(e){} try{lightbox();}catch(e){} try{relatedPages();}catch(e){} try{progressBar();}catch(e){} try{analytics();}catch(e){}
   }
   // v5: reading-progress hairline (solid accent, 2px) on long pages — no gradients, no glow.
   function progressBar(){
@@ -252,6 +252,18 @@
     var bar=document.createElement('div'); bar.className='kfe-progress'; bar.setAttribute('aria-hidden','true'); document.body.appendChild(bar);
     var q=false; function upd(){q=false; var m=h.scrollHeight-window.innerHeight; bar.style.width=(m>0?Math.min(100,Math.max(0,(window.scrollY/m)*100)):0)+'%';}
     window.addEventListener('scroll',function(){if(!q){q=true;requestAnimationFrame(upd);}},{passive:true}); window.addEventListener('resize',upd); upd();
+  }
+  // v6: measurement — named GA4 events (only when gtag exists; consent mode gates them). No personal data attached.
+  function track(ev,params){try{if(typeof window.gtag!=='function')return;window.gtag('event',ev,Object.assign({page_path:location.pathname},params||{}));}catch(e){}}
+  function analytics(){
+    document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;if(!a)return;var h=a.getAttribute('href')||'';
+      if(/\.pdf(\?|#|$)/i.test(h))track('pdf_download',{file:h.split('/').pop().split('?')[0]});
+      else if(/model\.kronosfusionenergy\.com|\/3D_Model\//i.test(h))track('launch_3d_model',{from:location.pathname});
+      else if(/zenodo\.org|doi\.org|dataverse/i.test(h))track('deposit_open',{href:h.slice(0,120)});
+      else if(/^mailto:/i.test(h))track('email_click');},true);
+    document.addEventListener('play',function(e){var v=e.target;if(v&&v.tagName==='VIDEO')track('video_play',{src:(v.currentSrc||v.src||'').split('/').pop().slice(0,80),muted:v.muted});},true);
+    document.addEventListener('kfe:form-sent',function(e){track((e.detail&&e.detail.inquiry)==='careers'?'apply_submit':'form_submit',{inquiry:e.detail&&e.detail.inquiry});});
+    var cb=document.querySelector('.kfe-cite');if(cb)cb.addEventListener('click',function(){track('cite_copy');});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',inject); else inject();
 })();

@@ -159,3 +159,6 @@ body.kfe-ready header.hero::after{content:"";position:absolute;left:0;right:0;bo
 .kfe-form-note a,.kfe-form-status a{color:var(--kfe-accent)!important}
 .kfe-form-status[data-state="ok"]{color:#E7EBF2;font-size:15px}
 .kfe-form-status[data-state="err"]{color:#e8a0a0}
+
+/* ---- 2026-10-20 v6: "Content reviewed" line on static section templates meets AA (was #8FA0B8 at .75 opacity) ---- */
+body.kfe-ready .kfe-embed > div[style*="opacity"]{opacity:1!important;color:#A9B6C9!important}
